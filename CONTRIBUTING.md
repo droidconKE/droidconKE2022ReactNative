@@ -1,7 +1,7 @@
 # Contributing to DroidconKe-RN App
 
 
-You can contribute to Hey Linda by beta testing, recording meditations, or submitting code.
+You can contribute to the DroidconKe-RN app by beta testing or submitting code.
 If you plan to make a contribution please do so through [our detailed contribution workflow.](#contribution-steps). You can also join us on Slack to discuss ideas.
 
 
@@ -31,17 +31,17 @@ Please note we have a [code of conduct](https://github.com/droidconKE/droidconKE
 
 1. Fork this repository to your own repositiry. 
 
-2. Clone the forked repositiry to your local machine.
+2. Clone the forked repository to your local machine.
 
 3. Run it locally with our [guide](#how-to-run-locally)
 
-4. Create your feature branch: `git checkout -b my-new-feature`
+4. Create your feature branch: `git checkout -b feature-my-new-feature`
 
-5. make changes to the project.
+5. Make changes to the project.
 
 6. Commit your changes: `git commit -m 'Add some feature'`
 
-7. Push to the branch: `git push origin my-new-feature`
+7. Push to the branch: `git push origin feature-my-new-feature`
 
 8. Submit a pull request :D 
 
