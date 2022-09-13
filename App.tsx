@@ -7,7 +7,7 @@ export default function App() {
   // Load cached resources before the app starts.
   const isLoadingComplete = useCachedResources();
   
-  // Show nothing ( but the splashscreen ) till cached resources load
+  // Show nothing ( but the splashscreen ) till cached resources load.
   if(!isLoadingComplete) {
     return null;
   }
