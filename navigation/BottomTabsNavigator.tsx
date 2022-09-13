@@ -17,6 +17,7 @@ import { colors } from "../constants/Colors";
 import FeedIcon from "../assets/icons/FeedIcon";
 import SessionsIcon from "../assets/icons/SessionsIcon";
 import AboutIcon from "../assets/icons/AboutIcon";
+import { fonts } from "../constants/Properties";
 
 const BottomTabsNavigator = () => {
     return (
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
         height: 65,
     },
     tabBarLabelStyle: {
+        fontFamily: fonts.MONTSERRAT_LIGHT,
         marginTop: -10,
         marginBottom: 10,
     }
