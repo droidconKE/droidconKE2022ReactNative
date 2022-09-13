@@ -4,6 +4,10 @@ export enum screen_names {
     WELCOME = "WelcomeScreen",
     LOGIN = "LoginScreen",
     SIGNUP = "SignupScreen",
-    HOME = "HomeScreen",
-    EXAMPLE = "ExampleScreen"
+    HOME = "Home",
+    EXAMPLE = "ExampleScreen",
+    FEED = "Feed",
+    SESSIONS = "Sessions",
+    ABOUT = "About",
+    HOMETABS = "HomeTabs"
 }
