@@ -5,12 +5,3 @@ enum properties {
     BORDER_RADIUS_MAX = 50,
     BOX_SHADOW = "",
 }
-
-// Fonts to be used on app.
-export enum fonts {
-    MONTSERRAT_LIGHT = "montserrat-light",
-    MONTSERRAT_REGULAR = "montserrat-regular",
-    MONTSERRAT_MEDIUM = "montserrat-medium",
-    MONTSERRAT_SEMIBOLD = "montserrat-semibold",
-    MONTSERRAT_BOLD = "montserrat-bold",
-}

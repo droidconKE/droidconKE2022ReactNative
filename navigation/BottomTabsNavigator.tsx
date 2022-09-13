@@ -17,7 +17,7 @@ import { colors } from "../constants/Colors";
 import FeedIcon from "../assets/icons/FeedIcon";
 import SessionsIcon from "../assets/icons/SessionsIcon";
 import AboutIcon from "../assets/icons/AboutIcon";
-import { fonts } from "../constants/Properties";
+import { fonts } from "../assets/fonts/fonts";
 
 const BottomTabsNavigator = () => {
     return (
