@@ -6,6 +6,7 @@ enum properties {
     BOX_SHADOW = "",
 }
 
+// Fonts to be used on app.
 export enum fonts {
     MONTSERRAT_LIGHT = "montserrat-light",
     MONTSERRAT_REGULAR = "montserrat-regular",
