@@ -8,6 +8,7 @@ const Stack = createNativeStackNavigator();
 
 // import screens
 import ExampleScreen from "../screens/ExampleScreen";
+import BottomTabsNavigator from "./BottomTabsNavigator";
 
 const MainStackNavigator = () => {
     return (
@@ -15,6 +16,10 @@ const MainStackNavigator = () => {
             <Stack.Screen
                 name={screen_names.EXAMPLE}
                 component={ExampleScreen}/>
+            <Stack.Screen
+                name={screen_names.HOMETABS} component={BottomTabsNavigator} options={{
+                    headerShown: false
+                }}/>
         </Stack.Navigator>
     )
 }
