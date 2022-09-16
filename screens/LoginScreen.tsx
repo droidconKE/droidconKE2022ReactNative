@@ -1,12 +1,11 @@
-// login screen
-import { useDispatch, useSelector } from "react-redux";
-import { View, Text, StyleSheet, Button } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 import { colors } from "../constants/Colors";
-import { setUser } from "../state/user";
 import { screen_names } from "../constants/ScreenNames";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
+import { setUser } from "../state/user";
 
 type LoginScreenProps = NativeStackScreenProps<
   ParamListBase,
@@ -17,20 +16,20 @@ type LoginScreenProps = NativeStackScreenProps<
 export default function LoginScreen({
   navigation,
 }: LoginScreenProps): JSX.Element {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state: any) => state.user);
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
 
   function toggleUser() {
     if (user) {
       dispatch(setUser(undefined));
     } else {
-      dispatch(setUser({ username: "John Doe" }));
+      dispatch(setUser({ name: "John Doe", id: 0 }));
     }
   }
 
   return (
     <View style={styles.container}>
-      <Text> {user ? `Welcome back ${user.username}` : "Press to log in"}</Text>
+      <Text> {user ? `Welcome back ${user.name}` : "Press to log in"}</Text>
       <Button title={user ? "Log out" : "Log in"} onPress={toggleUser} />
       <Button
         title="Go To Tabs"
