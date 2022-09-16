@@ -1,6 +1,4 @@
-// example
-
 export default interface User {
-    id?: any | null,
-    name: string
+  id?: any | null;
+  name: string;
 }
