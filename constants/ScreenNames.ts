@@ -1,8 +1,13 @@
 // screen names
 
-enum screen_names {
+export enum screen_names {
     WELCOME = "WelcomeScreen",
     LOGIN = "LoginScreen",
     SIGNUP = "SignupScreen",
-    HOME = "HomeScreen"
+    HOME = "Home",
+    EXAMPLE = "ExampleScreen",
+    FEED = "Feed",
+    SESSIONS = "Sessions",
+    ABOUT = "About",
+    HOMETABS = "HomeTabs"
 }

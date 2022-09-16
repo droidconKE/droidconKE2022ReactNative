@@ -1,10 +1,22 @@
 // login screen
 import { useDispatch, useSelector } from "react-redux";
 import { View, Text, StyleSheet, Button } from "react-native";
-import colors from "../constants/Colors";
-import { setUser } from "../state/user";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ParamListBase } from "@react-navigation/native";
 
-export default function LoginScreen(): JSX.Element {
+import { colors } from "../constants/Colors";
+import { setUser } from "../state/user";
+import { screen_names } from "../constants/ScreenNames";
+
+type LoginScreenProps = NativeStackScreenProps<
+  ParamListBase,
+  screen_names.LOGIN,
+  undefined
+>;
+
+export default function LoginScreen({
+  navigation,
+}: LoginScreenProps): JSX.Element {
   const dispatch = useDispatch();
   const { user } = useSelector((state: any) => state.user);
 
@@ -20,6 +32,10 @@ export default function LoginScreen(): JSX.Element {
     <View style={styles.container}>
       <Text> {user ? `Welcome back ${user.username}` : "Press to log in"}</Text>
       <Button title={user ? "Log out" : "Log in"} onPress={toggleUser} />
+      <Button
+        title="Go To Tabs"
+        onPress={() => navigation.navigate("HomeTabs")}
+      />
     </View>
   );
 }
