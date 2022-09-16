@@ -1,5 +1,6 @@
 import { ParamListBase } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 import { colors } from "../constants/Colors";

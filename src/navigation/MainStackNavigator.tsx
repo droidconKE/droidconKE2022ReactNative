@@ -1,12 +1,12 @@
-//main navigation
+// Main navigation.
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { screen_names } from "../constants/ScreenNames";
 
-// create stack
+// Create stack navigator.
 const Stack = createNativeStackNavigator();
 
-// import screens
+// Import screens.
 import BottomTabsNavigator from "./BottomTabsNavigator";
 import LoginScreen from "../screens/LoginScreen";
 
