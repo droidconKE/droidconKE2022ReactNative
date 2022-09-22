@@ -42,11 +42,16 @@ const styles = StyleSheet.create({
     } ,
     title : {
         color : "#000CEB",
-        marginBottom : 10
+        marginBottom : 10,
+        fontFamily : "Montserrat",
+        fontWeight : "bold",
+        fontSize : 14
     } ,
     content : {
         textAlign : "center",
-        marginBottom : 10
+        marginBottom : 10 ,
+        fontFamily : "Montserrat",
+        fontSize : 11
     } ,
     button : {
         width : "80%",
@@ -61,5 +66,8 @@ const styles = StyleSheet.create({
     buttontext : {
         color : "#7DE1C3",
         textAlign : "center",
+        fontFamily : "Montserrat",
+        fontWeight : "bold",
+        fontSize : 14
     }
 })
