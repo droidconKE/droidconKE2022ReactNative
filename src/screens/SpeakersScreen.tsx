@@ -2,13 +2,14 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
-import BackArrowIcon from '../assets/icons/BackArrow';
+import BackArrowIcon from '../assets/icons/BackArrowIcon';
+import { colors } from "../constants/Colors";
 
   const SpeakersScreen = (props : {SpeakersData : SpeakerCardProps[] }) => {
     return (
       <View style={{flex: 1 , justifyContent : "flex-start"}}>
         <View style={{flexDirection : "row", alignContent : "center" , flex : 2 }}>
-        <BackArrowIcon />
+        <BackArrowIcon color={colors.DROIDCONKE_BLACK}/>
         <Text style={{ textAlign : "center" , margin : 10}}>
           SPEAKERS
         </Text>
