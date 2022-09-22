@@ -1,6 +1,7 @@
 import React from "react";
 import {Image , View , TouchableOpacity , Text, StyleSheet, ImageSourcePropType} from "react-native"
-
+import { colors } from "../../constants/Colors";
+import { fonts } from '../../assets/fonts/fonts';
 
 export interface SpeakerCardProps {
     id: string;
@@ -27,47 +28,42 @@ export default function (props : SpeakerCardProps) : JSX.Element {
 const styles = StyleSheet.create({
     container: {
         flex : 1 ,
-        backgroundColor : "#F5F5F5",
+        backgroundColor : colors.DROIDCONKE_PEARL,
         alignItems : "center",
-        borderRadius : 15,
+        borderRadius : 8,
         margin : 5
     },
     image : {
-        borderColor : "#00E2C3",
+        borderColor : colors.DROIDCONKE_GREEN,
         borderWidth : 2,
         height : 109,
         width : 109,
         margin : 20,
-        borderRadius : 10
+        borderRadius : 8
     } ,
     title : {
-        color : "#000CEB",
+        color : colors.DROIDCONKE_BLUE,
         marginBottom : 10,
-        fontFamily : "Montserrat",
-        fontWeight : "bold",
-        fontSize : 14
+        fontFamily : fonts.MONTSERRAT_BOLD
     } ,
     content : {
         textAlign : "center",
         marginBottom : 10 ,
-        fontFamily : "Montserrat",
-        fontSize : 11
+        fontFamily : fonts.MONTSERRAT_REGULAR
     } ,
     button : {
         width : "80%",
         height : 45,
-        borderColor : "#7DE1C3",
-        borderRadius : 5 ,
+        borderColor : colors.DROIDCONKE_LIGHT_GREEN,
+        borderRadius : 8 ,
         borderWidth : 2 ,
         alignContent : "center",
         justifyContent : "center",
         marginBottom : 10
     } ,
     buttontext : {
-        color : "#7DE1C3",
+        color : colors.DROIDCONKE_LIGHT_GREEN,
         textAlign : "center",
-        fontFamily : "Montserrat",
-        fontWeight : "bold",
-        fontSize : 14
+        fontFamily : fonts.MONTSERRAT_SEMIBOLD,
     }
 })

@@ -4,6 +4,7 @@ import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
 import BackArrowIcon from '../assets/icons/BackArrowIcon';
 import { colors } from "../constants/Colors";
+import { fonts } from '../assets/fonts/fonts';
 
   const SpeakersScreen = (props : {SpeakersData : SpeakerCardProps[] }) => {
     return (
@@ -33,8 +34,9 @@ import { colors } from "../constants/Colors";
       flex : 2
     } ,
     titleText : {
-      textAlign : "center" ,
-      margin : 10
+      textAlign : "center",
+      margin : 8 ,
+      fontFamily : fonts.MONTSERRAT_REGULAR 
     } ,
     speakersContainer : {
       flex : 8
