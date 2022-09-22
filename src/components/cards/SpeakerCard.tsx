@@ -1,17 +1,20 @@
 import React from "react";
-import {Image , View , TouchableOpacity , Text, StyleSheet} from "react-native"
-const placeholder = require("../../assets/icon.png")
+import {Image , View , TouchableOpacity , Text, StyleSheet, ImageSourcePropType} from "react-native"
+
 
 export interface SpeakerCardProps {
     id: string;
+    ProfilePicture : ImageSourcePropType;
+    SpeakersName : String ;
+    Content : String;
 }
 
-export default function ({data}: {data: SpeakerCardProps}) : JSX.Element {
+export default function (props : SpeakerCardProps) : JSX.Element {
     return (
         <View style={styles.container}>
-            <Image source={placeholder} style={styles.image} />
-            <Text style={styles.title}>Harun Wangereka</Text>
-            <Text style={styles.content}>Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++</Text>
+            <Image source={props.ProfilePicture} style={styles.image} />
+            <Text style={styles.title}>{props.SpeakersName}</Text>
+            <Text style={styles.content}>{props.Content}</Text>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttontext}>
                     SESSION
