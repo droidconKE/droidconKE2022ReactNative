@@ -3,45 +3,12 @@ import { View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
 
-  const DATA = [
-    {
-      id: '1',
-    },
-    {
-      id: '2',
-    },
-    {
-      id: '3',
-    },
-    {
-      id: '4'
-    },
-    {
-      id: '5',
-    },
-    {
-      id: '6',
-    },
-    {
-      id: '7',
-    },
-    {
-      id: '8',
-    },
-    {
-      id: '9',
-    },
-    {
-      id: '10',
-    },
-  ];
-
-  const SpeakersScreen = () => {
+  const SpeakersScreen = (props : {SpeakersData : SpeakerCardProps[] }) => {
     return (
       <View style={{flex: 1}}>
         <FlatList
-          data={DATA}
-          renderItem={({item}) => <SpeakerCard data={item} />}
+          data={props.SpeakersData}
+          renderItem={({item}) => <SpeakerCard SpeakersName={item.SpeakersName} id={item.id} ProfilePicture={item.ProfilePicture} Content={item.Content}/>}
           keyExtractor={(item: SpeakerCardProps) => item.id}
           numColumns = {2}
         />
