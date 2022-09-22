@@ -18,7 +18,7 @@ import { colors } from "../../constants/Colors";
                 />
                 <Path
                  d="M26.322,15.949H7.053L12.9,12.885,11.317,10.39,1,15.8a1.751,1.751,0,0,0,0,3.17l10.313,5.415L12.9,21.891,7.053,18.822H26.322Z"
-                 fill={colors.DROIDCONKE_WHITE}
+                 fill={colors.DROIDCONKE_BLACK}
                  />
             </G>
         </G>

@@ -2,16 +2,25 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
+import BackArrowIcon from '../assets/icons/BackArrow';
 
   const SpeakersScreen = (props : {SpeakersData : SpeakerCardProps[] }) => {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1 , justifyContent : "flex-start"}}>
+        <View style={{flexDirection : "row", alignContent : "center" , flex : 2 }}>
+        <BackArrowIcon />
+        <Text style={{ textAlign : "center" , margin : 10}}>
+          SPEAKERS
+        </Text>
+        </View>
+        <View style={{flex : 8}}>
         <FlatList
           data={props.SpeakersData}
           renderItem={({item}) => <SpeakerCard SpeakersName={item.SpeakersName} id={item.id} ProfilePicture={item.ProfilePicture} Content={item.Content}/>}
           keyExtractor={(item: SpeakerCardProps) => item.id}
           numColumns = {2}
         />
+        </View>
       </View>
     );
   };
