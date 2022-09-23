@@ -5,9 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import useCachedResources from "./src/hooks/useCachedResources";
 import MainStackNavigator from "./src/navigation/MainStackNavigator";
 
-import * as SplashScreen from "expo-splash-screen";
-
-SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   // Load cached resources before the app starts.
