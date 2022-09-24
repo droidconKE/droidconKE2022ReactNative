@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flex : 1 ,
         backgroundColor : colors.DROIDCONKE_PEARL,
         alignItems : "center",
-        borderRadius : 8,
+        borderRadius : 10,
         margin : 5
     },
     image : {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         height : 109,
         width : 109,
         margin : 20,
-        borderRadius : 8
+        borderRadius : 7
     } ,
     title : {
         color : colors.DROIDCONKE_BLUE,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         width : "80%",
         height : 45,
         borderColor : colors.DROIDCONKE_LIGHT_GREEN,
-        borderRadius : 8 ,
+        borderRadius : 10 ,
         borderWidth : 2 ,
         alignContent : "center",
         justifyContent : "center",
