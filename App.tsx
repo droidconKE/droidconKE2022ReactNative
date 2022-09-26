@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import useCachedResources from "./src/hooks/useCachedResources";
 import MainStackNavigator from "./src/navigation/MainStackNavigator";
 
+
 export default function App() {
   // Load cached resources before the app starts.
   const isLoadingComplete = useCachedResources();
