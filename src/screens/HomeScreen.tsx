@@ -1,6 +1,6 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
 import { colors } from '../constants/Colors';
@@ -16,10 +16,27 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                     <LockIcon/>
                 </TouchableOpacity>
             </View>
-            <View>
+            <View style={styles.marginSeparator}>
                 <Text style={styles.welcomeText}>Welcome to the largest Focused Android Developer community in Africa!</Text>
             </View>
-
+            <ScrollView>
+                <View style={styles.marginSeparator}>
+                    <Image source={{uri: '../assets/droidconbanner.png'}}/>
+                </View>
+                <View style={[styles.cfpContainer, styles.marginSeparator]}>
+                    <Image source={{uri: '../assets/cfpConfetti.png'}}/>
+                    <View>
+                        <Text style={styles.cfpTitle}>Call for speakers</Text>
+                        <Text>Apply to be a speaker</Text>
+                    </View>
+                    <View>
+                        <Text>▶</Text>
+                    </View>
+                </View>
+                <View style={[styles.sponsorsContainer, styles.marginSeparator]}>
+                    <Text style={styles.sponsorsContainerTitle}>Sponsors</Text>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 };
@@ -34,7 +51,8 @@ const styles= StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 15,
     },
     iconWrapper: {
         backgroundColor: colors.DROIDCONKE_GREEN,
@@ -48,6 +66,38 @@ const styles= StyleSheet.create({
         fontFamily: fonts.MONTSERRAT_SEMIBOLD,
         fontSize: 16,
         lineHeight: 20,
+    },
+    marginSeparator: {
+        marginVertical: 15,
+    },
+    cfpContainer: {
+        backgroundColor: colors.DROIDCONKE_GREEN,
+        padding: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    cfpTitle: {
+        fontFamily: fonts.MONTSERRAT_BOLD,
+        fontSize: 17,
+        lineHeight: 20,
+        color: colors.DROIDCONKE_WHITE
+    },
+    cfpContent: {
+        fontFamily: fonts.MONTSERRAT_REGULAR,
+        fontSize: 10,
+        lineHeight: 20,
+        color: colors.DROIDCONKE_BLACK,
+    },
+    sponsorsContainer : {
+        backgroundColor: colors.DROIDCONKE_PEARL,
+        padding: 20,
+    },
+    sponsorsContainerTitle: {
+        fontFamily: fonts.MONTSERRAT_BOLD,
+        fontSize: 18,
+        lineHeight: 20,
+        color: colors.DROIDCONKE_BLUE,
+        textAlign: 'center',
     }
 })
 
