@@ -11,6 +11,7 @@ import BottomTabsNavigator from "./BottomTabsNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import SpeakersScreen from "../screens/SpeakersScreen";
 import { fonts } from "../assets/fonts/fonts";
+import { SpeakersBackButton } from "../screens/SpeakersScreen";
 
 const MainStackNavigator = () => {
   return (
@@ -34,7 +35,8 @@ const MainStackNavigator = () => {
           headerTitleAlign : "left" ,
           headerTitleStyle : {
             fontFamily : fonts.MONTSERRAT_REGULAR
-          }
+          } ,
+          headerLeft : SpeakersBackButton ,
         }}
       />
     </Stack.Navigator>
