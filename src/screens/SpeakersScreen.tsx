@@ -1,13 +1,10 @@
 import React from 'react';
-import { View, FlatList} from 'react-native';
+import { View, FlatList , TouchableOpacity} from 'react-native';
 import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
-import BackArrowIcon from '../assets/icons/BackArrowIcon';
-import { colors } from "../constants/Colors";
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
-import { HeaderBackButtonProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
@@ -87,9 +84,4 @@ const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
     );
   };
 
-  export const SpeakersBackButton = (props : HeaderBackButtonProps) => (
-    <View style={{marginRight : 8 , marginBottom : 8 }}>
-    <BackArrowIcon color={colors.DROIDCONKE_BLACK} />
-    </View>
-  )
   export default SpeakersScreen
