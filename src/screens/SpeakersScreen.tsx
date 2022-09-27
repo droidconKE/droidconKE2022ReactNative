@@ -5,42 +5,85 @@ import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
 import BackArrowIcon from '../assets/icons/BackArrowIcon';
 import { colors } from "../constants/Colors";
 import { fonts } from '../assets/fonts/fonts';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import { screen_names } from '../constants/ScreenNames';
+import { ParamListBase } from '@react-navigation/native';
 
-  const SpeakersScreen = (props : {SpeakersData : SpeakerCardProps[] }) => {
+const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
+  const MOCK_DATA = [
+    {
+      id: '1',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '2',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '3',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '4',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '5',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '6',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '7',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '8',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '9',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+    {
+      id: '10',
+      ProfilePicture : placeholder,
+      SpeakersName : "Harun Wangereka",
+      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
+    },
+  ];
+
+  const SpeakersScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.SPEAKERS, undefined>) => {
     return (
-      <>
-        <View style={styles.titleContainer}>
-        <BackArrowIcon color={colors.DROIDCONKE_BLACK} />
-        <Text style={styles.titleText}>
-          SPEAKERS
-        </Text>
-        </View>
-        <View style={styles.speakersContainer}>
+        <View>
         <FlatList
-          data={props.SpeakersData}
+          data={MOCK_DATA}
           renderItem={({item}) => <SpeakerCard SpeakersName={item.SpeakersName} id={item.id} ProfilePicture={item.ProfilePicture} Content={item.Content}/>}
           keyExtractor={(item: SpeakerCardProps) => item.id}
           numColumns = {2}
         />
         </View>
-      </>
     );
   };
-
-  const styles = StyleSheet.create({
-    titleContainer : {
-      flexDirection : "row" ,
-      alignContent : "center" ,
-      flex : 2
-    } ,
-    titleText : {
-      textAlign : "center",
-      margin : 8 ,
-      fontFamily : fonts.MONTSERRAT_REGULAR 
-    } ,
-    speakersContainer : {
-      flex : 8
-    }
-  })
 
   export default SpeakersScreen

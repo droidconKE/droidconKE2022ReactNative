@@ -1,77 +1,23 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import SpeakersScreen from "./SpeakersScreen";
+import StoriesMockNavigation from "../navigation/StroriesMockNavigation";
+import { screen_names } from "../constants/ScreenNames";
+import { fonts } from '../assets/fonts/fonts';
 
 export default {
   title: "DroidconKe/Screens/SpeakersScreen",
-  component: SpeakersScreen,
-} as ComponentMeta<typeof SpeakersScreen>;
+  component: StoriesMockNavigation,
+} as ComponentMeta<typeof StoriesMockNavigation>;
 
-const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
-
-  const DATA = [
-    {
-      id: '1',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '2',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '3',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '4',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '5',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '6',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '7',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '8',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '9',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-    {
-      id: '10',
-      ProfilePicture : placeholder,
-      SpeakersName : "Harun Wangereka",
-      Content : "Kenya Partner Lead at droidcon Berlin | Android | Kotlin | Flutter | C++" 
-    },
-  ];
-
-const Template: ComponentStory<typeof SpeakersScreen> = () => <SpeakersScreen SpeakersData={DATA} />;
+const Template: ComponentStory<typeof StoriesMockNavigation> = () => 
+       <StoriesMockNavigation screen_component={SpeakersScreen} 
+       screen_name={screen_names.SPEAKERS} 
+       options={{
+        headerTitleAlign : "left" ,
+        headerTitleStyle : {
+          fontFamily : fonts.MONTSERRAT_REGULAR
+        }
+}}/>;
 
 export const SpeakersScreenStory = Template.bind({});

@@ -9,6 +9,8 @@ const Stack = createNativeStackNavigator();
 // Import screens.
 import BottomTabsNavigator from "./BottomTabsNavigator";
 import LoginScreen from "../screens/LoginScreen";
+import SpeakersScreen from "../screens/SpeakersScreen";
+import { fonts } from "../assets/fonts/fonts";
 
 const MainStackNavigator = () => {
   return (
@@ -23,6 +25,16 @@ const MainStackNavigator = () => {
         component={BottomTabsNavigator}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={screen_names.SPEAKERS}
+        component={SpeakersScreen}
+        options={{
+          headerTitleAlign : "left" ,
+          headerTitleStyle : {
+            fontFamily : fonts.MONTSERRAT_REGULAR
+          }
         }}
       />
     </Stack.Navigator>
