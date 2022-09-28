@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
         textAlign : "center",
         marginBottom : 10 ,
         fontFamily : fonts.MONTSERRAT_REGULAR ,
-        fontSize : 11
+        fontSize : 11 ,
+        width : "80%"
     } ,
     button : {
         width : "80%",
