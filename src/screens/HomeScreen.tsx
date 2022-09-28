@@ -1,6 +1,6 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, ImageSourcePropType, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
 import { colors } from '../constants/Colors';
@@ -9,13 +9,65 @@ import { fonts } from '../assets/fonts/fonts';
 import Android254Icon from '../assets/icons/Android254Icon';
 import AppsLabIcon from '../assets/icons/AppsLabIcon';
 import TiskosIcon from '../assets/icons/TiskosIcon';
+import { useAppDispatch, useAppSelector } from '../hooks/useTypedRedux';
+import { setUser } from '../state/user';
+import SessionCard, { SessionCardProps } from '../components/cards/SessionCard';
+import { MOCK_DATA_SPEAKERS } from './SpeakersScreen';
+import SpeakerImageCard, { SpeakerImageCardProps } from '../components/cards/SpeakerImageCard';
 
-const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.HOME, undefined>) => {
+//Mock data ... to be removed when we add code to fetch the actual data
+const placeholder : ImageSourcePropType = require("../assets/img/sessions.png")
+
+    const MOCK_DATA_SESSIONS = [
+        {
+            id: '1',
+            poster: placeholder,
+            title: 'Transforming Famers Lives Using Android in Kenya',
+            time: '10:30',
+            venue: 'Room 1'
+        },
+        {
+            id: '2',
+            poster: placeholder,
+            title: 'Compose Beyond Material Design',
+            time: '10:30',
+            venue: 'Room 1'
+        },
+        {
+            id: '3',
+            poster: placeholder,
+            title: 'Transforming Famers Lives Using Android in Kenya',
+            time: '10:30',
+            venue: 'Room 1'
+        },
+        {
+            id: '4',
+            poster: placeholder,
+            title: 'Compose Beyond Material Design',
+            time: '10:30',
+            venue: 'Room 1'
+        },
+        {
+            id: '5',
+            poster: placeholder,
+            title: 'Transforming Famers Lives Using Android in Kenya',
+            time: '10:30',
+            venue: 'Room 1'
+        },
+        {
+            id: '6',
+            poster: placeholder,
+            title: 'Compose Beyond Material Design',
+            time: '10:30',
+            venue: 'Room 1'
+        },
+    ]
+const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text>droidconke-icon</Text>
-                <TouchableOpacity style={styles.iconWrapper}>
+                <TouchableOpacity style={styles.iconWrapper} onPress={handleLogin}>
                     <LockIcon/>
                 </TouchableOpacity>
             </View>
@@ -63,6 +115,113 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
             </ScrollView>
         </SafeAreaView>
     )
+}
+const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.HOME, undefined>) => {
+
+    // redux dispatch
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector((state) => state.user);
+
+    const login = () => {
+        dispatch(setUser({name: 'John Doe', id: 0}))
+    }
+
+    if(!user){
+        return <HomeNotLoggedIn handleLogin={() => login()}/>
+    }
+
+    // Function to navigate to Speakers screen
+    const goToSpeakersScreen = () => navigation.navigate(screen_names.SPEAKERS);
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Text>droidconke-icon</Text>
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.buttonFeedback}>
+                        <Image resizeMode='contain' source={require('../assets/icons/SmileyIcon.png')} style={styles.buttonFeedbackContentMargin}/>
+                        <Text style={[styles.buttonFeedbackText, styles.buttonFeedbackContentMargin]}>Feedback</Text>
+                        <Image resizeMode='contain' source={require('../assets/icons/SendIcon.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.iconWrapper}>
+                        <Image resizeMode='contain' source={require('../assets/img/profilepicture.png')}/>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View>
+                    <View style={styles.row}>
+                        <Text style={styles.sponsorsContainerTitle}>Sessions</Text>
+                        <TouchableOpacity style={styles.row}>
+                            <Text style={styles.link}>View All</Text>
+                            <View style={styles.tallyContainer}>
+                                <Text style={styles.tallyText}>+45</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        data={MOCK_DATA_SESSIONS}
+                        renderItem={({item}) => 
+                            <SessionCard 
+                                id={item.id} 
+                                poster={item.poster} 
+                                title={item.title} 
+                                time={item.time} 
+                                venue={item.venue}/>}
+                        keyExtractor={(item: SessionCardProps) => item.id}
+                        horizontal
+        
+                        />
+                </View>
+                <View style={styles.marginSeparator2}>
+                    <View style={[styles.row, styles.marginSeparator]}>
+                        <Text style={styles.sponsorsContainerTitle}>Speakers</Text>
+                        <TouchableOpacity style={styles.row} onPress={() => goToSpeakersScreen()}>
+                            <Text style={styles.link}>View All</Text>
+                            <View style={styles.tallyContainer}>
+                                <Text style={styles.tallyText}>+45</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        data={MOCK_DATA_SPEAKERS}
+                        renderItem={({item}) => 
+                            <SpeakerImageCard 
+                                id={item.id} 
+                                ProfilePicture={item.ProfilePicture} 
+                                SpeakersName={item.SpeakersName}/>}
+                        keyExtractor={(item: SpeakerImageCardProps) => item.id}
+                        horizontal
+        
+                        />
+                </View>
+                <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
+                    <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Sponsors</Text>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyCenter]}>
+                        <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
+                    </View>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginSeparator]}>
+                        <Image resizeMode='contain' source={require('../assets/img/Andela-logo-landscape-blue.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/hover_logo.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/jetbrains.png')}/>
+                    </View>
+                </View>
+                <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
+                    <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Organized by :</Text>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
+                        <Android254Icon/>
+                        <Image resizeMode='contain' source={require('../assets/img/kotlin.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/unnamed.png')}/>
+                    </View>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
+                        <AppsLabIcon/>
+                        <Image resizeMode='contain' source={require('../assets/img/Layer2-1.png')}/>
+                        <TiskosIcon/>
+                    </View>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    )
 };
 
 const styles= StyleSheet.create({
@@ -76,7 +235,8 @@ const styles= StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 15,
+        marginBottom: 15,
+        marginHorizontal: 10,
     },
     iconWrapper: {
         backgroundColor: colors.DROIDCONKE_GREEN,
@@ -149,6 +309,44 @@ const styles= StyleSheet.create({
     },
     justifyAround: {
         justifyContent: 'space-around',
+    },
+    buttonFeedback: {
+        backgroundColor: colors.DROIDCONKE_GREEN_TRANSLUCENT,
+        padding: 12,
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent:'space-evenly',
+        marginRight: 30,
+    },
+    buttonFeedbackText: {
+        fontFamily: fonts.MONTSERRAT_REGULAR,
+        fontSize: 12,
+    },
+    buttonFeedbackContentMargin: {
+        marginRight: 8,
+    },
+    row: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'space-between'
+    },
+    link: {
+        color: colors.DROIDCONKE_BLUE,
+        fontFamily: fonts.MONTSERRAT_MEDIUM,
+        fontSize: 12,
+        marginRight: 10,
+    },
+    tallyContainer: {
+        backgroundColor: colors.DROIDCONKE_BLUE_TRANSLUCENT,
+        borderRadius: 11,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+    },
+    tallyText: {
+        color: colors.DROIDCONKE_BLUE,
+        fontFamily: fonts.MONTSERRAT_REGULAR,
+        fontSize: 10,
     }
 })
 
