@@ -38,7 +38,8 @@ const MainStackNavigator = () => {
           headerShadowVisible : false ,
           headerTitleAlign : "left" ,
           headerTitleStyle : {
-            fontFamily : fonts.MONTSERRAT_REGULAR
+            fontFamily : fonts.MONTSERRAT_REGULAR ,
+            fontSize : 18
           } ,
           headerLeft : () => (
           <TouchableOpacity style={styles.speakersbackbutton} onPress= {() => navigation.goBack()}>
