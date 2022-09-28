@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
     title : {
         color : colors.DROIDCONKE_BLUE,
         marginBottom : 10,
-        fontFamily : fonts.MONTSERRAT_BOLD
+        fontFamily : fonts.MONTSERRAT_BOLD,
+        width : "80%",
+        fontSize : 14
     } ,
     content : {
         textAlign : "center",
