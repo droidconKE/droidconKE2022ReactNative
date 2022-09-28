@@ -1,6 +1,6 @@
 // Main navigation.
 import React from "react";
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
+import { createNativeStackNavigator} from "@react-navigation/native-stack";
 import { screen_names } from "../constants/ScreenNames";
 
 // Create stack navigator.
@@ -10,8 +10,9 @@ const Stack = createNativeStackNavigator();
 import BottomTabsNavigator from "./BottomTabsNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import SpeakersScreen from "../screens/SpeakersScreen";
+
 import { fonts } from "../assets/fonts/fonts";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import BackArrowIcon from "../assets/icons/BackArrowIcon";
 import { colors } from "../constants/Colors";
 
@@ -40,7 +41,7 @@ const MainStackNavigator = () => {
             fontFamily : fonts.MONTSERRAT_REGULAR
           } ,
           headerLeft : () => (
-          <TouchableOpacity style={{marginRight : 8 , marginBottom : 8 }} onPress= {() => navigation.goBack()}>
+          <TouchableOpacity style={styles.speakersbackbutton} onPress= {() => navigation.goBack()}>
             <BackArrowIcon color={colors.DROIDCONKE_BLACK} />
           </TouchableOpacity>
           )
@@ -49,5 +50,12 @@ const MainStackNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  speakersbackbutton : {
+    marginRight : 8 ,
+    marginBottom : 8 
+  }
+})
 
 export default MainStackNavigator;
