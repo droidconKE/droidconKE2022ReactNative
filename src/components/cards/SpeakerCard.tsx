@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
         marginBottom : 10 ,
         fontFamily : fonts.MONTSERRAT_REGULAR ,
         fontSize : 11 ,
-        width : "80%"
+        width : "80%",
+        color: colors.DROIDCONKE_DARK_GREY,
     } ,
     button : {
         width : "80%",
