@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
         marginBottom : 10,
         fontFamily : fonts.MONTSERRAT_BOLD,
         width : "80%",
-        fontSize : 14
+        fontSize : 14 ,
+        textAlign : "center"
     } ,
     content : {
         textAlign : "center",

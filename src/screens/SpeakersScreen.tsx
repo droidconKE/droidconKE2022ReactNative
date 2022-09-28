@@ -88,7 +88,7 @@ const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
   const styles = StyleSheet.create({
     container: {
       backgroundColor: colors.DROIDCONKE_WHITE,
-      padding: 5,
+      padding : 6
     }
   })
 
