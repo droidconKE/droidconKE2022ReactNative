@@ -9,5 +9,6 @@ export enum screen_names {
     FEED = "Feed",
     SESSIONS = "Sessions",
     ABOUT = "About",
-    HOMETABS = "HomeTabs"
+    HOMETABS = "HomeTabs",
+    SPEAKERS = "Speakers"
 }
