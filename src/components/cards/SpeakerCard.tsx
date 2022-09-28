@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     content : {
         textAlign : "center",
         marginBottom : 10 ,
-        fontFamily : fonts.MONTSERRAT_REGULAR
+        fontFamily : fonts.MONTSERRAT_REGULAR ,
+        fontSize : 11
     } ,
     button : {
         width : "80%",
@@ -67,5 +68,6 @@ const styles = StyleSheet.create({
         color : colors.DROIDCONKE_LIGHT_GREEN,
         textAlign : "center",
         fontFamily : fonts.MONTSERRAT_SEMIBOLD,
+        fontSize : 14
     }
 })
