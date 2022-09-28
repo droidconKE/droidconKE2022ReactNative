@@ -24,10 +24,10 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.marginSeparator}>
-                    <Image source={require('../assets/droidconkebanner.png')} resizeMode="contain" style={styles.droidconkeBanner}/>
+                    <Image source={require('../assets/img/droidconkebanner.png')} resizeMode="contain" style={styles.droidconkeBanner}/>
                 </View>
                 <View style={[styles.cfpContainer, styles.marginSeparator2]}>
-                    <Image resizeMode='contain' source={require('../assets/cfpconfetti.png')} style={styles.cfpConfetti}/>
+                    <Image resizeMode='contain' source={require('../assets/img/cfpconfetti.png')} style={styles.cfpConfetti}/>
                     <View>
                         <Text style={styles.cfpTitle}>Call for speakers</Text>
                         <Text>Apply to be a speaker</Text>
@@ -39,24 +39,24 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                 <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
                     <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Sponsors</Text>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyCenter]}>
-                        <Image resizeMode='contain' source={require('../assets/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
+                        <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
                     </View>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginSeparator]}>
-                        <Image resizeMode='contain' source={require('../assets/Andela-logo-landscape-blue.png')}/>
-                        <Image resizeMode='contain' source={require('../assets/hover_logo.png')}/>
-                        <Image resizeMode='contain' source={require('../assets/jetbrains.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/Andela-logo-landscape-blue.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/hover_logo.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/jetbrains.png')}/>
                     </View>
                 </View>
                 <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
                     <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Organized by :</Text>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
                         <Android254Icon/>
-                        <Image resizeMode='contain' source={require('../assets/kotlin.png')}/>
-                        <Image resizeMode='contain' source={require('../assets/unnamed.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/kotlin.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/unnamed.png')}/>
                     </View>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
                         <AppsLabIcon/>
-                        <Image resizeMode='contain' source={require('../assets/Layer2-1.png')}/>
+                        <Image resizeMode='contain' source={require('../assets/img/Layer2-1.png')}/>
                         <TiskosIcon/>
                     </View>
                 </View>
