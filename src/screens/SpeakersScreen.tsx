@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, FlatList , TouchableOpacity} from 'react-native';
+import { FlatList , SafeAreaView , StyleSheet } from 'react-native';
 import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
+import { colors } from '../constants/Colors';
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
@@ -73,15 +74,22 @@ const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
 
   const SpeakersScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.SPEAKERS, undefined>) => {
     return (
-        <View>
+        <SafeAreaView style={styles.container}>
         <FlatList
           data={MOCK_DATA}
           renderItem={({item}) => <SpeakerCard SpeakersName={item.SpeakersName} id={item.id} ProfilePicture={item.ProfilePicture} Content={item.Content}/>}
           keyExtractor={(item: SpeakerCardProps) => item.id}
           numColumns = {2}
         />
-        </View>
+        </SafeAreaView>
     );
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: colors.DROIDCONKE_WHITE,
+      padding: 5,
+    }
+  })
 
   export default SpeakersScreen
