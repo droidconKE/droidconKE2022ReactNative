@@ -1,6 +1,6 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { FlatList, Image, ImageSourcePropType, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Image, ImageSourcePropType, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
 import { colors } from '../constants/Colors';
@@ -14,6 +14,10 @@ import { setUser } from '../state/user';
 import SessionCard, { SessionCardProps } from '../components/cards/SessionCard';
 import { MOCK_DATA_SPEAKERS } from './SpeakersScreen';
 import SpeakerImageCard, { SpeakerImageCardProps } from '../components/cards/SpeakerImageCard';
+import DroidconKeIcon from '../assets/icons/DroidconKeIcon';
+import { ResizeMode, Video } from 'expo-av';
+import { useRef } from 'react';
+import { useState } from 'react';
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder : ImageSourcePropType = require("../assets/img/sessions.png")
@@ -66,7 +70,7 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text>droidconke-icon</Text>
+                <DroidconKeIcon width={150}  style={styles.droidconkeIcon}/>
                 <TouchableOpacity style={styles.iconWrapper} onPress={handleLogin}>
                     <LockIcon/>
                 </TouchableOpacity>
@@ -117,7 +121,8 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
     )
 }
 const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.HOME, undefined>) => {
-
+    const video = useRef(null);
+    const [status, setStatus] = useState({})
     // redux dispatch
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.user);
@@ -133,10 +138,12 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
     // Function to navigate to Speakers screen
     const goToSpeakersScreen = () => navigation.navigate(screen_names.SPEAKERS);
 
+    //video?.current?.playAsync()
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar backgroundColor={colors.DROIDCONKE_WHITE}/>
             <View style={styles.header}>
-                <Text>droidconke-icon</Text>
+                <DroidconKeIcon width={150} style={styles.droidconkeIcon}/>
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.buttonFeedback}>
                         <Image resizeMode='contain' source={require('../assets/icons/SmileyIcon.png')} style={styles.buttonFeedbackContentMargin}/>
@@ -150,6 +157,15 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
+                    <Video
+                        ref={video}
+                        source={require('../assets/video/video_2022-09-29_22-16-14.mp4')}
+                        isLooping
+                        useNativeControls
+                        resizeMode={ResizeMode.COVER}
+                        style={styles.droidconkeVideo}
+                        onPlaybackStatusUpdate={status => setStatus(() => status)}
+                        isMuted/>
                     <View style={styles.row}>
                         <Text style={styles.sponsorsContainerTitle}>Sessions</Text>
                         <TouchableOpacity style={styles.row}>
@@ -258,7 +274,7 @@ const styles= StyleSheet.create({
         marginVertical: 18,
     },
     droidconkeBanner: { 
-        width: '100%', 
+        width: Dimensions.get('screen').width - 40, 
         marginVertical: -50,
     },
     cfpConfetti: {
@@ -347,6 +363,17 @@ const styles= StyleSheet.create({
         color: colors.DROIDCONKE_BLUE,
         fontFamily: fonts.MONTSERRAT_REGULAR,
         fontSize: 10,
+    },
+    droidconkeVideo: {
+        width: Dimensions.get('screen').width - 40, 
+        height: Dimensions.get('screen').height / 4.5,
+        marginVertical: 20,
+        borderRadius: 10, 
+        backgroundColor: 'blue'
+    },
+    droidconkeIcon: { 
+        marginVertical: -100, 
+        marginLeft: -10,
     }
 })
 
