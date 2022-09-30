@@ -14,10 +14,10 @@ export interface SessionCardProps {
 const SessionCard = (props: SessionCardProps) => {
     return (
         <View style={styles.cardContainer}>
-            <Image source={props.poster} resizeMode="contain" style={{width: Dimensions.get('screen').width - 140, marginBottom: -25}}/>
+            <Image source={props.poster} resizeMode="stretch" style={styles.poster}/>
             <View style={styles.contentWrapper}>
                 <Text style={styles.title}>{props.title}</Text>
-                <Text>@ {props.time} | {props.venue}</Text>
+                <Text style={styles.timeAndVenue}>@ {props.time} | {props.venue}</Text>
             </View>
         </View>
     )
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.DROIDCONKE_PEARL,
         paddingVertical: 20,
         paddingHorizontal: 10,
-        width: Dimensions.get('screen').width - 140,
+        width: Dimensions.get('screen').width / 1.62,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
 
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 20,
         color: colors.DROIDCONKE_BLACK,
-        width: '90%',
         marginBottom: 10,
     },
     timeAndVenue: {
@@ -50,6 +49,10 @@ const styles = StyleSheet.create({
         fontSize: 11,
         color: colors.DROIDCONKE_DARK_GREY,
         lineHeight: 14,
+    },
+    poster: {
+        width: Dimensions.get('screen').width / 1.62, 
+        height: Dimensions.get('screen').height / 7.5,
     }
 })
 
