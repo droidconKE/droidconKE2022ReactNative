@@ -73,7 +73,7 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
         <SafeAreaView style={[styles.container, styles.paddingVertical, styles.paddingHorizontal]}>
         <StatusBar backgroundColor={colors.DROIDCONKE_WHITE} barStyle='dark-content'/>
             <View style={[styles.header, styles.marginBottomSeparator]}>
-                <DroidconKeIcon width={150}  style={styles.droidconkeIcon}/>
+                <DroidconKeIcon width={150} style={styles.droidconkeIcon}/>
                 <TouchableOpacity style={styles.iconWrapper} onPress={handleLogin}>
                     <LockIcon/>
                 </TouchableOpacity>
@@ -86,7 +86,7 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
                     <Image source={require('../assets/img/droidconkebanner.png')} resizeMode="stretch" style={styles.droidconkeBanner}/>
                 </View>
                 <View style={[styles.cfpContainer, styles.marginVerticalSeparator2]}>
-                    <Image resizeMode='contain' source={require('../assets/img/cfpconfetti.png')} style={styles.cfpConfetti}/>
+                    <Image resizeMode='stretch' source={require('../assets/img/cfpconfetti.png')} style={styles.cfpConfetti}/>
                     <View>
                         <Text style={styles.cfpTitle}>Call for speakers</Text>
                         <Text>Apply to be a speaker</Text>
@@ -123,6 +123,7 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
         </SafeAreaView>
     )
 }
+
 const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.HOME, undefined>) => {
     // Video ref.
     const video = useRef(null);
@@ -257,7 +258,6 @@ const styles= StyleSheet.create({
     container: {
         backgroundColor: colors.DROIDCONKE_WHITE,
         flex: 1,
-        //padding: 20,
     },
     paddingVertical: {
         paddingVertical: 20,
@@ -305,7 +305,7 @@ const styles= StyleSheet.create({
     },
     cfpConfetti: {
         width: '35%', 
-        marginVertical: -20
+        height: 65, 
     },
     cfpContainer: {
         backgroundColor: colors.DROIDCONKE_GREEN,
