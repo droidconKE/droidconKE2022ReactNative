@@ -18,6 +18,8 @@ import DroidconKeIcon from '../assets/icons/DroidconKeIcon';
 import { ResizeMode, Video } from 'expo-av';
 import { useRef } from 'react';
 import { useState } from 'react';
+import VolumeUp from '../assets/icons/VolumeUp';
+import VolumeOff from '../assets/icons/VolumeOff';
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder : ImageSourcePropType = require("../assets/img/sessions.png")
@@ -69,20 +71,21 @@ const placeholder : ImageSourcePropType = require("../assets/img/sessions.png")
 const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
+        <StatusBar backgroundColor={colors.DROIDCONKE_WHITE} barStyle='dark-content'/>
+            <View style={[styles.header, styles.marginBottomSeparator]}>
                 <DroidconKeIcon width={150}  style={styles.droidconkeIcon}/>
                 <TouchableOpacity style={styles.iconWrapper} onPress={handleLogin}>
                     <LockIcon/>
                 </TouchableOpacity>
             </View>
-            <View style={styles.marginSeparator}>
+            <View style={styles.marginVerticalSeparator}>
                 <Text style={styles.welcomeText}>Welcome to the largest Focused Android Developer community in Africa!</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.marginSeparator}>
+                <View style={styles.marginVerticalSeparator}>
                     <Image source={require('../assets/img/droidconkebanner.png')} resizeMode="contain" style={styles.droidconkeBanner}/>
                 </View>
-                <View style={[styles.cfpContainer, styles.marginSeparator2]}>
+                <View style={[styles.cfpContainer, styles.marginVerticalSeparator2]}>
                     <Image resizeMode='contain' source={require('../assets/img/cfpconfetti.png')} style={styles.cfpConfetti}/>
                     <View>
                         <Text style={styles.cfpTitle}>Call for speakers</Text>
@@ -92,25 +95,25 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
                         <Text>▶</Text>
                     </View>
                 </View>
-                <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
-                    <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Sponsors</Text>
+                <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
+                    <Text style={[styles.sponsorsContainerTitle, styles.marginVerticalSeparator]}>Sponsors</Text>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyCenter]}>
                         <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
                     </View>
-                    <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginSeparator]}>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginVerticalSeparator]}>
                         <Image resizeMode='contain' source={require('../assets/img/Andela-logo-landscape-blue.png')}/>
                         <Image resizeMode='contain' source={require('../assets/img/hover_logo.png')}/>
                         <Image resizeMode='contain' source={require('../assets/img/jetbrains.png')}/>
                     </View>
                 </View>
-                <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
-                    <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Organized by :</Text>
-                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
+                <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
+                    <Text style={[styles.sponsorsContainerTitle, styles.marginVerticalSeparator]}>Organized by :</Text>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginVerticalSeparator]}>
                         <Android254Icon/>
                         <Image resizeMode='contain' source={require('../assets/img/kotlin.png')}/>
                         <Image resizeMode='contain' source={require('../assets/img/unnamed.png')}/>
                     </View>
-                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginVerticalSeparator]}>
                         <AppsLabIcon/>
                         <Image resizeMode='contain' source={require('../assets/img/Layer2-1.png')}/>
                         <TiskosIcon/>
@@ -121,8 +124,10 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
     )
 }
 const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.HOME, undefined>) => {
+    // Video ref.
     const video = useRef(null);
-    const [status, setStatus] = useState({})
+    // Mute status
+    const [isVideoMute, setIsVideoMute] = useState(true)
     // redux dispatch
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.user);
@@ -138,11 +143,12 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
     // Function to navigate to Speakers screen
     const goToSpeakersScreen = () => navigation.navigate(screen_names.SPEAKERS);
 
-    //video?.current?.playAsync()
+    // function to toggle mute status
+    const toggleMute = () => setIsVideoMute(!isVideoMute)
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor={colors.DROIDCONKE_WHITE}/>
-            <View style={styles.header}>
+            <StatusBar backgroundColor={colors.DROIDCONKE_WHITE} barStyle='dark-content'/>
+            <View style={[styles.header, styles.marginBottomSeparator2]}>
                 <DroidconKeIcon width={150} style={styles.droidconkeIcon}/>
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.buttonFeedback}>
@@ -156,16 +162,21 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View>
+                <View style={{marginVertical: 15}}>
                     <Video
                         ref={video}
                         source={require('../assets/video/video_2022-09-29_22-16-14.mp4')}
                         isLooping
-                        useNativeControls
                         resizeMode={ResizeMode.COVER}
                         style={styles.droidconkeVideo}
-                        onPlaybackStatusUpdate={status => setStatus(() => status)}
-                        isMuted/>
+                        shouldPlay
+                        isMuted={isVideoMute}/>
+
+                    <TouchableOpacity onPress={toggleMute} style={styles.volumeControl}>
+                        {isVideoMute ? <VolumeUp fill={colors.DROIDCONKE_WHITE}/> : <VolumeOff fill={colors.DROIDCONKE_WHITE}/>}
+                    </TouchableOpacity>
+                </View>
+                <View>
                     <View style={styles.row}>
                         <Text style={styles.sponsorsContainerTitle}>Sessions</Text>
                         <TouchableOpacity style={styles.row}>
@@ -189,8 +200,8 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
         
                         />
                 </View>
-                <View style={styles.marginSeparator2}>
-                    <View style={[styles.row, styles.marginSeparator]}>
+                <View style={styles.marginVerticalSeparator2}>
+                    <View style={[styles.row, styles.marginVerticalSeparator]}>
                         <Text style={styles.sponsorsContainerTitle}>Speakers</Text>
                         <TouchableOpacity style={styles.row} onPress={() => goToSpeakersScreen()}>
                             <Text style={styles.link}>View All</Text>
@@ -211,25 +222,25 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
         
                         />
                 </View>
-                <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
-                    <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Sponsors</Text>
+                <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
+                    <Text style={[styles.sponsorsContainerTitle, styles.marginVerticalSeparator]}>Sponsors</Text>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyCenter]}>
                         <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
                     </View>
-                    <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginSeparator]}>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginVerticalSeparator]}>
                         <Image resizeMode='contain' source={require('../assets/img/Andela-logo-landscape-blue.png')}/>
                         <Image resizeMode='contain' source={require('../assets/img/hover_logo.png')}/>
                         <Image resizeMode='contain' source={require('../assets/img/jetbrains.png')}/>
                     </View>
                 </View>
-                <View style={[styles.sponsorsContainer, styles.marginSeparator2]}>
-                    <Text style={[styles.sponsorsContainerTitle, styles.marginSeparator]}>Organized by :</Text>
-                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
+                <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
+                    <Text style={[styles.sponsorsContainerTitle, styles.marginVerticalSeparator]}>Organized by :</Text>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginVerticalSeparator]}>
                         <Android254Icon/>
                         <Image resizeMode='contain' source={require('../assets/img/kotlin.png')}/>
                         <Image resizeMode='contain' source={require('../assets/img/unnamed.png')}/>
                     </View>
-                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginSeparator]}>
+                    <View style={[styles.sponsorsIconsContainer, styles.justifyAround, styles.marginVerticalSeparator]}>
                         <AppsLabIcon/>
                         <Image resizeMode='contain' source={require('../assets/img/Layer2-1.png')}/>
                         <TiskosIcon/>
@@ -244,14 +255,12 @@ const styles= StyleSheet.create({
     container: {
         backgroundColor: colors.DROIDCONKE_WHITE,
         flex: 1,
-        marginTop: StatusBar.currentHeight,
         padding: 20,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 15,
         marginHorizontal: 10,
     },
     iconWrapper: {
@@ -267,11 +276,17 @@ const styles= StyleSheet.create({
         fontSize: 16,
         lineHeight: 20,
     },
-    marginSeparator: {
+    marginVerticalSeparator: {
         marginVertical: 15,
     },
-    marginSeparator2: {
+    marginVerticalSeparator2: {
         marginVertical: 18,
+    },
+    marginBottomSeparator: {
+        marginBottom: 10
+    },
+    marginBottomSeparator2: {
+        marginBottom: 5
     },
     droidconkeBanner: { 
         width: Dimensions.get('screen').width - 40, 
@@ -369,11 +384,20 @@ const styles= StyleSheet.create({
         height: Dimensions.get('screen').height / 4.5,
         marginVertical: 20,
         borderRadius: 10, 
-        backgroundColor: 'blue'
+        backgroundColor: colors.DROIDCONKE_BLUE_TRANSLUCENT,
     },
     droidconkeIcon: { 
         marginVertical: -100, 
         marginLeft: -10,
+    },
+    volumeControl: {
+        position: 'absolute',
+        top: 40, 
+        right: 20, 
+        backgroundColor: colors.DROIDCONKE_BLACK_TRANSLUCENT, 
+        width: 50, 
+        height: 50, 
+        borderRadius: 50
     }
 })
 
