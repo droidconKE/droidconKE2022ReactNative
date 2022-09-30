@@ -20,6 +20,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import VolumeUp from '../assets/icons/VolumeUp';
 import VolumeOff from '../assets/icons/VolumeOff';
+import PolygonIcon from '../assets/icons/PolygonIcon';
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder : ImageSourcePropType = require("../assets/img/sessions.png")
@@ -92,7 +93,7 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
                         <Text>Apply to be a speaker</Text>
                     </View>
                     <View>
-                        <Text>▶</Text>
+                        <PolygonIcon/>
                     </View>
                 </View>
                 <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
