@@ -8,22 +8,25 @@ export interface SpeakerImageCardProps {
     ProfilePicture : ImageSourcePropType;
     SpeakersName : String ;
 }
+interface SpeakerImageCardProps2 extends SpeakerImageCardProps {
+    onPress: () => void;
+}
 
-const SpeakerImageCard = (props : SpeakerImageCardProps) => {
+const SpeakerImageCard = (props : SpeakerImageCardProps2) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={props.onPress}>
             <Image source={props.ProfilePicture} style={styles.image} />
-            <Text style={styles.title}>{props.SpeakersName}</Text>
-        </View>
+            <Text style={styles.name}>{props.SpeakersName}</Text>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'flex-start',
         alignItems : "center",
         borderRadius : 10,
         marginLeft: -20,
+        marginRight: 5,
     },
     image : {
         borderColor : colors.DROIDCONKE_GREEN,
@@ -31,8 +34,8 @@ const styles = StyleSheet.create({
         height : 76,
         width : 76,
         borderRadius : 7
-    } ,
-    title : {
+    },
+    name : {
         color : colors.DROIDCONKE_BLACK,
         fontFamily : fonts.MONTSERRAT_MEDIUM,
         width : "80%",
