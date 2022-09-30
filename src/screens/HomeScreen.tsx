@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useTypedRedux';
 import { setUser } from '../state/user';
 import SessionCard, { SessionCardProps } from '../components/cards/SessionCard';
 import { MOCK_DATA_SPEAKERS } from './SpeakersScreen';
-import SpeakerImageCard, { SpeakerImageCardProps } from '../components/cards/SpeakerImageCard';
+import SpeakerImageCard from '../components/cards/SpeakerImageCard';
 import DroidconKeIcon from '../assets/icons/DroidconKeIcon';
 import { ResizeMode, Video } from 'expo-av';
 import { useRef } from 'react';
@@ -98,7 +98,7 @@ const HomeNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
                 <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
                     <Text style={[styles.sponsorsContainerTitle, styles.marginVerticalSeparator]}>Sponsors</Text>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyCenter]}>
-                        <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
+                        <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={styles.marginVerticalIcons}/>
                     </View>
                     <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginVerticalSeparator]}>
                         <Image resizeMode='contain' source={require('../assets/img/Andela-logo-landscape-blue.png')}/>
@@ -149,9 +149,9 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
     return (
         <SafeAreaView style={[styles.container, styles.paddingVertical]}>
             <StatusBar backgroundColor={colors.DROIDCONKE_WHITE} barStyle='dark-content'/>
-            <View style={[styles.header, styles.marginBottomSeparator2, styles.paddingHorizontal]}>
+            <View style={[styles.header, styles.marginVerticalSeparator, styles.paddingHorizontal]}>
                 <DroidconKeIcon width={150} style={styles.droidconkeIcon}/>
-                <View style={styles.row}>
+                <View style={[styles.row, styles.justifyBetween, styles.itemsCenter]}>
                     <TouchableOpacity style={styles.buttonFeedback}>
                         <Image resizeMode='contain' source={require('../assets/icons/SmileyIcon.png')} style={styles.buttonFeedbackContentMargin}/>
                         <Text style={[styles.buttonFeedbackText, styles.buttonFeedbackContentMargin]}>Feedback</Text>
@@ -163,7 +163,7 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={[ styles.marginVerticalVideo, styles.paddingHorizontal]}>
+                <View style={[ styles.paddingHorizontal]}>
                     <Video
                         ref={video}
                         source={require('../assets/video/video_2022-09-29_22-16-14.mp4')}
@@ -178,9 +178,9 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <View style={[styles.row, styles.paddingHorizontal]}>
+                    <View style={[styles.row, styles.justifyBetween, styles.itemsCenter,styles.marginSessionRow,styles.paddingHorizontal]}>
                         <Text style={styles.sponsorsContainerTitle}>Sessions</Text>
-                        <TouchableOpacity style={styles.row}>
+                        <TouchableOpacity style={[styles.row, styles.justifyBetween, styles.itemsCenter]}>
                             <Text style={styles.link}>View All</Text>
                             <View style={styles.tallyContainer}>
                                 <Text style={styles.tallyText}>+45</Text>
@@ -201,33 +201,33 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                         contentContainerStyle={{ paddingLeft: 20}}
                         />
                 </View>
-                <View style={[styles.marginVerticalSeparator2, styles.paddingHorizontal]}>
-                    <View style={[styles.row, styles.marginVerticalSeparator]}>
+                <View>
+                    <View style={[styles.row, styles.justifyBetween, styles.itemsCenter, styles.marginSpeakerRow,styles.paddingHorizontal]}>
                         <Text style={styles.sponsorsContainerTitle}>Speakers</Text>
-                        <TouchableOpacity style={styles.row} onPress={() => goToSpeakersScreen()}>
+                        <TouchableOpacity style={[styles.row, styles.justifyBetween, styles.itemsCenter]} onPress={() => goToSpeakersScreen()}>
                             <Text style={styles.link}>View All</Text>
                             <View style={styles.tallyContainer}>
                                 <Text style={styles.tallyText}>+45</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <FlatList
-                        data={MOCK_DATA_SPEAKERS}
-                        renderItem={({item}) => 
-                            <SpeakerImageCard 
+                    <View style={[styles.row, styles.paddingHorizontal, styles.justifyStart]}>
+                        {MOCK_DATA_SPEAKERS.slice(0,4).map(item =>
+                            <SpeakerImageCard
+                                key={item.id} 
                                 id={item.id} 
                                 ProfilePicture={item.ProfilePicture} 
-                                SpeakersName={item.SpeakersName}/>}
-                        keyExtractor={(item: SpeakerImageCardProps) => item.id}
-                        horizontal
-        
-                        />
+                                SpeakersName={item.SpeakersName}
+                                onPress={() => console.log("pressed")}/>
+                            
+                        )}
+                    </View>
                 </View>
                 <View style={styles.paddingHorizontal}>
                     <View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
                         <Text style={[styles.sponsorsContainerTitle, styles.marginVerticalSeparator]}>Sponsors</Text>
                         <View style={[styles.sponsorsIconsContainer, styles.justifyCenter]}>
-                            <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={{ marginVertical: 10}}/>
+                            <Image resizeMode='contain' source={require('../assets/img/1920px-Google_2015_logo.svg.png')} style={styles.marginVerticalIcons}/>
                         </View>
                         <View style={[styles.sponsorsIconsContainer, styles.justifyBetween, styles.marginVerticalSeparator]}>
                             <Image resizeMode='contain' source={require('../assets/img/Andela-logo-landscape-blue.png')}/>
@@ -299,6 +299,9 @@ const styles= StyleSheet.create({
     marginBottomSeparator2: {
         marginBottom: 5
     },
+    marginVerticalIcons: {
+        marginVertical: 10,
+    },
     droidconkeBanner: { 
         width: Dimensions.get('screen').width - 40,
         height: 175,
@@ -352,6 +355,9 @@ const styles= StyleSheet.create({
     justifyAround: {
         justifyContent: 'space-around',
     },
+    justifyStart: {
+        justifyContent: 'flex-start',
+    },
     buttonFeedback: {
         backgroundColor: colors.DROIDCONKE_GREEN_TRANSLUCENT,
         padding: 12,
@@ -369,9 +375,10 @@ const styles= StyleSheet.create({
         marginRight: 8,
     },
     row: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
+    },
+    itemsCenter: {
         alignItems: 'center', 
-        justifyContent: 'space-between'
     },
     link: {
         color: colors.DROIDCONKE_BLUE,
@@ -409,6 +416,14 @@ const styles= StyleSheet.create({
         width: 50, 
         height: 50, 
         borderRadius: 50
+    },
+    marginSessionRow : {
+        marginTop: 15, 
+        marginBottom: 35
+    },
+    marginSpeakerRow: {
+        marginTop: 35, 
+        marginBottom: 30
     }
 })
 
