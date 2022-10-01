@@ -11,15 +11,20 @@ export interface SessionCardProps {
     venue: string,
 }
 
-const SessionCard = (props: SessionCardProps) => {
+interface SessionCardPropsWithOnPress extends SessionCardProps {
+    onPress: () => void;
+
+}
+
+const SessionCard = (props: SessionCardPropsWithOnPress) => {
     return (
-        <View style={styles.cardContainer}>
+        <TouchableOpacity style={styles.cardContainer} onPress={props.onPress}>
             <Image source={props.poster} resizeMode="stretch" style={styles.poster}/>
             <View style={styles.contentWrapper}>
                 <Text style={styles.title}>{props.title}</Text>
                 <Text style={styles.timeAndVenue}>@ {props.time} | {props.venue}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 };
 
