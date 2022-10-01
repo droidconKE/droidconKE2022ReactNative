@@ -29,7 +29,10 @@ const HomeScreenNotLoggedIn = ({handleLogin} : {handleLogin: () => void}) => {
             <View style={styles.marginVerticalSeparator}>
                 <Text style={styles.welcomeText}>Welcome to the largest Focused Android Developer community in Africa!</Text>
             </View>
-            <ScrollView showsVerticalScrollIndicator={false} onMomentumScrollEnd={toggleModal}>
+            <ScrollView 
+                showsVerticalScrollIndicator={false} 
+                // Show Sign In modal when scrolling momentum ends
+                onMomentumScrollEnd={toggleModal}>
                 <View style={styles.marginVerticalSeparator}>
                     <Image source={require('../assets/img/droidconkebanner.png')} resizeMode="stretch" style={styles.droidconkeBanner}/>
                 </View>
