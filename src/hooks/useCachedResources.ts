@@ -20,6 +20,7 @@ const useCachedResources  = () => {
                 'montserrat-medium': require('../assets/fonts/Montserrat-Medium.ttf'),
                 'montserrat-semibold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
                 'montserrat-bold': require('../assets/fonts/Montserrat-Bold.ttf'),
+                'roboto-medium': require('../assets/fonts/Roboto-Medium.ttf'),
               });
             } catch (error) {
               // We might want to provide this error information to an error reporting service
