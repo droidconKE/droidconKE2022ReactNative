@@ -96,18 +96,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: {
         paddingHorizontal: 20,
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+    header: {        
+        ...layoutProperties.flexRow,
+        ...layoutProperties.justifyBetween,
+        ...layoutProperties.itemsCenter,
         marginHorizontal: 10,
     },
     iconWrapper: {
         backgroundColor: colors.DROIDCONKE_GREEN,
         width: 29,
         height: 29,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...layoutProperties.justifyCenter,
+        ...layoutProperties.itemsCenter,
         borderRadius: 14.45,
     },
     marginBottomSeparator: {
@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
     cfpContainer: {
         backgroundColor: colors.DROIDCONKE_GREEN,
         padding: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...layoutProperties.flexRow,
+        ...layoutProperties.justifyBetween,
+        ...layoutProperties.itemsCenter,
         borderRadius: 10,
     },
     marginBottomSeparator2: {
@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     sponsorsIconsContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        ...layoutProperties.flexRow,
+        ...layoutProperties.itemsCenter,
     },
     modalContainer: {
         flex: 1, 
         backgroundColor: colors.DROIDCONKE_MODAL_OVERLAY, 
-        justifyContent:'center',
+        ...layoutProperties.justifyCenter,
         ...layoutProperties.itemsCenter,
     },
     modalContentContainer: {
@@ -193,9 +193,9 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     googleBtnContainer: {
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center'
+        flex: 1,  
+        ...layoutProperties.justifyCenter,
+        ...layoutProperties.itemsCenter,
     },
     googleBtn: {
         width: '75%', 

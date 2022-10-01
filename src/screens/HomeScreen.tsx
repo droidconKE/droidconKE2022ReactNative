@@ -74,13 +74,14 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
     // Video ref.
     const video = useRef(null);
 
-    // Mute status
+    // Mute status.
     const [isVideoMute, setIsVideoMute] = useState(true)
 
-    // redux dispatch
+    // Redux dispatch.
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.user);
 
+    // Login helper function
     const login = () => {
         dispatch(setUser({name: 'John Doe', id: 0}))
     }
@@ -144,10 +145,11 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                                 poster={item.poster} 
                                 title={item.title} 
                                 time={item.time} 
-                                venue={item.venue}/>}
+                                venue={item.venue}
+                                onPress={() => console.log("pressed")}/>}
                         keyExtractor={(item: SessionCardProps) => item.id}
                         horizontal
-                        contentContainerStyle={{ paddingLeft: 20}}
+                        contentContainerStyle={styles.sessionFlatListContentContainerStyle}
                         />
                 </View>
                 <View>
@@ -215,17 +217,17 @@ const styles= StyleSheet.create({
         paddingHorizontal: 20,
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...layoutProperties.flexRow,
+        ...layoutProperties.justifyBetween,
+        ...layoutProperties.itemsCenter,
         marginHorizontal: 10,
     },
     iconWrapper: {
         backgroundColor: colors.DROIDCONKE_GREEN,
         width: 29,
         height: 29,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...layoutProperties.justifyCenter,
+        ...layoutProperties.itemsCenter,
         borderRadius: 14.45,
     },
     welcomeText: {
@@ -262,9 +264,9 @@ const styles= StyleSheet.create({
     cfpContainer: {
         backgroundColor: colors.DROIDCONKE_GREEN,
         padding: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...layoutProperties.flexRow,
+        ...layoutProperties.justifyBetween,
+        ...layoutProperties.itemsCenter,
         borderRadius: 10,
     },
     cfpTitle: {
@@ -293,15 +295,15 @@ const styles= StyleSheet.create({
     },
     sponsorsIconsContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
+        ...layoutProperties.itemsCenter,
     },
     buttonFeedback: {
         backgroundColor: colors.DROIDCONKE_GREEN_TRANSLUCENT,
         padding: 12,
         borderRadius: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent:'space-evenly',
+        ...layoutProperties.flexRow,
+        ...layoutProperties.itemsCenter,
+        ...layoutProperties.justifyEvenly,
         marginRight: 30,
     },
     buttonFeedbackText: {
@@ -355,6 +357,9 @@ const styles= StyleSheet.create({
     marginSpeakerRow: {
         marginTop: 35, 
         marginBottom: 30
+    },
+    sessionFlatListContentContainerStyle: { 
+        paddingLeft: 20
     }
 })
 
