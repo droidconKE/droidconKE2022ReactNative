@@ -1,18 +1,19 @@
 import React from "react";
-import {Image , View , TouchableOpacity , Text, StyleSheet, ImageSourcePropType} from "react-native"
+import {Image , TouchableOpacity , Text, StyleSheet, ImageSourcePropType} from "react-native"
 import { colors } from "../../constants/Colors";
 import { fonts } from '../../assets/fonts/fonts';
+import { layoutProperties } from "../../constants/Properties";
 
 export interface SpeakerImageCardProps {
     id: string;
     ProfilePicture : ImageSourcePropType;
     SpeakersName : String ;
 }
-interface SpeakerImageCardProps2 extends SpeakerImageCardProps {
+interface SpeakerImageCardPropsWithOnPress extends SpeakerImageCardProps {
     onPress: () => void;
 }
 
-const SpeakerImageCard = (props : SpeakerImageCardProps2) => {
+const SpeakerImageCard = (props : SpeakerImageCardPropsWithOnPress) => {
     return (
         <TouchableOpacity style={styles.container} onPress={props.onPress}>
             <Image source={props.ProfilePicture} style={styles.image} />
@@ -23,7 +24,7 @@ const SpeakerImageCard = (props : SpeakerImageCardProps2) => {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems : "center",
+        ...layoutProperties.itemsCenter,
         borderRadius : 10,
         marginLeft: -20,
         marginRight: 5,
