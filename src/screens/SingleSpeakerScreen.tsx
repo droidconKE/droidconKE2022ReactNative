@@ -9,21 +9,21 @@ import { fonts } from '../assets/fonts/fonts';
 import TwitterIcon from '../assets/icons/TwitterIcon';
 import ArrowLeftIcon from '../assets/icons/ArrowLeftIcon';
 import AndroidIcon from '../assets/icons/AndroidIcon';
-import { getSpeaker} from '../state/speakers';
 
 const SingleSpeakerScreen =  ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.SINGLESPEAKER, undefined>) => {
    
 
-    const item = getSpeaker(1); //Gets a speaker object matching the id passed as a parameter
+
+    const item = Speakers; //Gets a speaker object matching the id passed as a parameter
 
     var myloop = []; //Stores speaker skills Ex: Android, Kotlin
-    for (let i = 0; i <= item[0].speakerskill.length; i++) {  //Run loop while the iterator variable is less than the skill array from the speaker object's context
+    for (let i = 0; i <= item.speakerskill.length; i++) {  //Run loop while the iterator variable is less than the skill array from the speaker object's context
         myloop.push(        //Push the speaker skills wrap in a text component in an array                                 
-                <Text key={i}>| {item[0].speakerskill[i]} </Text> 
+                <Text key={i}>| {item.speakerskill[i]} </Text> 
         );  
     }
 
-    var parragraphArray = item[0].speakerbio.split('.')  //Create a new array by diving the speaker bio string. Fullstop denotes a new paragraph
+    var parragraphArray = item.speakerbio.split('.')  //Create a new array by diving the speaker bio string. Fullstop denotes a new paragraph
     var textElements = []; //Array to hold the bio 'paragraphs' with line break added
     var j = 0
     while(j < parragraphArray.length ) {
@@ -42,13 +42,13 @@ const SingleSpeakerScreen =  ({navigation}: NativeStackScreenProps<ParamListBase
                         source={require("../assets/img/bgsinglespeaker.png")}
                     >
                         <View style={styles.backbutton}>
-                            <TouchableOpacity onPress={() => {alert('back button pressed!')}}>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
                                 <ArrowLeftIcon  color={colors.DROIDCONKE_PEARL}/>
                             </TouchableOpacity>
-                            <Text style={{fontFamily: fonts.MONTSERRAT_REGULAR, color: colors.DROIDCONKE_PEARL, fontSize: 18}}> Speaker</Text>
+                            <Text style={styles.speakerheadertext}> Speaker</Text>
                         </View>
                         
-                        <Image style={styles.profilepic} source={item[0].speakerimg}/>
+                        <Image style={styles.profilepic} source={item.speakerimg}/>
                     </ImageBackground>
                 </View>
                 <View style={styles.sectiontwo}>
@@ -57,8 +57,8 @@ const SingleSpeakerScreen =  ({navigation}: NativeStackScreenProps<ParamListBase
                             <AndroidIcon width={27} height={27} color={colors.DROIDCONKE_BRICK_RED}/>
                             <Text style={styles.sectiontwo_subsectionone_itemone}>Speaker:</Text>
                         </View>
-                        <Text style={styles.sectiontwo_subsectionone_itemtwo}>{item[0].speakername}</Text>
-                        <Text style={styles.sectiontwo_subsectionone_itemthree}>{item[0].speakeroccupation}</Text>
+                        <Text style={styles.sectiontwo_subsectionone_itemtwo}>{item.speakername}</Text>
+                        <Text style={styles.sectiontwo_subsectionone_itemthree}>{item.speakeroccupation}</Text>
                         <Text style={styles.sectiontwo_subsectionone_itemthree}>
                             {myloop}
                         </Text>
@@ -78,7 +78,7 @@ const SingleSpeakerScreen =  ({navigation}: NativeStackScreenProps<ParamListBase
                     <TouchableOpacity onPress={() => {alert("Twitter handle pressed!")}}>
                     <View style={styles.sectionthree_subsectionone}>
                         <TwitterIcon width={30} height={25} color={colors.DROIDCONKE_BLUE}/>
-                        <Text style={{...styles.sectionthree_text, color: colors.DROIDCONKE_BLUE}}>{item[0].speakerhandle}</Text>
+                        <Text style={{...styles.sectionthree_text, color: colors.DROIDCONKE_BLUE}}>{item.speakerhandle}</Text>
                     </View>
                     </TouchableOpacity>
                 </View>
@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
         height: 50
     },
     profilepic: {
-       // backgroundColor: "blue",
         width: 100, 
         height: 100,
         position: "absolute",
@@ -154,7 +153,6 @@ const styles = StyleSheet.create({
         lineHeight: 20
     },
     sectiontwo_subsectionone_itemthree: {
-      //  fontSize: 15,
         fontWeight: "500",
         color: colors.DROIDCONKE_LIGHT_GREY,
         fontFamily: fonts.MONTSERRAT_REGULAR
@@ -171,7 +169,6 @@ const styles = StyleSheet.create({
         fontFamily: fonts.MONTSERRAT_BOLD
     }, 
     sectiontwo_subsectiontwo_paragraph: {
-       // fontSize: 14,
         color: colors.DROIDCONKE_BLACK,
         fontWeight: "400",
         fontFamily: fonts.MONTSERRAT_REGULAR
@@ -201,5 +198,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 0,
         margin: 0
+    },
+    speakerheadertext: {
+        fontFamily: fonts.MONTSERRAT_REGULAR, 
+        color: colors.DROIDCONKE_PEARL, 
+        fontSize: 18
     }
 })

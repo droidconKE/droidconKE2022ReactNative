@@ -52,9 +52,9 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name={screen_names.SINGLESPEAKER}
         component={SingleSpeakerScreen}
-        options={{
+        options={({navigation}: {navigation: any}) => ({
           headerShown: false,
-        }}
+        })}
       />
     </Stack.Navigator>
   );
