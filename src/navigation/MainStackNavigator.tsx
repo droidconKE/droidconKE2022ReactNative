@@ -19,7 +19,7 @@ import SingleSpeakerScreen from "../screens/SingleSpeakerScreen";
 
 const MainStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={screen_names.HOMETABS}>
+    <Stack.Navigator>
       <Stack.Screen
         name={screen_names.LOGIN}
         component={LoginScreen}
