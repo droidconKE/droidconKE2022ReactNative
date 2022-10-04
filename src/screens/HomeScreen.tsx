@@ -90,11 +90,14 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
         return <HomeScreenNotLoggedIn handleLogin={login}/>
     }
 
-    // Function to navigate to Speakers screen
+    // Function to navigate to Speakers screen.
     const goToSpeakersScreen = () => navigation.navigate(screen_names.SPEAKERS);
 
     // function to toggle mute status
     const toggleMute = () => setIsVideoMute(!isVideoMute)
+
+    // Function to navigate to Single Speaker screen.
+    const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.SINGLESPEAKER);
 
     return (
         <SafeAreaView style={[styles.container, styles.paddingVertical]}>
@@ -169,7 +172,7 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
                                 id={item.id} 
                                 ProfilePicture={item.ProfilePicture} 
                                 SpeakersName={item.SpeakersName}
-                                onPress={() => console.log("pressed")}/>
+                                onPress={goToSingleSpeakerScreen}/>
                             
                         )}
                     </View>
