@@ -30,6 +30,7 @@ const BottomTabsNavigator = () => {
             })}>
             <Tab.Screen name={screen_names.HOME} component={HomeScreen} 
                 options={{
+                    headerShown: false,
                     tabBarIcon: ((props: {
                         focused: boolean;
                         color: string;

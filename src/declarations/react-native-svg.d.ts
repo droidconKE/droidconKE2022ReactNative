@@ -11,6 +11,21 @@ declare module 'react-native-svg' {
 
     // gprops
     export interface GProps {
-        children?: React.ReactNode; 
+      children?: React.ReactNode; 
+    }
+
+    // clippathprops
+    export interface ClipPathProps {
+      children?: React.ReactNode; 
+    }
+
+    // textprops
+    export interface TextProps {
+      children?: React.ReactNode; 
+    }
+
+    // TSpanProps
+    export interface TSpanProps {
+      children?: React.ReactNode; 
     }
   }
