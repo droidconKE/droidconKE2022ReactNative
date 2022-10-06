@@ -105,7 +105,9 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_n
             <View style={[styles.header, styles.marginVerticalSeparator, styles.paddingHorizontal]}>
                 <DroidconKeIcon width={150} style={styles.droidconkeIcon}/>
                 <View style={[layoutProperties.flexRow, layoutProperties.justifyBetween, layoutProperties.itemsCenter]}>
-                    <TouchableOpacity style={styles.buttonFeedback}>
+                    <TouchableOpacity style={styles.buttonFeedback}
+                    onPress = {() => navigation.navigate("Feedback")}
+                    >
                         <Image resizeMode='contain' source={require('../assets/icons/SmileyIcon.png')} style={styles.buttonFeedbackContentMargin}/>
                         <Text style={[styles.buttonFeedbackText, styles.buttonFeedbackContentMargin]}>Feedback</Text>
                         <Image resizeMode='contain' source={require('../assets/icons/SendIcon.png')}/>
