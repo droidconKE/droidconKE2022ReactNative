@@ -22,6 +22,7 @@ import Android254Icon from "../assets/icons/Android254Icon";
 import AppsLabIcon from "../assets/icons/AppsLabIcon";
 import TiskosIcon from "../assets/icons/TiskosIcon";
 
+//Dummy About Text. Hardcoded for now, to change once data from server is available
 const introText = `Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.
 
 This three-day developer focused gathering will be held in Nairobi Kenya on August 16th to 18th 2022 and will be the largest of its kind in Africa.
@@ -115,6 +116,11 @@ const AboutScreen = ({
 								name={member.name}
 								title={member.title}
 								profileImage={member.image}
+								onPress={() =>
+									navigation.navigate(screen_names.SINGLESPEAKER, {
+										title: "Team",
+									})
+								}
 								key={member.id}
 							/>
 						))}

@@ -4,6 +4,7 @@ import {
 	StyleSheet,
 	Text,
 	View,
+	TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { colors } from "../../constants/Colors";
@@ -13,19 +14,22 @@ interface TeamMemberCardProps {
 	name: string;
 	title: string;
 	profileImage: ImageSourcePropType;
+	onPress: () => void;
 }
 
 const TeamMemberCard = (props: TeamMemberCardProps) => {
 	return (
-		<View style={styles.container}>
-			<Image
-				source={props.profileImage}
-				resizeMode="cover"
-				style={styles.image}
-			/>
-			<Text style={[styles.name, styles.textCommon]}>{props.name}</Text>
-			<Text style={[styles.title, styles.textCommon]}>{props.title}</Text>
-		</View>
+		<TouchableOpacity onPress={props.onPress} style={styles.container}>
+			<View>
+				<Image
+					source={props.profileImage}
+					resizeMode="cover"
+					style={styles.image}
+				/>
+				<Text style={[styles.name, styles.textCommon]}>{props.name}</Text>
+				<Text style={[styles.title, styles.textCommon]}>{props.title}</Text>
+			</View>
+		</TouchableOpacity>
 	);
 };
 
