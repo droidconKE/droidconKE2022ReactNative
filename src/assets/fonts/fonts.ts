@@ -6,4 +6,5 @@ export enum fonts {
     MONTSERRAT_MEDIUM = "montserrat-medium",
     MONTSERRAT_SEMIBOLD = "montserrat-semibold",
     MONTSERRAT_BOLD = "montserrat-bold",
+    ROBOTO_MEDIUM = "roboto-medium"
 }

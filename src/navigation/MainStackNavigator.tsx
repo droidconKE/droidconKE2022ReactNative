@@ -16,6 +16,7 @@ import { fonts } from "../assets/fonts/fonts";
 import { TouchableOpacity, StyleSheet , Platform , View , Text, ImageBackground } from "react-native";
 import BackArrowIcon from "../assets/icons/BackArrowIcon";
 import { colors } from "../constants/Colors";
+import SingleSpeakerScreen from "../screens/SingleSpeakerScreen";
 
 const MainStackNavigator = () => {
   return (
@@ -71,6 +72,13 @@ const MainStackNavigator = () => {
             </ImageBackground>
           )
         }) }
+        />
+        <Stack.Screen
+        name={screen_names.SINGLESPEAKER}
+        component={SingleSpeakerScreen}
+        options={({navigation}: {navigation: any}) => ({
+          headerShown: false,
+        })}
       />
     </Stack.Navigator>
   );

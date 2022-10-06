@@ -36,6 +36,10 @@ export default function LoginScreen({
         title="Go To Tabs"
         onPress={() => navigation.navigate("HomeTabs")}
       />
+      <Button
+        title="Single Speaker"
+        onPress={() => navigation.navigate("SingleSpeakerScreen")}
+      />
     </View>
   );
 }

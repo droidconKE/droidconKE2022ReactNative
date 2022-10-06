@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList , SafeAreaView , StyleSheet } from 'react-native';
+import { FlatList , ImageSourcePropType, SafeAreaView , StyleSheet } from 'react-native';
 import SpeakerCard from '../components/cards/SpeakerCard';
 import type { SpeakerCardProps } from '../components/cards/SpeakerCard';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -8,8 +8,8 @@ import { ParamListBase } from '@react-navigation/native';
 import { colors } from '../constants/Colors';
 
 //Mock data ... to be removed when we add code to fetch the actual data
-const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
-  const MOCK_DATA = [
+const placeholder : ImageSourcePropType = require("../assets/img/DummySpeakerProfilePicture.jpeg")
+  export const MOCK_DATA_SPEAKERS = [
     {
       id: '1',
       ProfilePicture : placeholder,
@@ -76,7 +76,7 @@ const placeholder = require("../assets/img/DummySpeakerProfilePicture.jpeg")
     return (
         <SafeAreaView style={styles.container}>
         <FlatList
-          data={MOCK_DATA}
+          data={MOCK_DATA_SPEAKERS}
           renderItem={({item}) => <SpeakerCard SpeakersName={item.SpeakersName} id={item.id} ProfilePicture={item.ProfilePicture} Content={item.Content}/>}
           keyExtractor={(item: SpeakerCardProps) => item.id}
           numColumns = {2}

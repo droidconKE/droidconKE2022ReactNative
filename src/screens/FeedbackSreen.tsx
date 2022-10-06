@@ -25,7 +25,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
             </View>
             <TextInput returnKeyType='done'  onSubmitEditing={() => {Keyboard.dismiss()}} style={styles.textinput} value={text} onChangeText={onChangeText} multiline={true} placeholder={"Type message here"}></TextInput>
             <Modal
-            statusBarTranslucent={false}
+             statusBarTranslucent={false}
             visible={modalVisible}
             onRequestClose={() => {
           setModalVisible(!modalVisible);
@@ -62,7 +62,7 @@ type EmojiProp = {
 
 const Emojis = (props : EmojiProp) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity >
     <View style={styles.emojiresponse}>
       <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_REGULAR , fontSize : 18 }}> {props.emojitype.emoji} </Text>
       <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_SEMIBOLD, fontSize : 12 }}>{props.emojitype.text}</Text>
