@@ -47,7 +47,7 @@ const MainStackNavigator = () => {
           <TouchableOpacity style={styles.speakersbackbutton} onPress= {() => navigation.goBack()}>
             <BackArrowIcon color={colors.DROIDCONKE_BLACK} />
           </TouchableOpacity>
-          )
+         )
         }) }
       />
       <Stack.Screen
@@ -64,7 +64,7 @@ const MainStackNavigator = () => {
           header : () => (
             <ImageBackground style={styles.speakersbackgroundimage} source={require("../assets/img/FeedbackBanner.png")}>
             <View style={styles.speakerrowcontainer}>
-            <TouchableOpacity style={styles.speakersbackbutton} onPress= {() => navigation.goBack()}>
+            <TouchableOpacity style={styles.speakerbackbutton} onPress= {() => navigation.goBack()}>
             <BackArrowIcon color={colors.DROIDCONKE_WHITE} />
             </TouchableOpacity>
             <Text style={styles.speakerheadertext}> Feedback </Text>
@@ -85,7 +85,7 @@ const MainStackNavigator = () => {
 };
 
 const styles = StyleSheet.create({
-  speakersbackbutton : {
+  speakerbackbutton : {
     position : "absolute",
     left : 10,
     top : 4
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
     flexDirection : "row",
     marginTop : 20,
     position : "absolute"
+  },
+  speakersbackbutton : {
+    marginRight : 8 ,
+    marginBottom : 8 
   }
 })
 
