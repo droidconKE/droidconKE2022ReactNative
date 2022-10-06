@@ -10,9 +10,10 @@ const Stack = createNativeStackNavigator();
 import BottomTabsNavigator from "./BottomTabsNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import SpeakersScreen from "../screens/SpeakersScreen";
+import FeedBackScreen from "../screens/FeedbackSreen";
 
 import { fonts } from "../assets/fonts/fonts";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet , Platform , View , Text, ImageBackground } from "react-native";
 import BackArrowIcon from "../assets/icons/BackArrowIcon";
 import { colors } from "../constants/Colors";
 
@@ -48,14 +49,54 @@ const MainStackNavigator = () => {
           )
         }) }
       />
+      <Stack.Screen
+        name={screen_names.FEEDBACK}
+        component={FeedBackScreen}
+        options={({navigation}: {navigation : any}) => ({
+          headerShadowVisible : false ,
+          headerTitleAlign : "left" ,
+          headerTitleStyle : {
+            fontFamily : fonts.MONTSERRAT_REGULAR ,
+            fontSize : 18,
+            color : "#FFFFFF"
+          } ,
+          header : () => (
+            <ImageBackground style={styles.speakersbackgroundimage} source={require("../assets/img/FeedbackBanner.png")}>
+            <View style={styles.speakerrowcontainer}>
+            <TouchableOpacity style={styles.speakersbackbutton} onPress= {() => navigation.goBack()}>
+            <BackArrowIcon color={colors.DROIDCONKE_WHITE} />
+            </TouchableOpacity>
+            <Text style={styles.speakerheadertext}> Feedback </Text>
+            </View>
+            </ImageBackground>
+          )
+        }) }
+      />
     </Stack.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
   speakersbackbutton : {
-    marginRight : 8 ,
-    marginBottom : 8 
+    position : "absolute",
+    left : 10,
+    top : 4
+  },
+  speakerheadertext : {
+    color : "#FFFFFF",
+    fontFamily : fonts.MONTSERRAT_REGULAR,
+    fontSize : 18,
+    position : "absolute",
+    left : 45,
+    top : Platform.OS == "android" ? 8 : 10
+  },
+  speakersbackgroundimage : {
+    height : 160
+  },
+  speakerrowcontainer : {
+    flexDirection : "row",
+    marginTop : 20,
+    position : "absolute"
   }
 })
 
