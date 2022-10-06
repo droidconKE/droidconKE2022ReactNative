@@ -1,7 +1,6 @@
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
-	FlatList,
 	Image,
 	ImageSourcePropType,
 	SafeAreaView,
@@ -98,7 +97,7 @@ const AboutScreen = ({
 					</TouchableOpacity>
 				</View>
 			</View>
-			<ScrollView nestedScrollEnabled={true}>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				<Image
 					source={require("../assets/img/about.png")}
 					resizeMode="contain"
@@ -111,18 +110,14 @@ const AboutScreen = ({
 					</Text>
 					<Text style={[styles.headingText]}>Organizing Team</Text>
 					<View style={[styles.teamContainer]}>
-						<FlatList
-							data={MOCK_DATA_ORGANIZING_TEAM}
-							renderItem={({ item }) => (
-								<TeamMemberCard
-									name={item.name}
-									profileImage={item.image}
-									title={item.title}
-								/>
-							)}
-							keyExtractor={(item) => item.id}
-							numColumns={3}
-						/>
+						{MOCK_DATA_ORGANIZING_TEAM.map((member) => (
+							<TeamMemberCard
+								name={member.name}
+								title={member.title}
+								profileImage={member.image}
+								key={member.id}
+							/>
+						))}
 					</View>
 					<View
 						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
@@ -204,8 +199,8 @@ const styles = StyleSheet.create({
 	},
 	teamContainer: {
 		marginVertical: 40,
-		// flexDirection: "row",
-		justifyContent: "space-between",
+		flexDirection: "row",
+		flexWrap: "wrap",
 		marginBottom: 20,
 	},
 	descriptionText: {
