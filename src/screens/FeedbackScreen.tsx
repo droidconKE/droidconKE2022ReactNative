@@ -1,6 +1,6 @@
 import React , { useState } from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView} from "react-native";
+import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , ButtonGroup} from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
 import { fonts } from '../assets/fonts/fonts';
@@ -43,7 +43,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
             </Pressable>
           </View>
       </Modal>
-            <TouchableOpacity style={styles.button} onPress={() => setModalVisible(!modalVisible)}>
+            <TouchableOpacity style={styles.button} disabled={text == ""} onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.buttontext}>
                     SUBMIT FEEDBACK
                 </Text>
@@ -57,15 +57,18 @@ const GreatEmoji = { emoji : "😊" , text : "Great" }
 const OkayEmoji = { emoji : "😐" , text : "Okay" }
 const BadEmoji =  { emoji : "😔" , text : "Bad"}
 type EmojiProp = {
-  emojitype  : {emoji : String , text : String}
+  emojitype  : {emoji : string , text : string}
 }
 
 const Emojis = (props : EmojiProp) => {
+  const [selection, setSelection] = useState("");
+  const text : string = props.emojitype.text
+  const emoji : string = props.emojitype.emoji
   return (
-    <TouchableOpacity >
+    <TouchableOpacity onPress={() => setSelection(text)} >
     <View style={styles.emojiresponse}>
-      <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_REGULAR , fontSize : 18 }}> {props.emojitype.emoji} </Text>
-      <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_SEMIBOLD, fontSize : 12 }}>{props.emojitype.text}</Text>
+      <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_REGULAR , fontSize : 18 }}> {emoji} </Text>
+      <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_SEMIBOLD, fontSize : 12 }}>{text}</Text>
     </View>
     </TouchableOpacity>
     )
