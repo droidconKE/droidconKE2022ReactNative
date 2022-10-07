@@ -1,6 +1,6 @@
 import React , { useState } from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , ButtonGroup} from "react-native";
+import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , StyleProp, ViewStyle} from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
 import { fonts } from '../assets/fonts/fonts';
@@ -23,13 +23,13 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
                 </Text>
                 <View style={styles.emojiscontainer}>
                   <TouchableOpacity onPress={() => setSelection(BadEmoji.text)} >
-                    <Emojis emojitype={BadEmoji}/>
+                    <Emojis emojitype={BadEmoji} containerstyle={ selection == BadEmoji.text ? [styles.emojiresponse,styles.clickedemojiresponse] : styles.emojiresponse}/>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => setSelection(OkayEmoji.text)} >
-                    <Emojis emojitype={OkayEmoji} />
+                    <Emojis emojitype={OkayEmoji} containerstyle={ selection == OkayEmoji.text ? [styles.emojiresponse,styles.clickedemojiresponse] : styles.emojiresponse}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setSelection(OkayEmoji.text)} >
-                    <Emojis emojitype={GreatEmoji}/>
+                  <TouchableOpacity onPress={() => setSelection(GreatEmoji.text)} >
+                    <Emojis emojitype={GreatEmoji} containerstyle={ selection == GreatEmoji.text ? [styles.emojiresponse,styles.clickedemojiresponse] : styles.emojiresponse}/>
                   </TouchableOpacity>
                 </View>
             </View>
@@ -64,14 +64,15 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
 };
 
 type EmojiProp = {
-  emojitype  : {emoji : string , text : string}
+  emojitype  : {emoji : string , text : string},
+  containerstyle : any
 }
 
 const Emojis = (props : EmojiProp) => {
   const text : string = props.emojitype.text
   const emoji : string = props.emojitype.emoji
   return (
-    <View style={styles.emojiresponse}>
+    <View style={props.containerstyle}>
       <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_REGULAR , fontSize : 18 }}> {emoji} </Text>
       <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_SEMIBOLD, fontSize : 12 }}>{text}</Text>
     </View>
@@ -107,7 +108,10 @@ const styles = StyleSheet.create({
         borderRadius : 4 ,
         margin : 30 ,
         justifyContent : "center",
-        alignContent : "center"
+        alignContent : "center",
+    },
+    clickedemojiresponse : {
+      opacity : 0.2
     },
     responsetext : {
         color : "#20201E",
