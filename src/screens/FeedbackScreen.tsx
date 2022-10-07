@@ -9,6 +9,10 @@ import { colors } from '../constants/Colors';
 const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.FEEDBACK, undefined>) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = React.useState("");
+    const [selection, setSelection] = useState("");
+    const GreatEmoji = { emoji : "😊" , text : "Great" }
+    const OkayEmoji = { emoji : "😐" , text : "Okay" }
+    const BadEmoji =  { emoji : "😔" , text : "Bad"}
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -18,9 +22,15 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
                 How is/was the event
                 </Text>
                 <View style={styles.emojiscontainer}>
+                  <TouchableOpacity onPress={() => setSelection(BadEmoji.text)} >
                     <Emojis emojitype={BadEmoji}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setSelection(OkayEmoji.text)} >
                     <Emojis emojitype={OkayEmoji} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setSelection(OkayEmoji.text)} >
                     <Emojis emojitype={GreatEmoji}/>
+                  </TouchableOpacity>
                 </View>
             </View>
             <TextInput returnKeyType='done'  onSubmitEditing={() => {Keyboard.dismiss()}} style={styles.textinput} value={text} onChangeText={onChangeText} multiline={true} placeholder={"Type message here"}></TextInput>
@@ -43,7 +53,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
             </Pressable>
           </View>
       </Modal>
-            <TouchableOpacity style={styles.button} disabled={text == ""} onPress={() => setModalVisible(!modalVisible)}>
+            <TouchableOpacity style={styles.button} disabled={text == "" || selection == ""} onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.buttontext}>
                     SUBMIT FEEDBACK
                 </Text>
@@ -53,24 +63,18 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
     )
 };
 
-const GreatEmoji = { emoji : "😊" , text : "Great" }
-const OkayEmoji = { emoji : "😐" , text : "Okay" }
-const BadEmoji =  { emoji : "😔" , text : "Bad"}
 type EmojiProp = {
   emojitype  : {emoji : string , text : string}
 }
 
 const Emojis = (props : EmojiProp) => {
-  const [selection, setSelection] = useState("");
   const text : string = props.emojitype.text
   const emoji : string = props.emojitype.emoji
   return (
-    <TouchableOpacity onPress={() => setSelection(text)} >
     <View style={styles.emojiresponse}>
       <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_REGULAR , fontSize : 18 }}> {emoji} </Text>
       <Text style={{textAlign : "center", fontFamily : fonts.MONTSERRAT_SEMIBOLD, fontSize : 12 }}>{text}</Text>
     </View>
-    </TouchableOpacity>
     )
 }
 
