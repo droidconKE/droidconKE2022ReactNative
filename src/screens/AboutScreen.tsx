@@ -105,10 +105,8 @@ const AboutScreen = ({
 					style={styles.heroImage}
 				/>
 				<View style={[styles.paddingHorizontal, styles.paddingVertical]}>
-					<Text style={[styles.headingText, { marginBottom: 10 }]}>About</Text>
-					<Text style={[styles.descriptionText, { marginBottom: 28 }]}>
-						{introText}
-					</Text>
+					<Text style={[styles.headingText]}>About</Text>
+					<Text style={[styles.descriptionText]}>{introText}</Text>
 					<Text style={[styles.headingText]}>Organizing Team</Text>
 					<View style={[styles.teamContainer]}>
 						{MOCK_DATA_ORGANIZING_TEAM.map((member) => (
@@ -214,6 +212,8 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: colors.DROIDCONKE_BLACK,
 		lineHeight: 20,
+		marginTop: 10,
+		marginBottom: 28,
 	},
 	container: {
 		backgroundColor: colors.DROIDCONKE_WHITE,
