@@ -8,6 +8,7 @@ import {
 	Image,
 	ScrollView,
 	TouchableOpacity,
+	ImageSourcePropType,
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,51 +19,52 @@ import ArrowLeftIcon from "../assets/icons/ArrowLeftIcon";
 import AndroidIcon from "../assets/icons/AndroidIcon";
 import { RootStackParamList } from "../types/Navigation";
 
+export enum ScreenTitle {
+	Speaker = "Speaker",
+	Team = "Team",
+}
+export interface BioDetails {
+	screenTitle: ScreenTitle;
+	id?: string;
+	title?: string; //Applicable where screenTitle === "Team"
+	img: ImageSourcePropType;
+	name: string;
+	occupation?: string;
+	skills: string[];
+	content: string;
+	twitterHandle: string;
+}
+
+//Mock bio to be replaced with data from the server
+export const MOCK_BIO: BioDetails = {
+	screenTitle: ScreenTitle.Speaker,
+	id: "1",
+	name: "Frank Tamre",
+	img: require("../assets/img/johndoe.png"),
+	occupation: "Kenya Partner Lead at doridcon Berlin",
+	skills: ["Android", "Kotlin", "Flutter", "C++"],
+	content:
+		"Worked at Intel, co-Founded Moringa School, then started @earlycamp to train young children from 5-16 on how to solve problems with technology.Started @interactive to tell African stories with Games to a global audience.Community wise I organize Android & Kotlin developers every month for a meetUp to chat about technology.I Lead a cool team in organizing droidConKE the largest android developer focussed event in Sub Saharan Africa.I train people,mentor them, build things, am highly experimental, read alot and socialize vertically.",
+	twitterHandle: "PriestTamzi",
+};
+
 const BioScreen = ({
 	navigation,
 	route,
 }: NativeStackScreenProps<RootStackParamList, screen_names.BIO, undefined>) => {
-	interface Speaker {
-		//Interface for a speaker type item
-		speakerid?: any | null;
-		speakerimg: any;
-		speakername: string;
-		speakerskill: [];
-		speakerbio: string;
-		speakerhandle: string;
+	const { bioData } = route.params;
+
+	//Loop through listed skills, format them ready for display and store them in a skills array
+	const skills = []; //Stores speaker skills Ex: Android, Kotlin
+	for (let i = 0; i <= bioData.skills.length; i++) {
+		skills.push(<Text key={i}>| {bioData.skills[i]} </Text>);
 	}
 
-	const Speakers =
-		//Dummy speaker data
-		{
-			speakerid: 1,
-			speakername: "Frank Tamre",
-			speakerimg: require("../assets/img/johndoe.png"),
-			speakeroccupation: "Kenya Partner Lead at doridcon Berlin",
-			speakerskill: ["Android", "Kotlin", "Flutter", "C++"],
-			speakerbio:
-				"Worked at Intel, co-Founded Moringa School, then started @earlycamp to train young children from 5-16 on how to solve problems with technology.Started @interactive to tell African stories with Games to a global audience.Community wise I organize Android & Kotlin developers every month for a meetUp to chat about technology.I Lead a cool team in organizing droidConKE the largest android developer focussed event in Sub Saharan Africa.I train people,mentor them, build things, am highly experimental, read alot and socialize vertically.",
-			speakerhandle: "PriestTamzi",
-		};
-
-	const item = Speakers; //Gets a speaker object matching the id passed as a parameter
-
-	var myloop = []; //Stores speaker skills Ex: Android, Kotlin
-	for (let i = 0; i <= item.speakerskill.length; i++) {
-		//Run loop while the iterator variable is less than the skill array from the speaker object's context
-		myloop.push(
-			//Push the speaker skills wrap in a text component in an array
-			<Text key={i}>| {item.speakerskill[i]} </Text>
-		);
-	}
-
-	var parragraphArray = item.speakerbio.split("."); //Create a new array by diving the speaker bio string. Fullstop denotes a new paragraph
-	var textElements = []; //Array to hold the bio 'paragraphs' with line break added
-	var j = 0;
+	const parragraphArray = bioData.content.split("."); //Create a new array by diving the speaker bio string. Fullstop denotes a new paragraph
+	const textElements = []; //Array to hold the bio 'paragraphs' with line break added
+	let j = 0;
 	while (j < parragraphArray.length) {
-		textElements.push(
-			parragraphArray[j] + "\n\n" //Loop through the paragraphs adding a newline  for aesthetics while storing them in a new arrar to be placed inside a text component
-		);
+		textElements.push(parragraphArray[j] + "\n\n");
 		j++;
 	}
 	return (
@@ -77,32 +79,42 @@ const BioScreen = ({
 							<TouchableOpacity onPress={() => navigation.goBack()}>
 								<ArrowLeftIcon color={colors.DROIDCONKE_PEARL} />
 							</TouchableOpacity>
-							<Text style={styles.speakerheadertext}>{route.params.title}</Text>
+							<Text style={styles.speakerheadertext}>
+								{bioData.screenTitle}
+							</Text>
 						</View>
 
-						<Image style={styles.profilepic} source={item.speakerimg} />
+						<Image style={styles.profilepic} source={bioData.img} />
 					</ImageBackground>
 				</View>
 				<View style={styles.sectiontwo}>
 					<View style={styles.sectiontwo_subsectionone}>
 						<View style={styles.sectiontwo_subsectiononeofone}>
-							<AndroidIcon
-								width={27}
-								height={27}
-								color={colors.DROIDCONKE_BRICK_RED}
-							/>
-							<Text style={styles.sectiontwo_subsectionone_itemone}>
-								Speaker:
-							</Text>
+							{bioData.screenTitle === ScreenTitle.Speaker ? (
+								<>
+									<AndroidIcon
+										width={27}
+										height={27}
+										color={colors.DROIDCONKE_BRICK_RED}
+									/>
+									<Text style={styles.sectiontwo_subsectionone_itemone}>
+										Speaker:
+									</Text>
+								</>
+							) : (
+								<Text style={styles.sectiontwo_subsectionone_itemone}>
+									{bioData.title}
+								</Text>
+							)}
 						</View>
 						<Text style={styles.sectiontwo_subsectionone_itemtwo}>
-							{item.speakername}
+							{bioData.name}
 						</Text>
 						<Text style={styles.sectiontwo_subsectionone_itemthree}>
-							{item.speakeroccupation}
+							{bioData.occupation}
 						</Text>
 						<Text style={styles.sectiontwo_subsectionone_itemthree}>
-							{myloop}
+							{skills}
 						</Text>
 					</View>
 					<ScrollView>
@@ -133,7 +145,7 @@ const BioScreen = ({
 									color: colors.DROIDCONKE_BLUE,
 								}}
 							>
-								{item.speakerhandle}
+								{bioData.twitterHandle}
 							</Text>
 						</View>
 					</TouchableOpacity>

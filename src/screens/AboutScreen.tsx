@@ -21,6 +21,8 @@ import TeamMemberCard from "../components/cards/TeamMemberCard";
 import Android254Icon from "../assets/icons/Android254Icon";
 import AppsLabIcon from "../assets/icons/AppsLabIcon";
 import TiskosIcon from "../assets/icons/TiskosIcon";
+import { MOCK_BIO, ScreenTitle } from "./BioScreen";
+import { RootStackParamList } from "../types/Navigation";
 
 //Dummy About Text. Hardcoded for now, to change once data from server is available
 const introText = `Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.
@@ -49,7 +51,11 @@ const MOCK_DATA_ORGANIZING_TEAM = makeDummyData();
 
 const AboutScreen = ({
 	navigation,
-}: NativeStackScreenProps<ParamListBase, screen_names.ABOUT, undefined>) => {
+}: NativeStackScreenProps<
+	RootStackParamList,
+	screen_names.ABOUT,
+	undefined
+>) => {
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
 			<StatusBar
@@ -116,7 +122,13 @@ const AboutScreen = ({
 								profileImage={member.image}
 								onPress={() =>
 									navigation.navigate(screen_names.BIO, {
-										title: "Team",
+										bioData: {
+											...MOCK_BIO,
+											screenTitle: ScreenTitle.Team,
+											title: member.title,
+											name: member.name,
+											img: member.image,
+										},
 									})
 								}
 								key={member.id}
