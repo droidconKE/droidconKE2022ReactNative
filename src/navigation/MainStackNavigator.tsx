@@ -12,7 +12,7 @@ import { fonts } from "../assets/fonts/fonts";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import BackArrowIcon from "../assets/icons/BackArrowIcon";
 import { colors } from "../constants/Colors";
-import SingleSpeakerScreen from "../screens/SingleSpeakerScreen";
+import BioScreen from "../screens/BioScreen";
 import { RootStackParamList } from "../types/Navigation";
 
 // Create stack navigator.
@@ -54,8 +54,8 @@ const MainStackNavigator = () => {
 				})}
 			/>
 			<Stack.Screen
-				name={screen_names.SINGLESPEAKER}
-				component={SingleSpeakerScreen}
+				name={screen_names.BIO}
+				component={BioScreen}
 				initialParams={{ title: "Speaker" }}
 				options={({ navigation }: { navigation: any }) => ({
 					headerShown: false,

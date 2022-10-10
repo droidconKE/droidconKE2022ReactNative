@@ -9,46 +9,46 @@ import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
 import { setUser } from "../state/user";
 
 type LoginScreenProps = NativeStackScreenProps<
-  ParamListBase,
-  screen_names.LOGIN,
-  undefined
+	ParamListBase,
+	screen_names.LOGIN,
+	undefined
 >;
 
 export default function LoginScreen({
-  navigation,
+	navigation,
 }: LoginScreenProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.user);
+	const dispatch = useAppDispatch();
+	const { user } = useAppSelector((state) => state.user);
 
-  function toggleUser() {
-    if (user) {
-      dispatch(setUser(undefined));
-    } else {
-      dispatch(setUser({ name: "John Doe", id: 0 }));
-    }
-  }
+	function toggleUser() {
+		if (user) {
+			dispatch(setUser(undefined));
+		} else {
+			dispatch(setUser({ name: "John Doe", id: 0 }));
+		}
+	}
 
-  return (
-    <View style={styles.container}>
-      <Text> {user ? `Welcome back ${user.name}` : "Press to log in"}</Text>
-      <Button title={user ? "Log out" : "Log in"} onPress={toggleUser} />
-      <Button
-        title="Go To Tabs"
-        onPress={() => navigation.navigate("HomeTabs")}
-      />
-      <Button
-        title="Single Speaker"
-        onPress={() => navigation.navigate("SingleSpeakerScreen")}
-      />
-    </View>
-  );
+	return (
+		<View style={styles.container}>
+			<Text> {user ? `Welcome back ${user.name}` : "Press to log in"}</Text>
+			<Button title={user ? "Log out" : "Log in"} onPress={toggleUser} />
+			<Button
+				title="Go To Tabs"
+				onPress={() => navigation.navigate(screen_names.HOMETABS)}
+			/>
+			<Button
+				title="Single Speaker"
+				onPress={() => navigation.navigate(screen_names.BIO)}
+			/>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.LIGHT_THEME_BACKGROUND_COLOR,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+	container: {
+		flex: 1,
+		backgroundColor: colors.LIGHT_THEME_BACKGROUND_COLOR,
+		alignItems: "center",
+		justifyContent: "center",
+	},
 });

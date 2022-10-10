@@ -115,7 +115,7 @@ const AboutScreen = ({
 								title={member.title}
 								profileImage={member.image}
 								onPress={() =>
-									navigation.navigate(screen_names.SINGLESPEAKER, {
+									navigation.navigate(screen_names.BIO, {
 										title: "Team",
 									})
 								}

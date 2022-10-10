@@ -8,7 +8,6 @@ import {
 	Image,
 	ScrollView,
 	TouchableOpacity,
-	ImageComponent,
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,14 +18,10 @@ import ArrowLeftIcon from "../assets/icons/ArrowLeftIcon";
 import AndroidIcon from "../assets/icons/AndroidIcon";
 import { RootStackParamList } from "../types/Navigation";
 
-const SingleSpeakerScreen = ({
+const BioScreen = ({
 	navigation,
 	route,
-}: NativeStackScreenProps<
-	RootStackParamList,
-	screen_names.SINGLESPEAKER,
-	undefined
->) => {
+}: NativeStackScreenProps<RootStackParamList, screen_names.BIO, undefined>) => {
 	interface Speaker {
 		//Interface for a speaker type item
 		speakerid?: any | null;
@@ -148,7 +143,7 @@ const SingleSpeakerScreen = ({
 	);
 };
 
-export default SingleSpeakerScreen;
+export default BioScreen;
 
 const styles = StyleSheet.create({
 	container: {
