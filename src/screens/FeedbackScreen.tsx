@@ -1,12 +1,12 @@
 import React , { useState } from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , StyleProp, ViewStyle} from "react-native";
+import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , TextStyle, ViewStyle , ImageStyle} from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { ParamListBase } from '@react-navigation/native';
 import { fonts } from '../assets/fonts/fonts';
 import { colors } from '../constants/Colors';
 
-const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.FEEDBACK, undefined>) => {
+const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.FEEDBACK, undefined>) : JSX.Element => {
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = React.useState("");
     const [selection, setSelection] = useState("");
@@ -65,7 +65,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
 
 type EmojiProp = {
   emojitype  : {emoji : string , text : string},
-  containerstyle : any
+  containerstyle : ViewStyle | ViewStyle[]
 }
 
 const Emojis = (props : EmojiProp) => {
@@ -79,7 +79,27 @@ const Emojis = (props : EmojiProp) => {
     )
 }
 
-const styles = StyleSheet.create({
+type FeedbackStyle = {
+  maincontainer : ViewStyle,
+  feedbacktext : TextStyle,
+  responsecontainer : ViewStyle,
+  emoji_container : ViewStyle,
+  clicked_emoji_container : ViewStyle,
+  response_container_text : TextStyle,
+  emojis_response_container : ViewStyle,
+  textinput_text : TextStyle,
+  button : ViewStyle,
+  buttontext : TextStyle,
+  modalView : ViewStyle,
+  modalButton : ViewStyle,
+  modalbuttontext : TextStyle,
+  modalText : TextStyle,
+  modalImage : ImageStyle,
+  emojitext : TextStyle,
+  emoji_image : TextStyle
+}
+
+const styles = StyleSheet.create<FeedbackStyle>({
     maincontainer : {
         flex : 1 ,
         alignItems : "center",
@@ -147,7 +167,7 @@ const styles = StyleSheet.create({
         color : colors.DROIDCONKE_WHITE,
         textAlign : "center"
     },
-      modalView: {
+    modalView: {
         backgroundColor: colors.DROIDCONKE_WHITE,
         borderRadius: 20,
         padding: 35,
@@ -156,8 +176,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf : "center",
         marginTop : Dimensions.get("screen").height / 5.5
-      },
-      modalButton: {
+    },
+    modalButton: {
         justifyContent : "center",
         alignContent : "center",
         width : 160,
@@ -165,33 +185,33 @@ const styles = StyleSheet.create({
         height : 45,
         borderRadius : 10,
         marginTop : 25
-      },
-      modalbuttontext: {
+    },
+    modalbuttontext: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
-      },
-      modalText: {
+    },
+    modalText: {
         textAlign : "center",
         color : colors.DROIDCONKE_BLACK,
         fontFamily : fonts.MONTSERRAT_BOLD,
         fontSize : 18,
         flexWrap : "wrap",
         width : 160
-      },
-      modalImage: {
+    },
+    modalImage: {
         height : 160,
         width : 160
-      },
-      emojitext: {
+    },
+    emojitext: {
         textAlign : "center", 
         fontFamily : fonts.MONTSERRAT_SEMIBOLD, 
         fontSize : 12
-      },
-      emoji_image : {
+    },
+    emoji_image : {
         textAlign : "center", 
         fontFamily : fonts.MONTSERRAT_REGULAR , 
         fontSize : 18
-      }
+    }
 })
 export default FeedBackScreen;
