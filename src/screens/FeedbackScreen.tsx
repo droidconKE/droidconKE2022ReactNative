@@ -15,9 +15,9 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
     const BadEmoji =  { emoji : "😔" , text : "Bad"}
     return (
       <ScrollView>
-        <View style={styles.maincontainer}>
-            <Text style={styles.feedbacktext}>Your feedback helps us improve</Text>
-            <View style={styles.responsecontainer}>
+        <View style={styles.main_container}>
+            <Text style={styles.feedback_text}>Your feedback helps us improve</Text>
+            <View style={styles.response_container}>
                 <Text style={styles.response_container_text}>
                 How is/was the event
                 </Text>
@@ -42,19 +42,19 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
           setModalVisible(!modalVisible);
         }}
       >
-          <View style={styles.modalView}>
-            <Image source={require("../assets/confetti.png")} style={styles.modalImage}/>
-            <Text style={styles.modalText}>Thank you for your feedback</Text>
+          <View style={styles.modal_view}>
+            <Image source={require("../assets/confetti.png")} style={styles.modal_image}/>
+            <Text style={styles.modal_text}>Thank you for your feedback</Text>
             <Pressable
-              style={styles.modalButton}
+              style={styles.modal_button}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.modalbuttontext}>OKAY</Text>
+              <Text style={styles.modal_button_text}>OKAY</Text>
             </Pressable>
           </View>
       </Modal>
             <TouchableOpacity style={styles.button} disabled={text == "" || selection == ""} onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.buttontext}>
+                <Text style={styles.button_text}>
                     SUBMIT FEEDBACK
                 </Text>
             </TouchableOpacity>
@@ -74,38 +74,38 @@ const Emojis = (props : EmojiProp) => {
   return (
     <View style={props.containerstyle}>
       <Text style={styles.emoji_image}> {emoji} </Text>
-      <Text style={styles.emojitext}>{text}</Text>
+      <Text style={styles.emoji_text}>{text}</Text>
     </View>
     )
 }
 
 type FeedbackStyle = {
-  maincontainer : ViewStyle,
-  feedbacktext : TextStyle,
-  responsecontainer : ViewStyle,
+  main_container : ViewStyle,
+  feedback_text : TextStyle,
+  response_container : ViewStyle,
   emoji_container : ViewStyle,
   clicked_emoji_container : ViewStyle,
   response_container_text : TextStyle,
   emojis_response_container : ViewStyle,
   textinput_text : TextStyle,
   button : ViewStyle,
-  buttontext : TextStyle,
-  modalView : ViewStyle,
-  modalButton : ViewStyle,
-  modalbuttontext : TextStyle,
-  modalText : TextStyle,
-  modalImage : ImageStyle,
-  emojitext : TextStyle,
+  button_text : TextStyle,
+  modal_view : ViewStyle,
+  modal_button : ViewStyle,
+  modal_button_text : TextStyle,
+  modal_text : TextStyle,
+  modal_image : ImageStyle,
+  emoji_text : TextStyle,
   emoji_image : TextStyle
 }
 
 const styles = StyleSheet.create<FeedbackStyle>({
-    maincontainer : {
+    main_container : {
         flex : 1 ,
         alignItems : "center",
         backgroundColor : colors.DROIDCONKE_WHITE
     },
-    feedbacktext : {
+    feedback_text : {
         textAlign : "center",
         color : colors.DROIDCONKE_BLUE ,
         width : "80%",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create<FeedbackStyle>({
         fontSize : 18,
         fontFamily : fonts.MONTSERRAT_BOLD
     },
-    responsecontainer : {
+    response_container : {
         alignItems : "center",
         marginBottom : 30,
         borderColor : "#F5F5F5",
@@ -161,13 +161,13 @@ const styles = StyleSheet.create<FeedbackStyle>({
         borderRadius : 10,
         height : 45
     } ,
-    buttontext : {
+    button_text : {
         fontSize : 16,
         fontFamily : fonts.MONTSERRAT_SEMIBOLD,
         color : colors.DROIDCONKE_WHITE,
         textAlign : "center"
     },
-    modalView: {
+    modal_view: {
         backgroundColor: colors.DROIDCONKE_WHITE,
         borderRadius: 20,
         padding: 35,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create<FeedbackStyle>({
         alignSelf : "center",
         marginTop : Dimensions.get("screen").height / 5.5
     },
-    modalButton: {
+    modal_button: {
         justifyContent : "center",
         alignContent : "center",
         width : 160,
@@ -186,12 +186,12 @@ const styles = StyleSheet.create<FeedbackStyle>({
         borderRadius : 10,
         marginTop : 25
     },
-    modalbuttontext: {
-        color: "white",
+    modal_button_text: {
+        color: colors.DROIDCONKE_WHITE,
         fontWeight: "bold",
         textAlign: "center"
     },
-    modalText: {
+    modal_text: {
         textAlign : "center",
         color : colors.DROIDCONKE_BLACK,
         fontFamily : fonts.MONTSERRAT_BOLD,
@@ -199,11 +199,11 @@ const styles = StyleSheet.create<FeedbackStyle>({
         flexWrap : "wrap",
         width : 160
     },
-    modalImage: {
+    modal_image: {
         height : 160,
         width : 160
     },
-    emojitext: {
+    emoji_text: {
         textAlign : "center", 
         fontFamily : fonts.MONTSERRAT_SEMIBOLD, 
         fontSize : 12
