@@ -47,7 +47,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
             <Text style={styles.modal_text}>Thank you for your feedback</Text>
             <Pressable
               style={styles.modal_button}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => navigation.navigate(screen_names.HOME)}
             >
               <Text style={styles.modal_button_text}>OKAY</Text>
             </Pressable>
