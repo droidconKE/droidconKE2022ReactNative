@@ -70,7 +70,7 @@ const BioScreen = ({
 	return (
 		<SafeAreaView>
 			<View style={styles.container}>
-				<View style={styles.sectionone}>
+				<View style={styles.header}>
 					<ImageBackground
 						style={styles.bgimage}
 						source={require("../assets/img/bgsinglespeaker.png")}
@@ -87,9 +87,9 @@ const BioScreen = ({
 						<Image style={styles.profilepic} source={bioData.img} />
 					</ImageBackground>
 				</View>
-				<View style={styles.sectiontwo}>
-					<View style={styles.sectiontwo_subsectionone}>
-						<View style={styles.sectiontwo_subsectiononeofone}>
+				<View style={styles.body}>
+					<View style={styles.bioSummary}>
+						<View style={styles.titleContainer}>
 							{bioData.screenTitle === ScreenTitle.Speaker ? (
 								<>
 									<AndroidIcon
@@ -97,43 +97,31 @@ const BioScreen = ({
 										height={27}
 										color={colors.DROIDCONKE_BRICK_RED}
 									/>
-									<Text style={styles.sectiontwo_subsectionone_itemone}>
-										Speaker:
-									</Text>
+									<Text style={styles.title}>Speaker:</Text>
 								</>
 							) : (
-								<Text style={styles.sectiontwo_subsectionone_itemone}>
-									{bioData.title}
-								</Text>
+								<Text style={styles.title}>{bioData.title}</Text>
 							)}
 						</View>
-						<Text style={styles.sectiontwo_subsectionone_itemtwo}>
-							{bioData.name}
-						</Text>
-						<Text style={styles.sectiontwo_subsectionone_itemthree}>
-							{bioData.occupation}
-						</Text>
-						<Text style={styles.sectiontwo_subsectionone_itemthree}>
-							{skills}
-						</Text>
+						<Text style={styles.name}>{bioData.name}</Text>
+						<Text style={styles.descriptionText}>{bioData.occupation}</Text>
+						<Text style={styles.descriptionText}>{skills}</Text>
 					</View>
 					<ScrollView>
-						<View style={styles.sectiontwo_subsectiontwo}>
-							<Text style={styles.sectiontwo_subsectiontwo_header}>Bio</Text>
-							<Text style={styles.sectiontwo_subsectiontwo_paragraph}>
-								{textElements}
-							</Text>
+						<View style={styles.bioDetailsContainer}>
+							<Text style={styles.bioDetailsHeader}>Bio</Text>
+							<Text style={styles.bioDetailsContent}>{textElements}</Text>
 						</View>
 					</ScrollView>
 				</View>
-				<View style={styles.sectionthree}>
-					<Text style={styles.sectionthree_text}>Twitter Handle</Text>
+				<View style={styles.footer}>
+					<Text style={styles.footerText}>Twitter Handle</Text>
 					<TouchableOpacity
 						onPress={() => {
 							alert("Twitter handle pressed!");
 						}}
 					>
-						<View style={styles.sectionthree_subsectionone}>
+						<View style={styles.twitterHandleButton}>
 							<TwitterIcon
 								width={30}
 								height={25}
@@ -141,7 +129,7 @@ const BioScreen = ({
 							/>
 							<Text
 								style={{
-									...styles.sectionthree_text,
+									...styles.footerText,
 									color: colors.DROIDCONKE_BLUE,
 								}}
 							>
@@ -163,18 +151,18 @@ const styles = StyleSheet.create({
 		height: "100%",
 		display: "flex",
 	},
-	sectionone: {
+	header: {
 		flex: 2,
 		position: "relative",
 	},
 	bgimage: {
 		flex: 1,
 	},
-	sectiontwo: {
+	body: {
 		backgroundColor: colors.DROIDCONKE_WHITE,
 		flex: 7,
 	},
-	sectionthree: {
+	footer: {
 		marginTop: 1,
 		backgroundColor: colors.DROIDCONKE_WHITE,
 		flex: 1,
@@ -183,7 +171,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		paddingHorizontal: 10,
 	},
-	sectionthree_text: {
+	footerText: {
 		fontSize: 16,
 		fontFamily: fonts.MONTSERRAT_REGULAR,
 	},
@@ -203,16 +191,16 @@ const styles = StyleSheet.create({
 		borderWidth: 3,
 		borderColor: colors.DROIDCONKE_LIGHT_GREEN,
 	},
-	sectiontwo_subsectionone: {
+	bioSummary: {
 		alignItems: "center",
 		paddingTop: 65,
 	},
-	sectiontwo_subsectionone_itemone: {
+	title: {
 		color: colors.DROIDCONKE_BRICK_RED,
 		fontSize: 15,
 		fontFamily: fonts.MONTSERRAT_REGULAR,
 	},
-	sectiontwo_subsectionone_itemtwo: {
+	name: {
 		color: colors.DROIDCONKE_BLUE,
 		fontSize: 20,
 		marginBottom: 10,
@@ -220,28 +208,28 @@ const styles = StyleSheet.create({
 		padding: 0,
 		lineHeight: 20,
 	},
-	sectiontwo_subsectionone_itemthree: {
+	descriptionText: {
 		fontWeight: "500",
 		color: colors.DROIDCONKE_LIGHT_GREY,
 		fontFamily: fonts.MONTSERRAT_REGULAR,
 	},
-	sectiontwo_subsectiontwo: {
+	bioDetailsContainer: {
 		height: "100%",
 		paddingHorizontal: 10,
 	},
-	sectiontwo_subsectiontwo_header: {
+	bioDetailsHeader: {
 		marginTop: 20,
 		color: colors.DROIDCONKE_BLUE,
 		fontSize: 20,
 		fontWeight: "900",
 		fontFamily: fonts.MONTSERRAT_BOLD,
 	},
-	sectiontwo_subsectiontwo_paragraph: {
+	bioDetailsContent: {
 		color: colors.DROIDCONKE_BLACK,
 		fontWeight: "400",
 		fontFamily: fonts.MONTSERRAT_REGULAR,
 	},
-	sectionthree_subsectionone: {
+	twitterHandleButton: {
 		borderWidth: 2,
 		paddingHorizontal: 25,
 		borderColor: colors.DROIDCONKE_BLUE,
@@ -259,7 +247,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		paddingHorizontal: 10,
 	},
-	sectiontwo_subsectiononeofone: {
+	titleContainer: {
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
