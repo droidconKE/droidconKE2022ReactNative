@@ -154,7 +154,7 @@ const HomeScreenNotLoggedIn = ({
             />
             <Image
               resizeMode="contain"
-              source={require("../assets/img/unnamed.png")}
+              source={require("../assets/img/flutter_kenya.png")}
             />
           </View>
           <View
