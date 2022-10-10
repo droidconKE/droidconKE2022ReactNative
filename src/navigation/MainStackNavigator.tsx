@@ -62,12 +62,12 @@ const MainStackNavigator = () => {
             color : "#FFFFFF"
           } ,
           header : () => (
-            <ImageBackground style={styles.speakersbackgroundimage} source={require("../assets/img/FeedbackBanner.png")}>
-            <View style={styles.speakerrowcontainer}>
-            <TouchableOpacity style={styles.speakerbackbutton} onPress= {() => navigation.goBack()}>
+            <ImageBackground style={styles.feedback_backgroundimage} source={require("../assets/img/FeedbackBanner.png")}>
+            <View style={styles.feedback_rowcontainer}>
+            <TouchableOpacity style={styles.feedback_backbutton} onPress= {() => navigation.goBack()}>
             <BackArrowIcon color={colors.DROIDCONKE_WHITE} />
             </TouchableOpacity>
-            <Text style={styles.speakerheadertext}> Feedback </Text>
+            <Text style={styles.feedback_headertext}> Feedback </Text>
             </View>
             </ImageBackground>
           )
@@ -85,23 +85,22 @@ const MainStackNavigator = () => {
 };
 
 const styles = StyleSheet.create({
-  speakerbackbutton : {
+  feedback_backbutton : {
     position : "absolute",
-    left : 10,
-    top : 4
+    left : 14,
   },
-  speakerheadertext : {
+  feedback_headertext : {
     color : "#FFFFFF",
     fontFamily : fonts.MONTSERRAT_REGULAR,
     fontSize : 18,
     position : "absolute",
     left : 45,
-    top : Platform.OS == "android" ? 8 : 10
+    top : Platform.OS == "android" ? 2 : 4
   },
-  speakersbackgroundimage : {
+  feedback_backgroundimage : {
     height : 160
   },
-  speakerrowcontainer : {
+  feedback_rowcontainer : {
     flexDirection : "row",
     marginTop : 20,
     position : "absolute"
