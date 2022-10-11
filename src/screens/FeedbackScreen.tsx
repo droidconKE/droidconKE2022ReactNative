@@ -41,6 +41,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
           setModalVisible(!modalVisible);
         }}
       >
+        <View style={styles.modal_overlay}>
           <View style={styles.modal_view}>
             <Image source={require("../assets/confetti.png")} style={styles.modal_image}/>
             <Text style={styles.modal_text}>Thank you for your feedback</Text>
@@ -51,6 +52,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
               <Text style={styles.modal_button_text}>OKAY</Text>
             </Pressable>
           </View>
+        </View>
       </Modal>
             <TouchableOpacity style={styles.button} disabled={text == "" || selection == ""} onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.button_text}>
@@ -94,7 +96,8 @@ type FeedbackStyle = {
   modal_text : TextStyle,
   modal_image : ImageStyle,
   emoji_text : TextStyle,
-  emoji_image : TextStyle
+  emoji_image : TextStyle,
+  modal_overlay : ViewStyle
 }
 
 const styles = StyleSheet.create<FeedbackStyle>({
@@ -166,19 +169,24 @@ const styles = StyleSheet.create<FeedbackStyle>({
         textAlign : "center"
     },
     modal_view: {
-        backgroundColor: colors.DROIDCONKE_WHITE,
+        backgroundColor:colors.DROIDCONKE_WHITE,
         borderRadius: 20,
         padding: 35,
         alignItems: "center",
         elevation: 5,
         justifyContent: "center",
         alignSelf : "center",
-        marginTop : Dimensions.get("screen").height / 5.5
+        marginTop : Dimensions.get("screen").height / 4,
+        width : "80%"
+    },
+    modal_overlay : {
+      flex : 1 , 
+      backgroundColor: colors.DROIDCONKE_MODAL_OVERLAY
     },
     modal_button: {
         justifyContent : "center",
         alignContent : "center",
-        width : 160,
+        width : "80%",
         backgroundColor : colors.DROIDCONKE_BLUE,
         height : 45,
         borderRadius : 10,
@@ -195,7 +203,7 @@ const styles = StyleSheet.create<FeedbackStyle>({
         fontFamily : fonts.MONTSERRAT_BOLD,
         fontSize : 18,
         flexWrap : "wrap",
-        width : 160
+        width : "80%"
     },
     modal_image: {
         height : 160,
