@@ -12,5 +12,6 @@ export enum screen_names {
     HOMETABS = "HomeTabs",
     SPEAKERS = "Speakers",
     FEEDBACK = "Feedback",
-    SINGLESPEAKER = "SingleSpeakerScreen"
+    SINGLESPEAKER = "SingleSpeakerScreen",
+    BIO = "BioScreen",
 }
