@@ -14,8 +14,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
     const OkayEmoji = { emoji : "😐" , text : "Okay" }
     const BadEmoji =  { emoji : "😔" , text : "Bad"}
     return (
-      <ScrollView>
-        <View style={styles.main_container}>
+      <ScrollView contentContainerStyle={styles.main_container}>
             <Text style={styles.feedback_text}>Your feedback helps us improve</Text>
             <View style={styles.response_container}>
                 <Text style={styles.response_container_text}>
@@ -58,7 +57,6 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
                     SUBMIT FEEDBACK
                 </Text>
             </TouchableOpacity>
-        </View>
         </ScrollView>
     )
 };
