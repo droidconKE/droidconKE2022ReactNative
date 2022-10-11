@@ -203,7 +203,7 @@ const styles = StyleSheet.create<FeedbackStyle>({
     },
     emoji_text: {
         textAlign : "center", 
-        fontFamily : fonts.MONTSERRAT_SEMIBOLD, 
+        fontFamily : fonts.MONTSERRAT_BOLD, 
         fontSize : 12
     },
     emoji_image : {
