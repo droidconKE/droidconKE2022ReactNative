@@ -37,9 +37,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
              transparent
              statusBarTranslucent={false}
              visible={modalVisible}
-             onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
+             onRequestClose={() => { setModalVisible(!modalVisible); }}
       >
         <View style={styles.modal_overlay}>
           <View style={styles.modal_view}>
@@ -49,7 +47,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, scre
               style={styles.modal_button}
               onPress={() => navigation.navigate(screen_names.HOME)}
             >
-              <Text style={styles.modal_button_text}>OKAY</Text>
+              <Text style={styles.button_text}>OKAY</Text>
             </Pressable>
           </View>
         </View>
@@ -92,7 +90,6 @@ type FeedbackStyle = {
   button_text : TextStyle,
   modal_view : ViewStyle,
   modal_button : ViewStyle,
-  modal_button_text : TextStyle,
   modal_text : TextStyle,
   modal_image : ImageStyle,
   emoji_text : TextStyle,
@@ -191,11 +188,6 @@ const styles = StyleSheet.create<FeedbackStyle>({
         height : 45,
         borderRadius : 10,
         marginTop : 25
-    },
-    modal_button_text: {
-        color: colors.DROIDCONKE_WHITE,
-        fontWeight: "bold",
-        textAlign: "center"
     },
     modal_text: {
         textAlign : "center",
