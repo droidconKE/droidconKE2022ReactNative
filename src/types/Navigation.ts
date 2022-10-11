@@ -9,4 +9,5 @@ export type RootStackParamList = {
 	[screen_names.HOMETABS]: undefined;
 	[screen_names.SPEAKERS]: undefined;
 	[screen_names.ABOUT]: undefined;
+	[screen_names.FEEDBACK]:undefined;
 };

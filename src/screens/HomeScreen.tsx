@@ -113,6 +113,9 @@ const HomeScreen = ({
 	// Function to navigate to Single Speaker screen.
 	const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.BIO);
 
+	//Function to navigate to Feedback scree.
+	const goToFeedbackScreen = () => navigation.navigate(screen_names.FEEDBACK)
+
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
 			<StatusBar
@@ -134,7 +137,8 @@ const HomeScreen = ({
 						layoutProperties.itemsCenter,
 					]}
 				>
-					<TouchableOpacity style={styles.buttonFeedback}>
+					<TouchableOpacity style={styles.buttonFeedback}
+					onPress={goToFeedbackScreen}>
 						<Image
 							resizeMode="contain"
 							source={require("../assets/icons/SmileyIcon.png")}

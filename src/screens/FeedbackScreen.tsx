@@ -2,11 +2,11 @@ import React , { useState } from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , TextStyle, ViewStyle , ImageStyle} from "react-native";
 import { screen_names } from '../constants/ScreenNames';
-import { ParamListBase } from '@react-navigation/native';
 import { fonts } from '../assets/fonts/fonts';
 import { colors } from '../constants/Colors';
+import { RootStackParamList } from '../types/Navigation';
 
-const FeedBackScreen = ({navigation}: NativeStackScreenProps<ParamListBase, screen_names.FEEDBACK, undefined>) : JSX.Element => {
+const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList, screen_names.FEEDBACK, undefined>)  => {
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = React.useState("");
     const [selection, setSelection] = useState("");
