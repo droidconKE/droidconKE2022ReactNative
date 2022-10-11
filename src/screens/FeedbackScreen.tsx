@@ -149,7 +149,11 @@ const styles = StyleSheet.create<FeedbackStyle>({
         height : 115,
         textAlign : "left",
         textAlignVertical : "top",
-        padding : 5
+        padding : 5,
+        borderRadius : 7,
+        fontFamily : fonts.MONTSERRAT_LIGHT,
+        fontSize : 14,
+        color : "#C3C3C3"
     },
     button : {
         backgroundColor : colors.DROIDCONKE_BLUE,
