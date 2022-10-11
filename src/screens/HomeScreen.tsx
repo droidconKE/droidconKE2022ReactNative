@@ -85,29 +85,30 @@ const MOCK_DATA_SESSIONS = [
 const HomeScreen = ({
 	navigation,
 }: NativeStackScreenProps<ParamListBase, screen_names.HOME, undefined>) => {
-  // Video ref.
-  const video = useRef(null);
+	// Video ref.
+	const video = useRef(null);
 
-  // Mute status.
-  const [isVideoMute, setIsVideoMute] = useState(true);
+	// Mute status.
+	const [isVideoMute, setIsVideoMute] = useState(true);
 
-  // Redux dispatch.
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.user);
+	// Redux dispatch.
+	const dispatch = useAppDispatch();
+	const { user } = useAppSelector((state) => state.user);
 
-  // Login helper function
-  const login = () => {
-    dispatch(setUser({ name: "John Doe", id: 0 }));
-  };
+	// Login helper function
+	const login = () => {
+		dispatch(setUser({ name: "John Doe", id: 0 }));
+	};
 
-  if (!user) {
-    return <HomeScreenNotLoggedIn handleLogin={login} />;
-  }
+	if (!user) {
+		return <HomeScreenNotLoggedIn handleLogin={login} />;
+	}
 
+	// Function to navigate to Speakers screen.
+	const goToSpeakersScreen = () => navigation.navigate(screen_names.SPEAKERS);
 
-  // function to toggle mute status
-  const toggleMute = () => setIsVideoMute(!isVideoMute);
-
+	// function to toggle mute status
+	const toggleMute = () => setIsVideoMute(!isVideoMute);
 
 	// Function to navigate to Single Speaker screen.
 	const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.BIO);
@@ -284,7 +285,7 @@ const HomeScreen = ({
 						>
 							<Image
 								resizeMode="contain"
-								source={require("../assets/img/1920px-Google_2015_logo.svg.png")}
+								source={require("../assets/img/google.png")}
 								style={styles.marginVerticalIcons}
 							/>
 						</View>
@@ -297,7 +298,7 @@ const HomeScreen = ({
 						>
 							<Image
 								resizeMode="contain"
-								source={require("../assets/img/Andela-logo-landscape-blue.png")}
+								source={require("../assets/img/andela_landscape_blue.png")}
 							/>
 							<Image
 								resizeMode="contain"
@@ -334,7 +335,7 @@ const HomeScreen = ({
 							/>
 							<Image
 								resizeMode="contain"
-								source={require("../assets/img/unnamed.png")}
+								source={require("../assets/img/flutter_kenya.png")}
 							/>
 						</View>
 						<View
@@ -347,7 +348,7 @@ const HomeScreen = ({
 							<AppsLabIcon />
 							<Image
 								resizeMode="contain"
-								source={require("../assets/img/Layer2-1.png")}
+								source={require("../assets/img/early_camp.png")}
 							/>
 							<TiskosIcon />
 						</View>

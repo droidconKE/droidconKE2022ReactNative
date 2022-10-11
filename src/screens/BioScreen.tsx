@@ -40,7 +40,7 @@ export const MOCK_BIO: BioDetails = {
 	screenTitle: ScreenTitle.Speaker,
 	id: "1",
 	name: "Frank Tamre",
-	img: require("../assets/img/johndoe.png"),
+	img: require("../assets/img/john_doe.png"),
 	occupation: "Kenya Partner Lead at doridcon Berlin",
 	skills: ["Android", "Kotlin", "Flutter", "C++"],
 	content:
@@ -73,7 +73,7 @@ const BioScreen = ({
 				<View style={styles.header}>
 					<ImageBackground
 						style={styles.bgimage}
-						source={require("../assets/img/bgsinglespeaker.png")}
+						source={require("../assets/img/bg_single_speaker.png")}
 					>
 						<View style={styles.backbutton}>
 							<TouchableOpacity onPress={() => navigation.goBack()}>

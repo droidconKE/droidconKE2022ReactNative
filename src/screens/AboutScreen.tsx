@@ -31,7 +31,7 @@ This three-day developer focused gathering will be held in Nairobi Kenya on Augu
 
 It will have workshops and codelabs focused on the building of Android applications and will give participants an excellent chance to learn about the local Android development ecosystem, opportunities and services as well as meet the engineers and companies who work on them.`;
 
-const profileImage: ImageSourcePropType = require("../assets/img/DummySpeakerProfilePicture.jpeg");
+const profileImage: ImageSourcePropType = require("../assets/img/john_doe.png");
 
 //Temporary function to make dummy data for the organizing team
 const makeDummyData = (n = 17) => {
@@ -160,7 +160,7 @@ const AboutScreen = ({
 							/>
 							<Image
 								resizeMode="contain"
-								source={require("../assets/img/unnamed.png")}
+								source={require("../assets/img/flutter_kenya.png")}
 							/>
 						</View>
 						<View
@@ -173,7 +173,7 @@ const AboutScreen = ({
 							<AppsLabIcon />
 							<Image
 								resizeMode="contain"
-								source={require("../assets/img/Layer2-1.png")}
+								source={require("../assets/img/early_camp.png")}
 							/>
 							<TiskosIcon />
 						</View>
