@@ -1,15 +1,15 @@
 // screen names
 
 export enum screen_names {
-    WELCOME = "WelcomeScreen",
-    LOGIN = "LoginScreen",
-    SIGNUP = "SignupScreen",
-    HOME = "Home",
-    EXAMPLE = "ExampleScreen",
-    FEED = "Feed",
-    SESSIONS = "Sessions",
-    ABOUT = "About",
-    HOMETABS = "HomeTabs",
-    SPEAKERS = "Speakers",
-    SINGLESPEAKER = "SingleSpeakerScreen"
+	WELCOME = "WelcomeScreen",
+	LOGIN = "LoginScreen",
+	SIGNUP = "SignupScreen",
+	HOME = "Home",
+	EXAMPLE = "ExampleScreen",
+	FEED = "Feed",
+	SESSIONS = "Sessions",
+	ABOUT = "About",
+	HOMETABS = "HomeTabs",
+	SPEAKERS = "Speakers",
+	BIO = "BioScreen",
 }
