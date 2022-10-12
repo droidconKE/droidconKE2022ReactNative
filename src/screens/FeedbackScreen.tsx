@@ -8,8 +8,8 @@ import { RootStackParamList } from '../types/Navigation';
 
 const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList, screen_names.FEEDBACK, undefined>)  => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [text, onChangeText] = React.useState("");
-    const [selection, setSelection] = useState("");
+    const [feedbackMessage, onChangeFeedbackMessage] = React.useState("");
+    const [eventRating, setEventRating] = useState("");
     const GreatEmoji = { emoji : "😊" , text : "Great" }
     const OkayEmoji = { emoji : "😐" , text : "Okay" }
     const BadEmoji =  { emoji : "😔" , text : "Bad"}
@@ -22,18 +22,18 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
                 How is/was the event
                 </Text>
                 <View style={styles.emojis_response_container}>
-                  <TouchableOpacity onPress={() => setSelection(BadEmoji.text)} >
-                    <Emojis emojitype={BadEmoji} containerstyle={ selection == BadEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(BadEmoji.text)} >
+                    <Emojis emojitype={BadEmoji} containerstyle={ eventRating == BadEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setSelection(OkayEmoji.text)} >
-                    <Emojis emojitype={OkayEmoji} containerstyle={ selection == OkayEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(OkayEmoji.text)} >
+                    <Emojis emojitype={OkayEmoji} containerstyle={ eventRating == OkayEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setSelection(GreatEmoji.text)} >
-                    <Emojis emojitype={GreatEmoji} containerstyle={ selection == GreatEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(GreatEmoji.text)} >
+                    <Emojis emojitype={GreatEmoji} containerstyle={ eventRating == GreatEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
                 </View>
             </View>
-            <TextInput returnKeyType='done'  onSubmitEditing={() => {Keyboard.dismiss()}} style={styles.textinput_text} value={text} onChangeText={onChangeText} multiline={true} placeholder={"Type message here"}></TextInput>
+            <TextInput returnKeyType='done'  onSubmitEditing={() => {Keyboard.dismiss()}} style={styles.textinput_text} value={feedbackMessage} onChangeText={onChangeFeedbackMessage} multiline={true} placeholder={"Type message here"}></TextInput>
             <Modal
              transparent
              statusBarTranslucent={false}
@@ -53,7 +53,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
           </View>
         </View>
       </Modal>
-            <TouchableOpacity style={styles.button} disabled={text == "" || selection == ""} onPress={() => setModalVisible(!modalVisible)}>
+            <TouchableOpacity style={styles.button} disabled={feedbackMessage == "" || eventRating == ""} onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.button_text}>
                     SUBMIT FEEDBACK
                 </Text>
