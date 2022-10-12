@@ -10,9 +10,9 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
     const [modalVisible, setModalVisible] = useState(false);
     const [feedbackMessage, onChangeFeedbackMessage] = React.useState("");
     const [eventRating, setEventRating] = useState("");
-    const GreatEmoji = { emoji : "😊" , text : "Great" }
-    const OkayEmoji = { emoji : "😐" , text : "Okay" }
-    const BadEmoji =  { emoji : "😔" , text : "Bad"}
+    const GreatEventRating = { emoji : "😊" , text : "Great" }
+    const OkayEventRating = { emoji : "😐" , text : "Okay" }
+    const BadEventRating =  { emoji : "😔" , text : "Bad"}
     return (
       <View style={styles.background_container}>
       <ScrollView contentContainerStyle={styles.main_container}>
@@ -22,14 +22,14 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
                 How is/was the event
                 </Text>
                 <View style={styles.emojis_response_container}>
-                  <TouchableOpacity onPress={() => setEventRating(BadEmoji.text)} >
-                    <Emojis emojitype={BadEmoji} containerstyle={ eventRating == BadEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(BadEventRating.text)} >
+                    <EventRating eventrating={BadEventRating} containerstyle={ eventRating == BadEventRating.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setEventRating(OkayEmoji.text)} >
-                    <Emojis emojitype={OkayEmoji} containerstyle={ eventRating == OkayEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(OkayEventRating.text)} >
+                    <EventRating eventrating={OkayEventRating} containerstyle={ eventRating == OkayEventRating.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setEventRating(GreatEmoji.text)} >
-                    <Emojis emojitype={GreatEmoji} containerstyle={ eventRating == GreatEmoji.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(GreatEventRating.text)} >
+                    <EventRating eventrating={GreatEventRating} containerstyle={ eventRating == GreatEventRating.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
                 </View>
             </View>
@@ -63,14 +63,14 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
     )
 };
 
-type EmojiProp = {
-  emojitype  : {emoji : string , text : string},
+type EventRatingProp = {
+  eventrating  : {emoji : string , text : string},
   containerstyle : ViewStyle | ViewStyle[]
 }
 
-const Emojis = (props : EmojiProp) => {
-  const text : string = props.emojitype.text
-  const emoji : string = props.emojitype.emoji
+const EventRating = (props : EventRatingProp) => {
+  const text : string = props.eventrating.text
+  const emoji : string = props.eventrating.emoji
   return (
     <View style={props.containerstyle}>
       <Text style={styles.emoji_image}> {emoji} </Text>
