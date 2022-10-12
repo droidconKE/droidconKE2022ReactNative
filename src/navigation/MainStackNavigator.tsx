@@ -7,7 +7,7 @@ import { screen_names } from "../constants/ScreenNames";
 import BottomTabsNavigator from "./BottomTabsNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import SpeakersScreen from "../screens/SpeakersScreen";
-import FeedBackScreen from "../screens/FeedBackScreen";
+import FeedBackScreen from "../screens/FeedbackScreen";
 
 import { fonts } from "../assets/fonts/fonts";
 import { TouchableOpacity, StyleSheet , Platform , View , Text, ImageBackground } from "react-native";
