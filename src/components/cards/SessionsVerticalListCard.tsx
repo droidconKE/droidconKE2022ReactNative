@@ -47,7 +47,7 @@ export default function SessionsVerticalListCard(
           )}
         </View>
       </View>
-      <Star />
+      <Star color={"#000ceb"} />
     </View>
   );
 }
