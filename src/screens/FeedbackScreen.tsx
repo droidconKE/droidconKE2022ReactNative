@@ -14,6 +14,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
     const OkayEmoji = { emoji : "😐" , text : "Okay" }
     const BadEmoji =  { emoji : "😔" , text : "Bad"}
     return (
+      <View style={styles.background_container}>
       <ScrollView contentContainerStyle={styles.main_container}>
             <Text style={styles.feedback_text}>Your feedback helps us improve</Text>
             <View style={styles.response_container}>
@@ -58,6 +59,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
                 </Text>
             </TouchableOpacity>
         </ScrollView>
+      </View>
     )
 };
 
@@ -78,6 +80,7 @@ const Emojis = (props : EmojiProp) => {
 }
 
 type FeedbackStyle = {
+  background_container : ViewStyle,
   main_container : ViewStyle,
   feedback_text : TextStyle,
   response_container : ViewStyle,
@@ -98,6 +101,10 @@ type FeedbackStyle = {
 }
 
 const styles = StyleSheet.create<FeedbackStyle>({
+  background_container : {
+    backgroundColor : colors.DROIDCONKE_WHITE,
+    flex : 1
+  },
     main_container : {
         alignItems : "center",
         backgroundColor : colors.DROIDCONKE_WHITE
