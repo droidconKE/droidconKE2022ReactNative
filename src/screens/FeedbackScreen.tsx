@@ -199,7 +199,7 @@ const styles = StyleSheet.create<FeedbackStyle>({
         fontFamily : fonts.MONTSERRAT_BOLD,
         fontSize : 18,
         flexWrap : "wrap",
-        width : "80%"
+        width : "60%"
     },
     modal_image: {
         height : 160,
