@@ -153,7 +153,7 @@ const styles = StyleSheet.create<FeedbackStyle>({
         borderRadius : 7,
         fontFamily : fonts.MONTSERRAT_LIGHT,
         fontSize : 14,
-        color : "#C3C3C3"
+        color : colors.DROIDCONKE_FEEDBACK_INPUT_TEXT
     },
     button : {
         backgroundColor : colors.DROIDCONKE_BLUE,
