@@ -8,10 +8,10 @@ import useCachedResources from "../../hooks/useCachedResources";
 export type SessionsVerticalListCardProps = {
   star: boolean;
   title: string;
-  venue: string;
+  venue?: string;
   startTime: string;
-  endTime: string;
-  presenter: string;
+  endTime?: string;
+  presenter?: string;
   programTitle: string;
 };
 
@@ -33,14 +33,18 @@ export default function SessionsVerticalListCard(
         <View style={styles.containerSessionDetails}>
           <Text style={styles.programTitle}>{props.programTitle}</Text>
           <Text style={styles.sessionTitle}>{props.title}</Text>
-          <Text style={styles.durationAndVenue}>
-            {props.startTime} - {props.endTime} |{" "}
-            {props.venue.toLocaleUpperCase()}
-          </Text>
-          <View style={styles.speakerContainer}>
-            <AndroidIcon width={17} color="rgba(0, 12, 235, 1)" />
-            <Text style={styles.speakerName}>{props.presenter}</Text>
-          </View>
+          {props.venue && props.endTime && (
+            <Text style={styles.durationAndVenue}>
+              {props.startTime} - {props.endTime} |{" "}
+              {props.venue.toLocaleUpperCase()}
+            </Text>
+          )}
+          {props.presenter && (
+            <View style={styles.speakerContainer}>
+              <AndroidIcon width={17} color="rgba(0, 12, 235, 1)" />
+              <Text style={styles.speakerName}>{props.presenter}</Text>
+            </View>
+          )}
         </View>
       </View>
       <Star />
