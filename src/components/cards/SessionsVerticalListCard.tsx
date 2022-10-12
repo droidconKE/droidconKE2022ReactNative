@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     flexDirection: "row",
+    padding: 16,
   },
   startTime: {
     fontFamily: fonts.MONTSERRAT_MEDIUM,
