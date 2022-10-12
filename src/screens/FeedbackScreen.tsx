@@ -99,7 +99,6 @@ type FeedbackStyle = {
 
 const styles = StyleSheet.create<FeedbackStyle>({
     main_container : {
-        flex : 1 ,
         alignItems : "center",
         backgroundColor : colors.DROIDCONKE_WHITE
     },
