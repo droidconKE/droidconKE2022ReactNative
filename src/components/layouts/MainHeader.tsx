@@ -22,7 +22,9 @@ const MainHeader = (props: MainHeaderProps) => {
 		useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
 	//Temporary/experimental navigation to sign-in/sign-out screen from the profile picture icon
-	const handlePress = () => navigation.navigate(screen_names.LOGIN);
+	const goTOLoginScreen = () => navigation.navigate(screen_names.LOGIN);
+
+	const goToFeedbackScreen = () => navigation.navigate(screen_names.FEEDBACK);
 
 	if (!user)
 		return (
@@ -30,7 +32,7 @@ const MainHeader = (props: MainHeaderProps) => {
 				<DroidconKeIcon width={150} style={styles.droidconkeIcon} />
 				<TouchableOpacity
 					style={styles.iconWrapper}
-					onPress={props.onPress ?? handlePress}
+					onPress={props.onPress ?? goTOLoginScreen}
 				>
 					<LockIcon />
 				</TouchableOpacity>
@@ -53,7 +55,10 @@ const MainHeader = (props: MainHeaderProps) => {
 					layoutProperties.itemsCenter,
 				]}
 			>
-				<TouchableOpacity style={styles.buttonFeedback}>
+				<TouchableOpacity
+					style={styles.buttonFeedback}
+					onPress={goToFeedbackScreen}
+				>
 					<Image
 						resizeMode="contain"
 						source={require("../../assets/icons/SmileyIcon.png")}
@@ -72,7 +77,7 @@ const MainHeader = (props: MainHeaderProps) => {
 						source={require("../../assets/icons/SendIcon.png")}
 					/>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.iconWrapper} onPress={handlePress}>
+				<TouchableOpacity style={styles.iconWrapper} onPress={goTOLoginScreen}>
 					<Image
 						resizeMode="contain"
 						source={require("../../assets/img/profilepicture.png")}
