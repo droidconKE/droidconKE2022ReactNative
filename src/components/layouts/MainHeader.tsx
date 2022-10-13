@@ -95,14 +95,15 @@ const styles = StyleSheet.create({
 		...layoutProperties.flexRow,
 		...layoutProperties.justifyBetween,
 		...layoutProperties.itemsCenter,
-		marginRight: 10,
+		marginRight: 3,
 		paddingHorizontal: 20,
 	},
 	signedInHeader: {
 		...layoutProperties.flexRow,
 		...layoutProperties.justifyAround,
 		...layoutProperties.itemsCenter,
-		marginHorizontal: 10,
+		marginRight: 20,
+		marginLeft: 10,
 	},
 	marginVerticalSeparator: {
 		marginVertical: 15,
