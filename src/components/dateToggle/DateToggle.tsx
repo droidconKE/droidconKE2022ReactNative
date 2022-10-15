@@ -7,6 +7,7 @@ export type DateToggleProps = {
   selected: boolean;
   date: string;
   day: string;
+  fullDate: string;
 };
 
 export default function DateToggle({

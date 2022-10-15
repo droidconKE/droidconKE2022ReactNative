@@ -34,7 +34,7 @@ export default function SessionsVerticalList(props: SessionsVerticalListProps) {
 }
 
 const styles = StyleSheet.create({
-  listContainer: { padding: 0 },
+  listContainer: { paddingBottom: 80 },
   cardContainer: { marginLeft: 50, marginVertical: 6 },
   listHolder: {
     marginTop: 20,

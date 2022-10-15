@@ -28,7 +28,8 @@ export type SessionsScreenProps = {
 
 const SessionsScreen = (props: SessionsScreenProps) => {
   const { schedule } = useAppSelector((state) => state.schedule);
-  const [dates, setDates] = useState<DateToggleListProps | undefined>();
+  const [dates, setDates] =
+    useState<Pick<DateToggleListProps, "items"> | undefined>();
   const [mySessions, setMySessions] = useState<boolean>(false);
   const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
@@ -40,8 +41,9 @@ const SessionsScreen = (props: SessionsScreenProps) => {
   }, []);
 
   useEffect(() => {
+    console.log({ selectedDate });
     extractDatesFromSchedule();
-  }, [schedule]);
+  }, [schedule, selectedDate]);
 
   useEffect(() => {
     if (selectedDate && schedule) {
@@ -56,16 +58,21 @@ const SessionsScreen = (props: SessionsScreenProps) => {
         return {
           date: `${new Date(key).getDate()}th`,
           day: `Day ${index + 1}`,
+          fullDate: key,
           selected: key === selectedDate,
         };
       });
       setDates({ items: dates });
-      setSelectedDate(keys[0]);
     }
   }
 
   function onValueChange(value: boolean) {
     setMySessions(value);
+  }
+
+  function onDayChange(day: string) {
+    console.log({ day, dates });
+    setSelectedDate(day);
   }
 
   return (
@@ -75,7 +82,7 @@ const SessionsScreen = (props: SessionsScreenProps) => {
         <ScrollView>
           <View style={{ paddingBottom: 20 }}>
             <View style={styles.belowHeader}>
-              {dates && <DateToggleList {...dates} />}
+              {dates && <DateToggleList {...dates} onChange={onDayChange} />}
               <View style={styles.switchHolder}>
                 <SwitchWithIcons
                   value={mySessions}
