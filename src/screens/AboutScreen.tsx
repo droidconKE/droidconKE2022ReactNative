@@ -8,14 +8,11 @@ import {
 	StatusBar,
 	StyleSheet,
 	Text,
-	TouchableOpacity,
 	View,
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
-import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { layoutProperties } from "../constants/Properties";
-import DroidconKeIcon from "../assets/icons/DroidconKeIcon";
 import { fonts } from "../assets/fonts/fonts";
 import TeamMemberCard from "../components/cards/TeamMemberCard";
 import Android254Icon from "../assets/icons/Android254Icon";
@@ -23,6 +20,7 @@ import AppsLabIcon from "../assets/icons/AppsLabIcon";
 import TiskosIcon from "../assets/icons/TiskosIcon";
 import { MOCK_BIO, ScreenTitle } from "./BioScreen";
 import { RootStackParamList } from "../types/Navigation";
+import MainHeader from "../components/layouts/MainHeader";
 
 //Dummy About Text. Hardcoded for now, to change once data from server is available
 const introText = `Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.
@@ -62,48 +60,7 @@ const AboutScreen = ({
 				backgroundColor={colors.DROIDCONKE_WHITE}
 				barStyle="dark-content"
 			/>
-			<View
-				style={[
-					styles.header,
-					styles.marginVerticalSeparator,
-					styles.paddingHorizontal,
-				]}
-			>
-				<DroidconKeIcon width={150} style={styles.droidconkeIcon} />
-				<View
-					style={[
-						layoutProperties.flexRow,
-						layoutProperties.justifyBetween,
-						layoutProperties.itemsCenter,
-					]}
-				>
-					<TouchableOpacity style={styles.buttonFeedback}>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/icons/SmileyIcon.png")}
-							style={styles.buttonFeedbackContentMargin}
-						/>
-						<Text
-							style={[
-								styles.buttonFeedbackText,
-								styles.buttonFeedbackContentMargin,
-							]}
-						>
-							Feedback
-						</Text>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/icons/SendIcon.png")}
-						/>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.iconWrapper}>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/img/profilepicture.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
+			<MainHeader />
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<Image
 					source={require("../assets/img/about.png")}
@@ -231,12 +188,6 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.DROIDCONKE_WHITE,
 		flex: 1,
 	},
-	header: {
-		...layoutProperties.flexRow,
-		...layoutProperties.justifyAround,
-		...layoutProperties.itemsCenter,
-		marginHorizontal: 10,
-	},
 	marginVerticalSeparator: {
 		marginVertical: 15,
 	},
@@ -245,34 +196,6 @@ const styles = StyleSheet.create({
 	},
 	paddingHorizontal: {
 		paddingHorizontal: 20,
-	},
-	droidconkeIcon: {
-		marginVertical: -100,
-		marginLeft: -10,
-	},
-	buttonFeedback: {
-		backgroundColor: colors.DROIDCONKE_GREEN_TRANSLUCENT,
-		padding: 12,
-		borderRadius: 10,
-		...layoutProperties.flexRow,
-		...layoutProperties.itemsCenter,
-		...layoutProperties.justifyEvenly,
-		marginRight: 25,
-	},
-	buttonFeedbackText: {
-		fontFamily: fonts.MONTSERRAT_REGULAR,
-		fontSize: 12,
-	},
-	buttonFeedbackContentMargin: {
-		marginRight: 8,
-	},
-	iconWrapper: {
-		backgroundColor: colors.DROIDCONKE_GREEN,
-		width: 29,
-		height: 29,
-		...layoutProperties.justifyCenter,
-		...layoutProperties.itemsCenter,
-		borderRadius: 14.45,
 	},
 });
 

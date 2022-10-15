@@ -51,6 +51,7 @@ const BottomTabsNavigator = () => {
 				name={screen_names.FEED}
 				component={FeedScreen}
 				options={{
+					headerShown: false,
 					tabBarIcon: (props: {
 						focused: boolean;
 						color: string;

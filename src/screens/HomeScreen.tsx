@@ -25,7 +25,6 @@ import { setUser } from "../state/user";
 import SessionCard, { SessionCardProps } from "../components/cards/SessionCard";
 import { MOCK_DATA_SPEAKERS } from "./SpeakersScreen";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
-import DroidconKeIcon from "../assets/icons/DroidconKeIcon";
 import { ResizeMode, Video } from "expo-av";
 import { useRef } from "react";
 import { useState } from "react";
@@ -33,6 +32,7 @@ import VolumeUp from "../assets/icons/VolumeUp";
 import VolumeOff from "../assets/icons/VolumeOff";
 import HomeScreenNotLoggedIn from "./HomeScreenNotLoggedIn";
 import { layoutProperties } from "../constants/Properties";
+import MainHeader from "../components/layouts/MainHeader";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -113,58 +113,13 @@ const HomeScreen = ({
 	// Function to navigate to Single Speaker screen.
 	const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.BIO);
 
-	//Function to navigate to Feedback scree.
-	const goToFeedbackScreen = () => navigation.navigate(screen_names.FEEDBACK)
-
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
 			<StatusBar
 				backgroundColor={colors.DROIDCONKE_WHITE}
 				barStyle="dark-content"
 			/>
-			<View
-				style={[
-					styles.header,
-					styles.marginVerticalSeparator,
-					styles.paddingHorizontal,
-				]}
-			>
-				<DroidconKeIcon width={150} style={styles.droidconkeIcon} />
-				<View
-					style={[
-						layoutProperties.flexRow,
-						layoutProperties.justifyBetween,
-						layoutProperties.itemsCenter,
-					]}
-				>
-					<TouchableOpacity style={styles.buttonFeedback}
-					onPress={goToFeedbackScreen}>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/icons/SmileyIcon.png")}
-							style={styles.buttonFeedbackContentMargin}
-						/>
-						<Text
-							style={[
-								styles.buttonFeedbackText,
-								styles.buttonFeedbackContentMargin,
-							]}
-						>
-							Feedback
-						</Text>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/icons/SendIcon.png")}
-						/>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.iconWrapper}>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/img/profilepicture.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
+			<MainHeader />
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={[styles.paddingHorizontal]}>
 					<Video
@@ -374,20 +329,6 @@ const styles = StyleSheet.create({
 	paddingHorizontal: {
 		paddingHorizontal: 20,
 	},
-	header: {
-		...layoutProperties.flexRow,
-		...layoutProperties.justifyBetween,
-		...layoutProperties.itemsCenter,
-		marginHorizontal: 10,
-	},
-	iconWrapper: {
-		backgroundColor: colors.DROIDCONKE_GREEN,
-		width: 29,
-		height: 29,
-		...layoutProperties.justifyCenter,
-		...layoutProperties.itemsCenter,
-		borderRadius: 14.45,
-	},
 	welcomeText: {
 		fontFamily: fonts.MONTSERRAT_SEMIBOLD,
 		fontSize: 16,
@@ -455,22 +396,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		...layoutProperties.itemsCenter,
 	},
-	buttonFeedback: {
-		backgroundColor: colors.DROIDCONKE_GREEN_TRANSLUCENT,
-		padding: 12,
-		borderRadius: 10,
-		...layoutProperties.flexRow,
-		...layoutProperties.itemsCenter,
-		...layoutProperties.justifyEvenly,
-		marginRight: 30,
-	},
-	buttonFeedbackText: {
-		fontFamily: fonts.MONTSERRAT_REGULAR,
-		fontSize: 12,
-	},
-	buttonFeedbackContentMargin: {
-		marginRight: 8,
-	},
 	link: {
 		color: colors.DROIDCONKE_BLUE,
 		fontFamily: fonts.MONTSERRAT_MEDIUM,
@@ -494,10 +419,6 @@ const styles = StyleSheet.create({
 		marginVertical: 20,
 		borderRadius: 10,
 		backgroundColor: colors.DROIDCONKE_BLUE_TRANSLUCENT,
-	},
-	droidconkeIcon: {
-		marginVertical: -100,
-		marginLeft: -10,
 	},
 	volumeControl: {
 		position: "absolute",
