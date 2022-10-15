@@ -7,6 +7,7 @@ const Star = (props: SvgProps) => (
     width={props.fontSize || 22}
     height={props.fontSize || 22}
     fill={props.fill || "white"}
+    viewBox={props.viewBox || "0 0 22 22"}
     {...props}
   >
     <G data-name="Layer 2">
