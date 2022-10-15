@@ -42,7 +42,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
       >
         <View style={styles.modal_overlay}>
           <View style={styles.modal_view}>
-            <Image source={require("../assets/confetti.png")} style={styles.modal_image}/>
+            <Image source={require("../assets/img/cone_confetti.png")} style={styles.modal_image}/>
             <Text style={styles.modal_text}>Thank you for your feedback</Text>
             <Pressable
               style={styles.modal_button}

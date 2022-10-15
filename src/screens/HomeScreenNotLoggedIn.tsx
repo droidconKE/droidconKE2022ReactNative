@@ -64,7 +64,7 @@ const HomeScreenNotLoggedIn = ({
 					<View style={[styles.cfpContainer, styles.marginVerticalSeparator2]}>
 						<Image
 							resizeMode="stretch"
-							source={require("../assets/img/confetti.png")}
+							source={require("../assets/img/cloud_confetti.png")}
 							style={styles.confetti}
 						/>
 						<View>
