@@ -1,7 +1,7 @@
 import { ParamListBase } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { fonts } from "../assets/fonts/fonts";
 import SessionsVerticalList, {
   SessionsVerticalListProps,
@@ -10,6 +10,7 @@ import DateToggleList, {
   DateToggleListProps,
 } from "../components/dateToggle/DateToggleList";
 import SwitchWithIcons from "../components/iconSwitch/IconSwitch";
+import MainHeader from "../components/layouts/MainHeader";
 import { screen_names } from "../constants/ScreenNames";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
 import { setSchedule, setSelectedDay } from "../state/schedule";
@@ -68,32 +69,37 @@ const SessionsScreen = (props: SessionsScreenProps) => {
   }
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={{ paddingBottom: 20 }}>
-          <View style={styles.belowHeader}>
-            {dates && <DateToggleList {...dates} />}
-            <View style={styles.switchHolder}>
-              <SwitchWithIcons
-                value={mySessions}
-                onValueChange={onValueChange}
-                trackColor={{ true: "#FF6E4D", false: "#20201E" }}
-                thumbColor={{ true: "#FFFFFF", false: "#FFFFFF" }}
-                iconColors={{ true: "#20201E", false: "#FF6E4D" }}
-              />
-              <Text style={styles.belowSwitch}>My Sessions</Text>
+    <View>
+      <SafeAreaView style={styles.paddingVertical}>
+        <MainHeader />
+        <ScrollView>
+          <View style={{ paddingBottom: 20 }}>
+            <View style={styles.belowHeader}>
+              {dates && <DateToggleList {...dates} />}
+              <View style={styles.switchHolder}>
+                <SwitchWithIcons
+                  value={mySessions}
+                  onValueChange={onValueChange}
+                  trackColor={{ true: "#FF6E4D", false: "#20201E" }}
+                  thumbColor={{ true: "#FFFFFF", false: "#FFFFFF" }}
+                  iconColors={{ true: "#20201E", false: "#FF6E4D" }}
+                />
+                <Text style={styles.belowSwitch}>My Sessions</Text>
+              </View>
             </View>
+            <Text style={styles.title}>All Sessions</Text>
+            {sessions && <SessionsVerticalList {...sessions} />}
           </View>
-          <Text style={styles.title}>All Sessions</Text>
-          {sessions && <SessionsVerticalList {...sessions} />}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  paddingVertical: {
+    paddingVertical: 20,
+  },
   title: {
     fontFamily: fonts.MONTSERRAT_BOLD,
     fontSize: 18,
