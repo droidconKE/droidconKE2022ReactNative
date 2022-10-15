@@ -4,45 +4,61 @@ import { fonts } from "../../assets/fonts/fonts";
 import AndroidIcon from "../../assets/icons/AndroidIcon";
 import Star from "../../assets/icons/Star";
 import useCachedResources from "../../hooks/useCachedResources";
-
-export type SessionsVerticalListCardProps = {
-  star: boolean;
-  title: string;
-  venue?: string;
-  startTime: string;
-  endTime?: string;
-  presenter?: string;
-  programTitle: string;
-};
+import Session from "../../types/Session";
 
 export default function SessionsVerticalListCard(
-  props: SessionsVerticalListCardProps
+  props: Session
 ): JSX.Element | null {
   const isLoadingCompleted = useCachedResources();
   if (!isLoadingCompleted) {
     return null;
   }
 
+  function formatTime(time: string, withMeridiem: boolean = false): string {
+    const date = new Date();
+    date.setTime(Date.parse(time));
+    const dateWithMeridiem = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    if (withMeridiem) return dateWithMeridiem;
+    return dateWithMeridiem.split(" ")[0];
+  }
+
+  function getMeridiem(time: string): string {
+    const date = new Date();
+    date.setTime(Date.parse(time));
+    return date.toLocaleTimeString("en-US", { hour12: true }).split(" ")[1];
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.timeDetailsContainer}>
         <View>
-          <Text style={styles.startTime}>{props.startTime.split(" ")[0]}</Text>
-          <Text style={styles.meridiem}>{props.startTime.split(" ")[1]}</Text>
+          <Text style={styles.startTime}>
+            {formatTime(props.start_date_time)}
+          </Text>
+          <Text style={styles.meridiem}>
+            {getMeridiem(props.start_date_time)}
+          </Text>
         </View>
         <View style={styles.containerSessionDetails}>
-          <Text style={styles.programTitle}>{props.programTitle}</Text>
-          <Text style={styles.sessionTitle}>{props.title}</Text>
-          {props.venue && props.endTime && (
+          <Text style={styles.programTitle}>{props.title}</Text>
+          <Text style={styles.sessionTitle} numberOfLines={3}>
+            {props.description}
+          </Text>
+          {props.rooms.length > 0 && (
             <Text style={styles.durationAndVenue}>
-              {props.startTime} - {props.endTime} |{" "}
-              {props.venue.toLocaleUpperCase()}
+              {`${formatTime(props.start_date_time, true)} - ${formatTime(
+                props.end_date_time,
+                true
+              )} | ${props.rooms[0].title.toUpperCase()}`}
             </Text>
           )}
-          {props.presenter && (
+          {props.speakers.length > 0 && (
             <View style={styles.speakerContainer}>
               <AndroidIcon width={17} color="rgba(0, 12, 235, 1)" />
-              <Text style={styles.speakerName}>{props.presenter}</Text>
+              <Text style={styles.speakerName}>{props.speakers[0]?.name}</Text>
             </View>
           )}
         </View>
