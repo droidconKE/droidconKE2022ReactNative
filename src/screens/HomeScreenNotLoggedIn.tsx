@@ -27,7 +27,8 @@ const HomeScreenNotLoggedIn = ({
 	const [modalVisible, setModalVisible] = useState(false);
 
 	// Function to togle modal.
-	const toggleModal = () => setModalVisible(!modalVisible);
+	const openModal = () => setModalVisible(true);
+	const closeModal = () => setModalVisible(false);
 
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
@@ -39,11 +40,11 @@ const HomeScreenNotLoggedIn = ({
 				}
 				barStyle="dark-content"
 			/>
-			<MainHeader onPress={toggleModal} />
+			<MainHeader onPress={openModal} />
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 				// Show Sign In modal when scrolling momentum ends
-				onMomentumScrollEnd={toggleModal}
+				onMomentumScrollEnd={openModal}
 				style={styles.paddingHorizontal}
 			>
 				<View style={[styles.marginVerticalSeparator]}>
@@ -122,7 +123,7 @@ const HomeScreenNotLoggedIn = ({
 			<Modal transparent visible={modalVisible}>
 				<View style={styles.modalContainer}>
 					<View style={styles.modalContentContainer}>
-						<TouchableOpacity onPress={toggleModal}>
+						<TouchableOpacity onPress={closeModal}>
 							<Text style={styles.textCancel}>CANCEL</Text>
 						</TouchableOpacity>
 						<View style={styles.googleBtnContainer}>
