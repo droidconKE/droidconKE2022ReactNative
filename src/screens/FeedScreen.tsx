@@ -38,6 +38,30 @@ const FEED = [
       "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
     postedAt: "2 days ago",
   },
+  {
+    id: 4,
+    description:
+      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
+    image:
+      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
+    postedAt: "2 days ago",
+  },
+  {
+    id: 5,
+    description:
+      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
+    image:
+      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
+    postedAt: "2 days ago",
+  },
+  {
+    id: 6,
+    description:
+      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
+    image:
+      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
+    postedAt: "2 days ago",
+  },
 ];
 
 const FeedScreen = ({
