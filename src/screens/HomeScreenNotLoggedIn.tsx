@@ -128,7 +128,7 @@ const HomeScreenNotLoggedIn = ({
 						</TouchableOpacity>
 						<View style={styles.googleBtnContainer}>
 							<TouchableOpacity onPress={handleLogin} style={styles.googleBtn}>
-								<GoogleIcon width={30} />
+								<GoogleIcon width={25} />
 								<Text style={styles.googleBtnLabel}>Sign in with Google</Text>
 							</TouchableOpacity>
 						</View>
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
 		...layoutProperties.itemsCenter,
 	},
 	googleBtn: {
-		width: "75%",
+		width: 208,
 		paddingHorizontal: 10,
 		...layoutProperties.flexRow,
 		...layoutProperties.itemsCenter,
@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		lineHeight: 19,
 		color: colors.DROIDCONKE_BLACK_GOOGLESIGNIN,
+		marginHorizontal: 5,
 	},
 });
 export default HomeScreenNotLoggedIn;
