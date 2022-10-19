@@ -41,7 +41,6 @@ const SessionsScreen = (props: SessionsScreenProps) => {
   }, []);
 
   useEffect(() => {
-    console.log({ selectedDate });
     extractDatesFromSchedule();
   }, [schedule, selectedDate]);
 
@@ -63,6 +62,9 @@ const SessionsScreen = (props: SessionsScreenProps) => {
         };
       });
       setDates({ items: dates });
+      if (!selectedDate) {
+        setSelectedDate(keys[0]);
+      }
     }
   }
 
@@ -71,7 +73,6 @@ const SessionsScreen = (props: SessionsScreenProps) => {
   }
 
   function onDayChange(day: string) {
-    console.log({ day, dates });
     setSelectedDate(day);
   }
 
