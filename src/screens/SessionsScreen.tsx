@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
 
 export default SessionsScreen;
 
+// we will remove this when we intergrate with the backend
 const sampleScheduleData = {
   data: {
     "2022-11-10": [
