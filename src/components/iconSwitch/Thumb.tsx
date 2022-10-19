@@ -71,7 +71,7 @@ export default function Thumb(props: ThumbProps) {
       >
         <Star
           color={value ? props.iconColors.true : props.iconColors.false}
-          fill={!value ? props.iconColors.false : "white"}
+          fill={!value ? props.iconColors.false : props.iconColors.true}
           fontSize={12}
         />
       </Animated.View>
