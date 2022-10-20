@@ -52,7 +52,6 @@ export default function Thumb(props: ThumbProps) {
               width: size * 2,
               borderRadius: size,
               top: 0 - radius,
-              aspectRatio: 1,
             },
           ]}
         />
@@ -65,7 +64,6 @@ export default function Thumb(props: ThumbProps) {
             left: position,
             width: size,
             borderRadius: radius,
-            aspectRatio: 1,
           },
         ]}
       >
@@ -93,9 +91,11 @@ export const styles = StyleSheet.create({
       width: 0,
     },
     alignContent: "center",
+    aspectRatio: 1,
   },
   pressedIndicator: {
     position: "absolute",
     opacity: 0.2,
+    aspectRatio: 1,
   },
 });

@@ -3,17 +3,16 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { fonts } from "../assets/fonts/fonts";
-import SessionsVerticalList, {
-  SessionsVerticalListProps,
-} from "../components/cards/SessionsVerticalList";
+import SessionsVerticalList from "../components/cards/SessionsVerticalList";
 import DateToggleList, {
   DateToggleListProps,
 } from "../components/dateToggle/DateToggleList";
 import SwitchWithIcons from "../components/iconSwitch/IconSwitch";
 import MainHeader from "../components/layouts/MainHeader";
+import { colors } from "../constants/Colors";
 import { screen_names } from "../constants/ScreenNames";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
-import { setSchedule, setSelectedDay } from "../state/schedule";
+import { setSchedule } from "../state/schedule";
 import Session from "../types/Session";
 
 export type SessionsScreenProps = {
@@ -31,7 +30,7 @@ const SessionsScreen = (_: SessionsScreenProps) => {
   const [mySessions, setMySessions] = useState<boolean>(false);
   const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
-  // const { selectedDay } = useAppSelector((state) => state.schedule.selectedDay);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -79,16 +78,25 @@ const SessionsScreen = (_: SessionsScreenProps) => {
       <SafeAreaView style={styles.paddingVertical}>
         <MainHeader />
         <ScrollView>
-          <View style={{ paddingBottom: 20 }}>
+          <View style={styles.scrollViewContainer}>
             <View style={styles.belowHeader}>
               {dates && <DateToggleList {...dates} onChange={onDayChange} />}
               <View style={styles.switchHolder}>
                 <SwitchWithIcons
                   value={mySessions}
                   onValueChange={onValueChange}
-                  trackColor={{ true: "#FF6E4D", false: "#20201E" }}
-                  thumbColor={{ true: "#FFFFFF", false: "#FFFFFF" }}
-                  iconColors={{ true: "#20201E", false: "#FF6E4D" }}
+                  trackColor={{
+                    true: colors.DROIDCONKE_BRICK_RED,
+                    false: colors.DROIDCONKE_BLACK,
+                  }}
+                  thumbColor={{
+                    true: colors.DROIDCONKE_WHITE,
+                    false: colors.DROIDCONKE_WHITE,
+                  }}
+                  iconColors={{
+                    true: colors.DROIDCONKE_BLACK,
+                    false: colors.DROIDCONKE_BRICK_RED,
+                  }}
                 />
                 <Text style={styles.belowSwitch}>My Sessions</Text>
               </View>
@@ -103,13 +111,14 @@ const SessionsScreen = (_: SessionsScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+  scrollViewContainer: { paddingBottom: 20 },
   paddingVertical: {
     paddingVertical: 20,
   },
   title: {
     fontFamily: fonts.MONTSERRAT_BOLD,
     fontSize: 18,
-    color: "rgba(0, 12, 235, 1)",
+    color: colors.DROIDCONKE_BLUE,
     marginTop: 40,
     marginLeft: 20,
     marginRight: 20,

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { fonts } from "../../assets/fonts/fonts";
 import AndroidIcon from "../../assets/icons/AndroidIcon";
 import Star from "../../assets/icons/Star";
+import { colors } from "../../constants/Colors";
 import useCachedResources from "../../hooks/useCachedResources";
 import Session from "../../types/Session";
 
@@ -44,7 +45,7 @@ export default function SessionsVerticalListCard(
         </View>
         <View style={styles.containerSessionDetails}>
           <Text style={styles.programTitle}>{props.title}</Text>
-          <Text style={styles.sessionTitle} numberOfLines={3}>
+          <Text style={styles.description} numberOfLines={3}>
             {props.description}
           </Text>
           {props.rooms.length > 0 && (
@@ -57,13 +58,13 @@ export default function SessionsVerticalListCard(
           )}
           {props.speakers.length > 0 && (
             <View style={styles.speakerContainer}>
-              <AndroidIcon width={17} color="rgba(0, 12, 235, 1)" />
+              <AndroidIcon width={17} color={colors.DROIDCONKE_BLUE} />
               <Text style={styles.speakerName}>{props.speakers[0]?.name}</Text>
             </View>
           )}
         </View>
       </View>
-      <Star color={"#000ceb"} />
+      <Star color={colors.DROIDCONKE_BLUE} />
     </View>
   );
 }
@@ -78,28 +79,28 @@ const styles = StyleSheet.create({
   startTime: {
     fontFamily: fonts.MONTSERRAT_MEDIUM,
     fontSize: 18,
-    color: "rgba(32, 32, 30, 1)",
+    color: colors.DROIDCONKE_BLACK,
   },
   meridiem: {
     fontFamily: fonts.MONTSERRAT_MEDIUM,
     fontSize: 15,
     textAlign: "right",
-    color: "rgba(32, 32, 30, 1)",
+    color: colors.DROIDCONKE_BLACK,
   },
   programTitle: {
     fontFamily: fonts.MONTSERRAT_BOLD,
     fontSize: 18,
   },
-  sessionTitle: {
+  description: {
     marginTop: 24,
     fontFamily: fonts.MONTSERRAT_REGULAR,
     fontSize: 16,
-    color: "rgba(32, 32, 30, 1)",
+    color: colors.DROIDCONKE_DARK_GREY,
   },
   durationAndVenue: {
     marginTop: 14,
     fontFamily: fonts.MONTSERRAT_REGULAR,
-    color: "rgba(112, 112, 112, 1)",
+    color: colors.DROIDCONKE_DARK_GREY,
   },
   speakerContainer: {
     flexDirection: "row",
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   speakerName: {
     fontSize: 14,
     marginLeft: 12,
-    color: "rgba(0, 12, 235, 1)",
+    color: colors.DROIDCONKE_BLUE,
     fontFamily: fonts.MONTSERRAT_REGULAR,
   },
   containerSessionDetails: {

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { fonts } from "../../assets/fonts/fonts";
+import { colors } from "../../constants/Colors";
 import useCachedResources from "../../hooks/useCachedResources";
 
 export type DateToggleProps = {
@@ -30,24 +31,24 @@ export default function DateToggle({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "rgba(125, 225, 195, 0.11)",
+    backgroundColor: colors.DROIDCONKE_GREEN_TRANSLUCENT,
     borderRadius: 5,
     display: "flex",
     justifyContent: "center",
     padding: 12,
   },
   containerSelected: {
-    backgroundColor: "rgba(255, 110, 77, 1)",
+    backgroundColor: colors.DROIDCONKE_BRICK_RED,
   },
   date: {
     fontSize: 18,
     fontFamily: fonts.MONTSERRAT_BOLD,
-    color: "rgba(32, 32, 30, 1)",
+    color: colors.DROIDCONKE_BLACK,
     alignSelf: "flex-start",
   },
   day: {
     fontSize: 11,
-    color: "rgba(112, 112, 112, 1)",
+    color: colors.DROIDCONKE_BLACK,
     fontFamily: fonts.MONTSERRAT_REGULAR,
     marginTop: 4,
     alignSelf: "flex-start",

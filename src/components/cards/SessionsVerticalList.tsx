@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import SessionListSeparator from "../../assets/icons/SessionListSeparator";
+import { colors } from "../../constants/Colors";
 import Session from "../../types/Session";
 import SessionsVerticalListCard from "./SessionsVerticalListCard";
 
@@ -20,7 +21,9 @@ export default function SessionsVerticalList(props: SessionsVerticalListProps) {
                 <View style={styles.cardContainer}>
                   <SessionListSeparator
                     color={
-                      index % 2 !== 0 ? "rgba(255, 110, 77, 1)" : "#7de1c3"
+                      index % 2 !== 0
+                        ? colors.DROIDCONKE_BRICK_RED
+                        : colors.DROIDCONKE_LIGHT_GREEN
                     }
                   />
                 </View>
