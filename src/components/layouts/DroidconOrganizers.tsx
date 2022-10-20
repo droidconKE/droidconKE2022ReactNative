@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { layoutProperties } from "../../constants/Properties";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
@@ -100,8 +100,35 @@ const MOCK_DATA = {
 	],
 };
 
+interface OrganizersData {
+	id: number;
+	name: string;
+	email?: string;
+	description?: string;
+	facebook?: string;
+	twitter?: string;
+	instagram?: string;
+	logo: string;
+	slug?: string;
+	status?: string;
+	created_at?: string;
+	upcoming_events_count?: number;
+	total_events_count?: number;
+}
+
 const DroidconOrganizers = () => {
-	const organizersData = MOCK_DATA.data;
+	const [organizersData, setOrganizersData] = useState<OrganizersData[]>([]);
+
+	const loadOrganizersData = async () => {
+		//TODO: obtain data/response from the api service
+		//set data
+		setOrganizersData(MOCK_DATA.data);
+	};
+
+	useEffect(() => {
+		loadOrganizersData();
+	}, []);
+
 	return (
 		<View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
 			<Text
