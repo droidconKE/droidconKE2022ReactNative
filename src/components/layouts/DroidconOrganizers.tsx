@@ -1,13 +1,107 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import TiskosIcon from "../../assets/icons/TiskosIcon";
-import AppsLabIcon from "../../assets/icons/AppsLabIcon";
-import Android254Icon from "../../assets/icons/Android254Icon";
 import { layoutProperties } from "../../constants/Properties";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
+import BrandLogo from "./BrandLogo";
+
+const MOCK_DATA = {
+	data: [
+		{
+			id: 1,
+			name: "android 254",
+			email: "droidconke@gmail.com",
+			description: "droidcon Ke",
+			facebook: "droidconke",
+			twitter: "droidcon.co.ke",
+			instagram: "droidcon.co.ke",
+			logo: "https://secure.meetupstatic.com/photos/event/b/c/1/1/clean_482388145.jpeg",
+			slug: "droidcon-ke-645",
+			status: "active",
+			created_at: "2021-09-10 16:26:32",
+			upcoming_events_count: 1,
+			total_events_count: 1,
+		},
+		{
+			id: 2,
+			name: "kotlin kenya",
+			email: "droidconke@gmail.com",
+			description: "droidcon Ke",
+			facebook: "droidconke",
+			twitter: "droidcon.co.ke",
+			instagram: "droidcon.co.ke",
+			logo: "https://res.cloudinary.com/droidconke/image/upload/v1631955399/prod/upload/org_team/dpkitydnkbbih6n9ktoz.png",
+			slug: "droidcon-ke-645",
+			status: "active",
+			created_at: "2021-09-10 16:26:32",
+			upcoming_events_count: 1,
+			total_events_count: 1,
+		},
+		{
+			id: 3,
+			name: "flutter kenya",
+			email: "droidconke@gmail.com",
+			description: "droidcon Ke",
+			facebook: "droidconke",
+			twitter: "droidcon.co.ke",
+			instagram: "droidcon.co.ke",
+			logo: "https://secure.meetupstatic.com/photos/event/8/d/7/4/clean_489516212.jpeg",
+			slug: "droidcon-ke-645",
+			status: "active",
+			created_at: "2021-09-10 16:26:32",
+			upcoming_events_count: 1,
+			total_events_count: 1,
+		},
+		{
+			id: 4,
+			name: "app labs",
+			email: "droidconke@gmail.com",
+			description: "droidcon Ke",
+			facebook: "droidconke",
+			twitter: "droidcon.co.ke",
+			instagram: "droidcon.co.ke",
+			logo: "https://appslab.co.ke/assets/img/logo.png",
+			slug: "droidcon-ke-645",
+			status: "active",
+			created_at: "2021-09-10 16:26:32",
+			upcoming_events_count: 1,
+			total_events_count: 1,
+		},
+		{
+			id: 5,
+			name: "early camp",
+			email: "droidconke@gmail.com",
+			description: "droidcon Ke",
+			facebook: "droidconke",
+			twitter: "droidcon.co.ke",
+			instagram: "droidcon.co.ke",
+			logo: "https://media-exp1.licdn.com/dms/image/C4D0BAQFbXBKf5A1wxQ/company-logo_200_200/0/1533933103212?e=2147483647&v=beta&t=BIObWjP27BUIyzN5H9finiwLhwSlrlKc5fEcvTiki4s",
+			slug: "droidcon-ke-645",
+			status: "active",
+			created_at: "2021-09-10 16:26:32",
+			upcoming_events_count: 1,
+			total_events_count: 1,
+		},
+		{
+			id: 6,
+			name: "tiskos kenya",
+			email: "droidconke@gmail.com",
+			description: "droidcon Ke",
+			facebook: "droidconke",
+			twitter: "droidcon.co.ke",
+			instagram: "droidcon.co.ke",
+			logo: "https://pbs.twimg.com/profile_images/1297998197630087169/zvpGWoVq_400x400.jpg",
+			slug: "droidcon-ke-645",
+			status: "active",
+			created_at: "2021-09-10 16:26:32",
+			upcoming_events_count: 1,
+			total_events_count: 1,
+		},
+	],
+};
 
 const DroidconOrganizers = () => {
+	const organizersData = MOCK_DATA.data;
 	return (
 		<View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
 			<Text
@@ -16,35 +110,11 @@ const DroidconOrganizers = () => {
 				Organized by :
 			</Text>
 			<View
-				style={[
-					styles.sponsorsIconsContainer,
-					layoutProperties.justifyAround,
-					styles.marginVerticalSeparator,
-				]}
+				style={[styles.sponsorsIconsContainer, styles.marginVerticalSeparator]}
 			>
-				<Android254Icon />
-				<Image
-					resizeMode="contain"
-					source={require("../../assets/img/kotlin.png")}
-				/>
-				<Image
-					resizeMode="contain"
-					source={require("../../assets/img/flutter_kenya.png")}
-				/>
-			</View>
-			<View
-				style={[
-					styles.sponsorsIconsContainer,
-					layoutProperties.justifyAround,
-					styles.marginVerticalSeparator,
-				]}
-			>
-				<AppsLabIcon />
-				<Image
-					resizeMode="contain"
-					source={require("../../assets/img/early_camp.png")}
-				/>
-				<TiskosIcon />
+				{organizersData.map((brand) => (
+					<BrandLogo logoUri={brand.logo} key={brand.id} />
+				))}
 			</View>
 		</View>
 	);
@@ -70,7 +140,8 @@ const styles = StyleSheet.create({
 	},
 	sponsorsIconsContainer: {
 		...layoutProperties.flexRow,
-		...layoutProperties.itemsCenter,
+		flexWrap: "wrap",
+		justifyContent: "space-around",
 	},
 	marginVerticalSeparator: {
 		marginVertical: 15,
