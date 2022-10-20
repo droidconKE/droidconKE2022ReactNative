@@ -22,11 +22,9 @@ export type SessionsScreenProps = {
     screen_names.SESSIONS,
     undefined
   >["navigation"];
-  dates: DateToggleListProps;
-  sessions: SessionsVerticalListProps;
 };
 
-const SessionsScreen = (props: SessionsScreenProps) => {
+const SessionsScreen = (_: SessionsScreenProps) => {
   const { schedule } = useAppSelector((state) => state.schedule);
   const [dates, setDates] =
     useState<Pick<DateToggleListProps, "items"> | undefined>();
