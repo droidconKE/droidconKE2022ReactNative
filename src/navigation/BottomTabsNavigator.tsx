@@ -20,99 +20,100 @@ import AboutIcon from "../assets/icons/AboutIcon";
 import { fonts } from "../assets/fonts/fonts";
 
 const BottomTabsNavigator = () => {
-	return (
-		<Tab.Navigator
-			screenOptions={({ route }) => ({
-				tabBarActiveTintColor: colors.DROIDCONKE_BRICK_RED,
-				tabBarInactiveTintColor: colors.DROIDCONKE_BLACK,
-				tabBarStyle: styles.tabBarStyle,
-				tabBarLabelStyle: styles.tabBarLabelStyle,
-			})}
-		>
-			<Tab.Screen
-				name={screen_names.HOME}
-				component={HomeScreen}
-				options={{
-					headerShown: false,
-					tabBarIcon: (props: {
-						focused: boolean;
-						color: string;
-						size: number;
-					}) => (
-						<HomeIcon
-							color={
-								props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
-							}
-						/>
-					),
-				}}
-			/>
-			<Tab.Screen
-				name={screen_names.FEED}
-				component={FeedScreen}
-				options={{
-					headerShown: false,
-					tabBarIcon: (props: {
-						focused: boolean;
-						color: string;
-						size: number;
-					}) => (
-						<FeedIcon
-							color={
-								props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
-							}
-						/>
-					),
-				}}
-			/>
-			<Tab.Screen
-				name={screen_names.SESSIONS}
-				component={SessionsScreen}
-				options={{
-					tabBarIcon: (props: {
-						focused: boolean;
-						color: string;
-						size: number;
-					}) => (
-						<SessionsIcon
-							color={
-								props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
-							}
-						/>
-					),
-				}}
-			/>
-			<Tab.Screen
-				name={screen_names.ABOUT}
-				component={AboutScreen}
-				options={{
-					headerShown: false,
-					tabBarIcon: (props: {
-						focused: boolean;
-						color: string;
-						size: number;
-					}) => (
-						<AboutIcon
-							color={
-								props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
-							}
-						/>
-					),
-				}}
-			/>
-		</Tab.Navigator>
-	);
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarActiveTintColor: colors.DROIDCONKE_BRICK_RED,
+        tabBarInactiveTintColor: colors.DROIDCONKE_BLACK,
+        tabBarStyle: styles.tabBarStyle,
+        tabBarLabelStyle: styles.tabBarLabelStyle,
+      })}
+    >
+      <Tab.Screen
+        name={screen_names.HOME}
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: (props: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => (
+            <HomeIcon
+              color={
+                props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={screen_names.FEED}
+        component={FeedScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: (props: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => (
+            <FeedIcon
+              color={
+                props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={screen_names.SESSIONS}
+        component={SessionsScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: (props: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => (
+            <SessionsIcon
+              color={
+                props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={screen_names.ABOUT}
+        component={AboutScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: (props: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => (
+            <AboutIcon
+              color={
+                props.focused ? colors.DROIDCONKE_BLUE : colors.DROIDCONKE_BLACK
+              }
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
 };
 
 // Tab bar Styles
 const styles = StyleSheet.create({
-	tabBarStyle: {
-		height: 65,
-	},
-	tabBarLabelStyle: {
-		fontFamily: fonts.MONTSERRAT_LIGHT,
-		marginTop: -10,
-		marginBottom: 10,
-	},
+  tabBarStyle: {
+    height: 65,
+  },
+  tabBarLabelStyle: {
+    fontFamily: fonts.MONTSERRAT_LIGHT,
+    marginTop: -10,
+    marginBottom: 10,
+  },
 });
 export default BottomTabsNavigator;
