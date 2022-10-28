@@ -110,11 +110,11 @@ const styles = StyleSheet.create({
         fontFamily : fonts.MONTSERRAT_BOLD,
         fontSize : 18,
         textAlign : "left",
-        color : "#20201E"
+        color : colors.DROIDCONKE_SHARE_TEXT
     },
     cancelText : {
         fontFamily : fonts.MONTSERRAT_LIGHT,
         fontSize : 13,
-        color : "#707070"
+        color : colors.DROIDCONKE_CANCEL_TEXT
     }
 });
