@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
         fontFamily : fonts.MONTSERRAT_REGULAR,
         fontSize : 16,
         textAlign : "left",
-        color : colors.DROIDCONKE_BLACK_GOOGLESIGNIN
+        color : colors.DROIDCONKE_BLACK_TEXT_AND_LABEL
     }
 });
