@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     socialMediaName : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
         fontSize : 16,
-        textAlign : "left"
+        textAlign : "left",
+        color : colors.DROIDCONKE_BLACK_GOOGLESIGNIN
     }
 });
