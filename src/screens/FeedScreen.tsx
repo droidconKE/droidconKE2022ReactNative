@@ -6,9 +6,9 @@ import { ParamListBase } from "@react-navigation/native";
 import MainHeader from "../components/layouts/MainHeader";
 import { colors } from "../constants/Colors";
 import ShareIcon from "../assets/icons/ShareIcon";
-import TwitterIcon from "../assets/icons/TwitterIcon";
-import WhatsappIcon from "../assets/icons/WhatsAppIcon";
-import TelegramIcon from "../assets/icons/TelegramIcon";
+import type { SocialMedia } from "../components/buttons/SocialButton";
+import SocialButton from "../components/buttons/SocialButton";
+import { fonts } from "../assets/fonts/fonts";
 
 const FeedScreen = ({
 	navigation,
@@ -18,8 +18,7 @@ const FeedScreen = ({
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
 			<MainHeader />
 			<ScrollView style={styles.paddingHorizontal}>
-				<Button title="Show Modal" onPress={() => setModalVisibility(!showmodal)} />
-				<ShareModal showModal={showmodal} setModalVisibility={setModalVisibility} />
+				<Text>Feed screen</Text>
 			</ScrollView>
 		</SafeAreaView>
 	);
@@ -30,55 +29,42 @@ export type ShareModalProps = {
     setModalVisibility : Function
 }
 
-const ShareModal = (props : ShareModalProps) : JSX.Element => {
+const ShareFeedModal = (props : ShareModalProps) : JSX.Element => {
     const visible = props.showModal
     const setvisibility = props.setModalVisibility
     return (
         <Modal visible={visible}>
-            <View style={{flex:1, backgroundColor : colors.DROIDCONKE_MODAL_OVERLAY , flexDirection : "column-reverse"}}>
-                <View style={{backgroundColor : colors.DROIDCONKE_WHITE , height : "30%" , borderTopRightRadius : 14 , borderTopLeftRadius : 14}}>
-                    <View style={{flexDirection : "row" , marginVertical : 35}}>
-                    <ShareIcon color={colors.DROIDCONKE_BLACK} style={{marginHorizontal : 20}}/>
-                    <Text>SHARE</Text>
-                     <TouchableOpacity style={{position : "absolute" , right : 20 }} onPress={() => {setvisibility(false)}}>
-                        <Text>
+            <View style={styles.shareModalOverlay}>
+                <View style={styles.shareModalContainer}>
+                    <View style={styles.shareModalUpperRow}>
+                    <ShareIcon color={colors.DROIDCONKE_BLACK} style={styles.shareIcon}/>
+                    <Text style={styles.shareText}>Share</Text>
+                     <TouchableOpacity style={styles.cancelButton} onPress={() => {setvisibility(false)}}>
+                        <Text style={styles.cancelText}>
                             CANCEL
                         </Text>
                      </TouchableOpacity>
                     </View>
-                    <View style={{flexDirection : "row" , marginBottom : 25 , justifyContent : "space-around"}}>
-                        <View style={{height : 43 , width : 172 , borderWidth :1 , borderColor : "#7DE1C3" , borderRadius : 10, flexDirection : "row",alignItems : "center"}} >
-                            <TwitterIcon height={14.26} width={17.58} color={colors.DROIDCONKE_BLACK} style={{marginLeft : 40 , marginRight : 25}} />
-                            <Text>
-                                Twitter
-                            </Text>
-                        </View>
-                        <View style={{height : 43 , width : 172 , borderWidth :1 , borderColor : "#7DE1C3" , borderRadius : 10 ,  flexDirection : "row",alignItems : "center"}} >
-                            <Text style={{marginLeft : 40 , marginRight : 25, fontWeight: 'bold' , fontSize : 17.58}}>
-                                f
-                            </Text>
-                            <Text>
-                                Facebook
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={{flexDirection : "row" , marginBottom : 25 , justifyContent : "space-around"}}>
-                        <View style={{height : 43 , width : 172 , borderWidth :1 , borderColor : "#7DE1C3" , borderRadius : 10 ,flexDirection : "row",alignItems : "center" }} >
-                            <WhatsappIcon color={colors.DROIDCONKE_BLACK} style={{marginLeft : 40 , marginRight : 25}} />
-                            <Text>
-                                WhatsApp
-                            </Text>
-                        </View>
-                        <View style={{height : 43 , width : 172 , borderWidth :1 , borderColor : "#7DE1C3" , borderRadius : 10,flexDirection : "row",alignItems : "center"  }} >
-                            <TelegramIcon color={colors.DROIDCONKE_BLACK} style={{marginLeft : 40 , marginRight : 25}} />
-                            <Text>
-                                Telegram
-                            </Text>
-                        </View>
+                    <DoubleSocialButtonRow leftSocialButton="Twitter" rightSocialButton="Facebook" />
+                    <DoubleSocialButtonRow leftSocialButton="WhatsApp" rightSocialButton="Telegram" />
                     </View>
                 </View>
-            </View>
         </Modal>
+    )
+}
+
+
+export type DoubleSocialButtonRowProps = {
+    leftSocialButton : SocialMedia
+    rightSocialButton : SocialMedia
+}
+
+const DoubleSocialButtonRow = (props : DoubleSocialButtonRowProps) : JSX.Element => {
+    return (
+    <View style={{flexDirection : "row" , marginBottom : 25 , justifyContent : "space-around"}}>
+        <SocialButton socialmedia={props.leftSocialButton}/>
+        <SocialButton socialmedia={props.rightSocialButton}/>
+    </View>
     )
 }
 
@@ -95,4 +81,40 @@ const styles = StyleSheet.create({
 	paddingHorizontal: {
 		paddingHorizontal: 20,
 	},
+    shareModalOverlay : {
+        flex:1,
+        backgroundColor : colors.DROIDCONKE_MODAL_OVERLAY , 
+        flexDirection : "column-reverse"
+    },
+    shareModalContainer : {
+        backgroundColor : colors.DROIDCONKE_SHARE_MODAL_BACKGROUND , 
+        height : "30%" , 
+        borderTopRightRadius : 14 , 
+        borderTopLeftRadius : 14
+    },
+    shareModalUpperRow : {
+        flexDirection : "row", 
+        marginVertical : 35,
+        alignItems : "center"
+    },
+    shareIcon : {
+        marginLeft : 20,
+        marginRight : 10
+    },
+    cancelButton : {
+        position : "absolute" , 
+        right : 20 ,
+        marginTop : 5
+    },
+    shareText : {
+        fontFamily : fonts.MONTSERRAT_BOLD,
+        fontSize : 18,
+        textAlign : "left",
+        color : "#20201E"
+    },
+    cancelText : {
+        fontFamily : fonts.MONTSERRAT_LIGHT,
+        fontSize : 13,
+        color : "#707070"
+    }
 });
