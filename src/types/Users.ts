@@ -1,4 +1,7 @@
 export default interface User {
-  id?: any | null;
   name: string;
+  email: string;
+  gender: string | null;
+  avatar: string | null;
+  created_at: string;
 }
