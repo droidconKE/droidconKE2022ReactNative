@@ -12,3 +12,9 @@ web-build/
 
 # macOS
 .DS_Store
+
+# env files
+.env
+.env.development
+.env.staging
+.env.production
