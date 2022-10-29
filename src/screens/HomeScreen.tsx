@@ -17,9 +17,6 @@ import { screen_names } from "../constants/ScreenNames";
 import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
-import Android254Icon from "../assets/icons/Android254Icon";
-import AppsLabIcon from "../assets/icons/AppsLabIcon";
-import TiskosIcon from "../assets/icons/TiskosIcon";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
 import { setUser } from "../state/user";
 import SessionCard, { SessionCardProps } from "../components/cards/SessionCard";
@@ -35,6 +32,7 @@ import { layoutProperties } from "../constants/Properties";
 import MainHeader from "../components/layouts/MainHeader";
 import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
+import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -293,49 +291,7 @@ const HomeScreen = ({
 							/>
 						</View>
 					</View>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Organized by :
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Android254Icon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/kotlin.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/flutter_kenya.png")}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<AppsLabIcon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/early_camp.png")}
-							/>
-							<TiskosIcon />
-						</View>
-					</View>
+					<DroidconOrganizers />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
