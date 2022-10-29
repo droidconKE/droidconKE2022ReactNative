@@ -100,8 +100,7 @@ const HomeScreen = ({
   const login = () => {
     // dispatch(setUser({ name: "John Doe", id: 0 }));
     googleSocialAuth({
-      access_token:
-        "ya29.a0Aa4xrXO0sIbmxK_ZJdavvNl82p16YeQzVwcltluNLUIeQnc_o_JQfv6iV_3OTKaFx_uKbbBk3IMb00Sg_Uw39W8djwHiI-g0nMg45F8fu2OoNRNangkh16ieW09IynxxqFoSRY3EzF2MH6xzh89-EowGlK045AaCgYKATASARESFQEjDvL9Fssvlkv-WmTW-3pAb72mUg0165",
+      access_token: "",
     });
   };
 
