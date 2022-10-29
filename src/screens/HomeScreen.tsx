@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
 	Dimensions,
@@ -33,6 +33,8 @@ import VolumeOff from "../assets/icons/VolumeOff";
 import HomeScreenNotLoggedIn from "./HomeScreenNotLoggedIn";
 import { layoutProperties } from "../constants/Properties";
 import MainHeader from "../components/layouts/MainHeader";
+import * as Google from 'expo-auth-session/providers/google';
+import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -93,15 +95,37 @@ const HomeScreen = ({
 
 	// Redux dispatch.
 	const dispatch = useAppDispatch();
+
 	const { user } = useAppSelector((state) => state.user);
+
+	// Following authentication guide from https://docs.expo.dev/guides/authentication/#google
+	const [request, response, promptAsync] = Google.useAuthRequest({
+
+		expoClientId: GOOGLE_AUTH_CLIENT_ID,
+		iosClientId: GOOGLE_AUTH_CLIENT_ID,
+		androidClientId: GOOGLE_AUTH_CLIENT_ID,
+		webClientId: GOOGLE_AUTH_CLIENT_ID,		
+	})
+
+	useEffect(() => {
+		if (response?.type === 'success') {
+		  const { authentication } = response;
+		  // Token.
+		  console.log(authentication?.accessToken)
+		} else {
+
+			console.log(response)
+		}
+	  }, [response]);
 
 	// Login helper function
 	const login = () => {
-		dispatch(setUser({ name: "John Doe", id: 0 }));
+
+		//dispatch(setUser({ name: "John Doe", id: 0 }));
 	};
 
 	if (!user) {
-		return <HomeScreenNotLoggedIn handleLogin={login} />;
+		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
 	}
 
 	// Function to navigate to Speakers screen.
