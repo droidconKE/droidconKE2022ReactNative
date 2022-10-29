@@ -60,6 +60,10 @@ To install the project, navigate to the directory and run:
 - `npm install -g expo-cli`
 - `npm install`
 
+### Setup
+- Create `.env.development` file and copy the contents from `.env.example`
+- Add Google Client ID to your `.env.development`. Follow [https://docs.expo.dev/guides/authentication/#google](https://docs.expo.dev/guides/authentication/#google) on how to get a Google Client ID
+
 ### Run
 
 To run the project, run the following commands:
