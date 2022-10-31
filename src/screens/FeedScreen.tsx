@@ -61,7 +61,7 @@ export type DoubleSocialButtonRowProps = {
 
 const DoubleSocialButtonRow = (props : DoubleSocialButtonRowProps) : JSX.Element => {
     return (
-    <View style={{flexDirection : "row" , marginBottom : 25 , justifyContent : "space-around"}}>
+    <View style={styles.doubleSocialButtonRowContainer}>
         <SocialButton socialmedia={props.leftSocialButton}/>
         <SocialButton socialmedia={props.rightSocialButton}/>
     </View>
@@ -116,5 +116,11 @@ const styles = StyleSheet.create({
         fontFamily : fonts.MONTSERRAT_LIGHT,
         fontSize : 13,
         color : colors.DROIDCONKE_CANCEL_TEXT
+    },
+    doubleSocialButtonRowContainer : {
+        flexDirection : "row" , 
+        marginBottom : 25 ,
+        justifyContent : "space-around",
+        height : "18%"
     }
 });

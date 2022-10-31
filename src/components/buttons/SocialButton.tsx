@@ -5,19 +5,20 @@ import WhatsappIcon from "../../assets/icons/WhatsAppIcon";
 import TelegramIcon from "../../assets/icons/TelegramIcon";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
+import FacebookIcon from "../../assets/icons/FacebookIcon";
 
 export type SocialMedia = "WhatsApp" | "Facebook" | "Telegram" | "Twitter"
 
 const getSocialMediaIcon = (socialmedia : SocialMedia) : JSX.Element => {
     switch(socialmedia) {
         case "Twitter" : 
-            return (<TwitterIcon height={14.26} width={17.58} color={colors.DROIDCONKE_BLACK}  />)
+            return (<TwitterIcon height={20} width={20} color={colors.DROIDCONKE_BLACK}  />)
         case "Telegram":
             return (<TelegramIcon color={colors.DROIDCONKE_BLACK}  />)
         case "WhatsApp":
             return (<WhatsappIcon color={colors.DROIDCONKE_BLACK}  />)
         case "Facebook":
-            return (<Text style={styles.facebookText}> f </Text>)
+            return (<FacebookIcon />)
         default:
             throw new Error("Social Media Icon not yet implemented")
     }
@@ -58,8 +59,8 @@ export default function SocialButton(props : {socialmedia : SocialMedia}): JSX.E
 
 const styles = StyleSheet.create({
 	socialButtonContainer: {
-        height : 43 ,
-        width : 172 , 
+        height : "100%" ,
+        width : "42%" , 
         borderWidth :1 , 
         borderColor : colors.DROIDCONKE_LIGHT_GREEN, 
         borderRadius : 10 ,  
@@ -67,12 +68,8 @@ const styles = StyleSheet.create({
         alignItems : "center"
 	},
     mediaIconContainer : {
-        marginLeft : 40 , 
-        marginRight : 15
-    },
-    facebookText : {
-        fontFamily: fonts.MONTSERRAT_BOLD ,
-        fontSize : 17.58
+        marginLeft : "20%" , 
+        marginRight : "10%"
     },
     socialMediaName : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
