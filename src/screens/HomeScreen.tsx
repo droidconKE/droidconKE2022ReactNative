@@ -33,6 +33,7 @@ import MainHeader from "../components/layouts/MainHeader";
 import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import { useGoogleSocialAuthMutation } from "../services/auth";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -95,6 +96,12 @@ const HomeScreen = ({
 	const dispatch = useAppDispatch();
 
 	const { user } = useAppSelector((state) => state.user);
+	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError}] = useGoogleSocialAuthMutation();
+
+	// Login helper function.
+	const login = (token: string) => {
+		googleSocialAuth({access_token: token})
+	}
 
 	// Following authentication guide from https://docs.expo.dev/guides/authentication/#google
 	const [request, response, promptAsync] = Google.useAuthRequest({
@@ -110,17 +117,12 @@ const HomeScreen = ({
 		  const { authentication } = response;
 		  // Token.
 		  console.log(authentication?.accessToken)
+		  login(authentication?.accessToken as string)
 		} else {
 
 			console.log(response)
 		}
 	  }, [response]);
-
-	// Login helper function
-	const login = () => {
-
-		//dispatch(setUser({ name: "John Doe", id: 0 }));
-	};
 
 	if (!user) {
 		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
