@@ -14,9 +14,9 @@ const getSocialMediaIcon = (socialmedia : SocialMedia) : JSX.Element => {
         case "Twitter" : 
             return (<TwitterIcon height={20} width={20} color={colors.DROIDCONKE_BLACK}  />)
         case "Telegram":
-            return (<TelegramIcon color={colors.DROIDCONKE_BLACK}  />)
+            return (<TelegramIcon color={colors.DROIDCONKE_BLACK}  width={18.311} height={16.797}/>)
         case "WhatsApp":
-            return (<WhatsappIcon color={colors.DROIDCONKE_BLACK}  />)
+            return (<WhatsappIcon color={colors.DROIDCONKE_BLACK} width={18.311}  height={18.311} />)
         case "Facebook":
             return (<FacebookIcon width={17} height={17.868} color={colors.DROIDCONKE_BLACK}/>)
         default:
