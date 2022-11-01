@@ -21,8 +21,7 @@ const FEED = [
         body: "Good one",
         topic: "droidconweb",
         url: "https://droidcon.co.ke",
-        image:
-          "http://localhost:8000/upload/event/feeds/dangyntvmaet8jgjpg.jpg",
+        image: "https://rebrand.ly/5a6672",
         created_at: "2020-03-19 18:45:49",
       },
       {
@@ -30,7 +29,7 @@ const FEED = [
         body: "this is a test",
         topic: "droidconweb",
         url: "https://droidcon.co.ke",
-        image: null,
+        image: "https://rebrand.ly/5a6672",
         created_at: "2020-03-19 18:43:38",
       },
     ],

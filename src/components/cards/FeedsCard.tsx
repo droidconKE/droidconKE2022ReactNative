@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight } from "react-native";
 import React from "react";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
@@ -22,10 +22,10 @@ const FeedsCard = ({ body, image, created_at }: FeedCardProps) => {
         style={styles.image}
       />
       <View style={styles.post_details}>
-        <View style={styles.flex_row}>
+        <TouchableHighlight style={styles.flex_row}>
           <Text style={styles.share_btn}>Share</Text>
-          <FeedIcon style={styles.feed_icon} />
-        </View>
+          {/* <FeedIcon style={styles.feed_icon} /> */}
+        </TouchableHighlight>
         <Text style={styles.time}>{formatDate(created_at)}</Text>
       </View>
     </View>
@@ -50,12 +50,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.MONTSERRAT_REGULAR,
-    fontSize: 18,
+    fontSize: 16,
     color: colors.DROIDCONKE_BLACK,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 318,
+    height: 200,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginTop: 10,
   },
   share_btn: {
     color: colors.DROIDCONKE_BLUE,
