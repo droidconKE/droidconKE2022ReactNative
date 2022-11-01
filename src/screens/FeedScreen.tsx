@@ -15,54 +15,40 @@ import FeedsCard from "../components/cards/FeedsCard";
 
 const FEED = [
   {
-    id: 1,
-    description:
-      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
-    image:
-      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
-    postedAt: "2 days ago",
-  },
-  {
-    id: 2,
-    description:
-      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
-    image:
-      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
-    postedAt: "2 days ago",
-  },
-  {
-    id: 3,
-    description:
-      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
-    image:
-      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
-    postedAt: "2 days ago",
-  },
-  {
-    id: 4,
-    description:
-      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
-    image:
-      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
-    postedAt: "2 days ago",
-  },
-  {
-    id: 5,
-    description:
-      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
-    image:
-      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
-    postedAt: "2 days ago",
-  },
-  {
-    id: 6,
-    description:
-      "Droidcon is a global conference series focused on the Android platform. It is organized by the Droidcon team, a group of Android enthusiasts from all over the world.",
-    image:
-      "https://droidconke.co.ke/wp-content/uploads/2020/09/IMG_20200919_120000.jpg",
-    postedAt: "2 days ago",
+    data: [
+      {
+        title: "Test",
+        body: "Good one",
+        topic: "droidconweb",
+        url: "https://droidcon.co.ke",
+        image:
+          "http://localhost:8000/upload/event/feeds/dangyntvmaet8jgjpg.jpg",
+        created_at: "2020-03-19 18:45:49",
+      },
+      {
+        title: "niko fine",
+        body: "this is a test",
+        topic: "droidconweb",
+        url: "https://droidcon.co.ke",
+        image: null,
+        created_at: "2020-03-19 18:43:38",
+      },
+    ],
+    meta: {
+      paginator: {
+        count: 2,
+        per_page: "10",
+        current_page: 1,
+        next_page: null,
+        has_more_pages: false,
+        next_page_url: null,
+        previous_page_url: null,
+      },
+    },
   },
 ];
+
+console.log(FEED[0].data);
 
 const FeedScreen = ({
   navigation,
@@ -70,11 +56,11 @@ const FeedScreen = ({
   return (
     <SafeAreaView style={[styles.container, styles.paddingVertical]}>
       <MainHeader />
-      <ScrollView style={styles.paddingHorizontal} nestedScrollEnabled = {true}>
+      <ScrollView style={styles.paddingHorizontal} nestedScrollEnabled={true}>
         <FlatList
-          data={FEED}
+          data={FEED[0].data}
           renderItem={({ item }) => <FeedsCard {...item} />}
-          keyExtractor={(item) => item.id.toString()}
+          // keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
     </SafeAreaView>
