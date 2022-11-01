@@ -96,16 +96,32 @@ const HomeScreen = ({
   const [googleSocialAuth, { data, error, isLoading, isSuccess, isError }] =
     useGoogleSocialAuthMutation();
 
-  // Login helper function
   const login = () => {
-    // dispatch(setUser({ name: "John Doe", id: 0 }));
     googleSocialAuth({
       access_token: "",
     });
   };
 
   useEffect(() => {
-    console.log(JSON.stringify({ data, error, isLoading, isSuccess, isError }));
+    console.log({ data, error, isLoading, isSuccess, isError });
+
+    if (isSuccess && !isLoading && data) {
+      // user logged in successfully
+      const { token, user } = data;
+      dispatch(setUser({ user: user, token: token }));
+    }
+
+    if (isError && !isLoading && error) {
+      // show some error here
+      console.log({ error });
+      if (error.status === 422) {
+        // something is wrong with our data
+        // eg. {"message":"The given data was invalid.","errors":{"access_token":["The access token field is required."]}}
+        // show an error to the user and log the error
+        console.log({ data: error.data });
+      }
+    }
+    // something really bad or we do not know what happened. show some error
   }, [data, error, isLoading, isSuccess, isError]);
 
   if (!user) {
