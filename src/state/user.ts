@@ -22,10 +22,19 @@ const userSlice = createSlice({
     ) => {
       state.user = user;
       state.token = token;
+      //authStorage.setUser({user, token})
+    },
+    saveUser: (
+      state,
+      { payload: { user, token } }: PayloadAction<UserState>
+    ) => {
       authStorage.setUser({user, token})
+    },
+    removeUser: () => {
+      authStorage.removeUser()
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, saveUser, removeUser } = userSlice.actions;
 export default userSlice.reducer;
