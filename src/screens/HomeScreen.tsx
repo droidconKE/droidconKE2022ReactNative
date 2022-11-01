@@ -18,7 +18,7 @@ import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
-import { setUser } from "../state/user";
+import { setUser, saveUser} from "../state/user";
 import SessionCard, { SessionCardProps } from "../components/cards/SessionCard";
 import { MOCK_DATA_SPEAKERS } from "./SpeakersScreen";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
@@ -34,7 +34,6 @@ import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
 import { useGoogleSocialAuthMutation } from "../services/auth";
-import AuthStorage from "../utils/authStorage";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -117,7 +116,6 @@ const HomeScreen = ({
 		if (response?.type === 'success') {
 		  const { authentication } = response;
 		  // Token.
-		  console.log(authentication?.accessToken)
 		  login(authentication?.accessToken as string)
 		} else {
 
@@ -132,6 +130,7 @@ const HomeScreen = ({
 		  // user logged in successfully
 		  const { token, user } = data;
 		  dispatch(setUser({ user: user, token: token }));
+		  dispatch(saveUser({ user: user, token: token }));
 		  
 		}
 	
