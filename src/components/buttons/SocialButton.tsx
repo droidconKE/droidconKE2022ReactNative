@@ -18,7 +18,7 @@ const getSocialMediaIcon = (socialmedia : SocialMedia) : JSX.Element => {
         case "WhatsApp":
             return (<WhatsappIcon color={colors.DROIDCONKE_BLACK}  />)
         case "Facebook":
-            return (<FacebookIcon />)
+            return (<FacebookIcon width={17} height={17.868} color={colors.DROIDCONKE_BLACK}/>)
         default:
             throw new Error("Social Media Icon not yet implemented")
     }
