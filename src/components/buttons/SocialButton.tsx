@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         alignItems : "center"
 	},
     mediaIconContainer : {
-        marginLeft : "20%" , 
-        marginRight : "10%"
+        marginLeft : 20 , 
+        marginRight : 20
     },
     socialMediaName : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
