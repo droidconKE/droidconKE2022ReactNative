@@ -1,6 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import User from "../types/Users";
 
+interface UserState {
+    user: User | null | undefined;
+    token: string | null | undefined;
+}
+
 class AuthStorage {
     namespace: string;
 
@@ -10,21 +15,21 @@ class AuthStorage {
 
     async getUser() {
         // Get user from storage.
-        const savedUser = await AsyncStorage.getItem(`${this.namespace}:user`);
-        return savedUser ? JSON.parse(savedUser): '';
+        const savedUser = await AsyncStorage.getItem(`${this.namespace}:userstate`);
+        return savedUser ? JSON.parse(savedUser): { user: null, token: null };
     }
 
-    async setUser(newUser: User) {
+    async setUser(newUser: UserState) {
         // Add user to storage.
         await AsyncStorage.setItem(
-            `${this.namespace}:user`,
+            `${this.namespace}:userstate`,
             JSON.stringify(newUser),
         )
     }
 
    async removeUser() {
         // Remove User object from storage.
-        await AsyncStorage.removeItem(`${this.namespace}:user`);
+        await AsyncStorage.removeItem(`${this.namespace}:userstate`);
    }
 }
 

@@ -34,6 +34,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
 import { useGoogleSocialAuthMutation } from "../services/auth";
+import AuthStorage from "../utils/authStorage";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -123,6 +124,29 @@ const HomeScreen = ({
 			console.log(response)
 		}
 	  }, [response]);
+
+	  useEffect(() => {
+		console.log({ data, error, isLoading, isSuccess, isError });
+	
+		if (isSuccess && !isLoading && data) {
+		  // user logged in successfully
+		  const { token, user } = data;
+		  dispatch(setUser({ user: user, token: token }));
+		  
+		}
+	
+		if (isError && !isLoading && error) {
+		  // show some error here
+		  console.log({ error });
+		  if (error?.status === 422) {
+			// something is wrong with our data
+			// eg. {"message":"The given data was invalid.","errors":{"access_token":["The access token field is required."]}}
+			// show an error to the user and log the error
+			console.log({ data: error?.data });
+		  }
+		}
+		// something really bad or we do not know what happened. show some error
+	  }, [data, error, isLoading, isSuccess, isError]);
 
 	if (!user) {
 		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;

@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import User from "../types/Users";
+import AuthStorage from "../utils/authStorage";
 
 interface UserState {
-  user: User | null;
-  token: string | null;
+  user: User | null | undefined;
+  token: string | null | undefined;
 }
+
+const authStorage = new AuthStorage();
 
 const userSlice = createSlice({
   name: "user",
@@ -19,6 +22,7 @@ const userSlice = createSlice({
     ) => {
       state.user = user;
       state.token = token;
+      authStorage.setUser({user, token})
     },
   },
 });
