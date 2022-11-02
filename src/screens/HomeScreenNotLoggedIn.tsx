@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
 		fontFamily: fonts.ROBOTO_MEDIUM,
 		fontSize: 14,
 		lineHeight: 19,
-		color: colors.DROIDCONKE_BLACK_GOOGLESIGNIN,
+		color: colors.DROIDCONKE_BLACK_TEXT_AND_LABEL,
 		marginHorizontal: 5,
 	},
 });
