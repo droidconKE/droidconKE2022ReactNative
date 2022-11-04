@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./user";
 import scheduleReducer from "./schedule";
+import sessionsReducer from './sessions';
 import { userApi } from "../services/auth";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
@@ -8,6 +9,7 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     schedule: scheduleReducer,
+    sessions: sessionsReducer,
     // Add the generated reducer as a specific top-level slice
     [userApi.reducerPath]: userApi.reducer,
   },
