@@ -33,7 +33,7 @@ import MainHeader from "../components/layouts/MainHeader";
 import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
-import { useGoogleSocialAuthMutation } from "../services/auth";
+import { useGetSessionsQuery, useGoogleSocialAuthMutation } from "../services/auth";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -96,8 +96,11 @@ const HomeScreen = ({
 	const dispatch = useAppDispatch();
 
 	const { user } = useAppSelector((state) => state.user);
+
 	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError}] = useGoogleSocialAuthMutation();
 
+	const { data: sessions, error : sessionsError, isLoading : sessionsIsLoading, isSuccess : sessionsIsSuccess, isError : sessionsIsError} = useGetSessionsQuery("20", "1");
+	
 	// Login helper function.
 	const login = (token: string) => {
 		googleSocialAuth({access_token: token})
