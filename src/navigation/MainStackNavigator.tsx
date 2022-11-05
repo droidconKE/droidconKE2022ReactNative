@@ -1,6 +1,6 @@
 // Main navigation.
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useEffect } from "react";
+import React from "react";
 import { screen_names } from "../constants/ScreenNames";
 
 // Import screens.
@@ -21,33 +21,11 @@ import BackArrowIcon from "../assets/icons/BackArrowIcon";
 import { colors } from "../constants/Colors";
 import BioScreen, { MOCK_BIO } from "../screens/BioScreen";
 import { RootStackParamList } from "../types/Navigation";
-import AuthStorage from "../utils/authStorage";
-import { useAppDispatch } from "../hooks/useTypedRedux";
-import { setUser } from "../state/user";
-import * as SplashScreen from 'expo-splash-screen';
 
 // Create stack navigator.
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const MainStackNavigator = () => {
-
-	// Redux dispatch.
-	const dispatch = useAppDispatch();
-
-  const authStorage = new AuthStorage();
-
-  useEffect(() => {
-    // Keep the splash screen visible while we fetch resources
-    SplashScreen.preventAutoHideAsync();
-    authStorage.getUser().then(user => {
-     if(user !== null) {
-       dispatch(setUser(user))
-     }
-   }).finally(() => {
-    SplashScreen.hideAsync();
-   })
-
-  },[dispatch])
 
   return (
     <Stack.Navigator>
