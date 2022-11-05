@@ -1,14 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Pagination } from "../types/Pagination";
 import Session from "../types/Session";
 
+interface SessionState {
+    sessions: Session[] | null | undefined;
+    meta: Pagination | null | undefined;
+}
 const sessionsSlice = createSlice({
     name: 'sessions',
     initialState: {
-        sessions: undefined as Session[] | undefined,
-    },
+        sessions: [],
+        meta: null,
+    } as SessionState,
     reducers: {
-        setSessions: (state, action: PayloadAction<Session[] | undefined >) => {
-            state.sessions = action.payload;
+        setSessions: (state, {payload: { sessions, meta}}: PayloadAction<SessionState>) => {
+            state.sessions = sessions;
+            state.meta = meta
         }
     }
 });
