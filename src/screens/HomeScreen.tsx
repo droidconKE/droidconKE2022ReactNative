@@ -4,7 +4,6 @@ import {
 	Dimensions,
 	FlatList,
 	Image,
-	ImageSourcePropType,
 	SafeAreaView,
 	ScrollView,
 	StatusBar,
@@ -18,8 +17,8 @@ import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
-import { setUser, saveUser} from "../state/user";
-import SessionCard, { SessionCardProps } from "../components/cards/SessionCard";
+import { setUser, saveUser, removeUser} from "../state/user";
+import SessionCard from "../components/cards/SessionCard";
 import { MOCK_DATA_SPEAKERS } from "./SpeakersScreen";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
 import { ResizeMode, Video } from "expo-av";
@@ -33,55 +32,11 @@ import MainHeader from "../components/layouts/MainHeader";
 import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
-import { useGetSessionsQuery, useGoogleSocialAuthMutation } from "../services/auth";
+import { useGetScheduleQuery, useGoogleSocialAuthMutation } from "../services/auth";
+import Session from "../types/Session";
+import { setSchedule } from "../state/schedule";
+import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
 
-//Mock data ... to be removed when we add code to fetch the actual data
-const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
-
-const MOCK_DATA_SESSIONS = [
-	{
-		id: "1",
-		poster: placeholder,
-		title: "Transforming Famers Lives Using Android in Kenya",
-		time: "10:30",
-		venue: "Room 1",
-	},
-	{
-		id: "2",
-		poster: placeholder,
-		title: "Compose Beyond Material Design",
-		time: "10:30",
-		venue: "Room 1",
-	},
-	{
-		id: "3",
-		poster: placeholder,
-		title: "Transforming Famers Lives Using Android in Kenya",
-		time: "10:30",
-		venue: "Room 1",
-	},
-	{
-		id: "4",
-		poster: placeholder,
-		title: "Compose Beyond Material Design",
-		time: "10:30",
-		venue: "Room 1",
-	},
-	{
-		id: "5",
-		poster: placeholder,
-		title: "Transforming Famers Lives Using Android in Kenya",
-		time: "10:30",
-		venue: "Room 1",
-	},
-	{
-		id: "6",
-		poster: placeholder,
-		title: "Compose Beyond Material Design",
-		time: "10:30",
-		venue: "Room 1",
-	},
-];
 
 const HomeScreen = ({
 	navigation,
@@ -97,9 +52,16 @@ const HomeScreen = ({
 
 	const { user } = useAppSelector((state) => state.user);
 
-	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError}] = useGoogleSocialAuthMutation();
+	const { schedule } = useAppSelector((state) => state.schedule);
 
-	const { data: sessions, error : sessionsError, isLoading : sessionsIsLoading, isSuccess : sessionsIsSuccess, isError : sessionsIsError} = useGetSessionsQuery("20", "1");
+	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError,}] = useGoogleSocialAuthMutation();
+
+	const { data: scheduleData, error: scheduleError, isLoading: scheduleIsLoading, isSuccess: scheduleIsSuccess, isError: scheduleIsError} = useGetScheduleQuery({skip: user === null})
+	
+	const [dates, setDates] =
+	  useState<Pick<DateToggleListProps, "items"> | undefined>();
+	const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
+	const [selectedDate, setSelectedDate] = useState<string | undefined>();
 	
 	// Login helper function.
 	const login = (token: string) => {
@@ -127,8 +89,7 @@ const HomeScreen = ({
 	  }, [response]);
 
 	  useEffect(() => {
-		console.log({ data, error, isLoading, isSuccess, isError });
-	
+		//dispatch(removeUser())
 		if (isSuccess && !isLoading && data) {
 		  // user logged in successfully
 		  const { token, user } = data;
@@ -149,6 +110,42 @@ const HomeScreen = ({
 		}
 		// something really bad or we do not know what happened. show some error
 	  }, [data, error, isLoading, isSuccess, isError]);
+	
+	useEffect(() => {
+		if(scheduleIsSuccess && !scheduleIsLoading && scheduleData) {
+			dispatch(setSchedule(scheduleData))
+		}
+
+	},[scheduleData, scheduleError, scheduleIsLoading, scheduleIsSuccess, scheduleError, scheduleIsError])
+
+	useEffect(() => {
+	  extractDatesFromSchedule();
+	}, [schedule, selectedDate]);
+  
+	useEffect(() => {
+	  if (selectedDate && schedule) {
+		setSessions({ items: schedule.data[selectedDate] });
+	  }
+	}, [selectedDate]);
+  
+	function extractDatesFromSchedule() {
+	  if (schedule) {
+		const keys = Object.keys(schedule.data);
+		const dates = keys.map((key, index) => {
+		  return {
+			date: `${new Date(key).getDate()}th`,
+			day: `Day ${index + 1}`,
+			fullDate: key,
+			selected: key === selectedDate,
+		  };
+		});
+		setDates({ items: dates });
+		if (!selectedDate) {
+		  setSelectedDate(keys[0]);
+		}
+	  }
+	}
+
 
 	if (!user) {
 		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
@@ -162,6 +159,9 @@ const HomeScreen = ({
 
 	// Function to navigate to Single Speaker screen.
 	const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.BIO);
+
+	// Function to navigate to Sessions screen
+	const goToSessionsScreen = () => navigation.navigate(screen_names.SESSIONS);
 
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
@@ -207,26 +207,23 @@ const HomeScreen = ({
 								layoutProperties.justifyBetween,
 								layoutProperties.itemsCenter,
 							]}
+							onPress={goToSessionsScreen}
 						>
 							<Text style={styles.link}>View All</Text>
 							<View style={styles.tallyContainer}>
-								<Text style={styles.tallyText}>+45</Text>
+								<Text style={styles.tallyText}>+ {sessions?.items?.length - 1}</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
 					<FlatList
-						data={MOCK_DATA_SESSIONS}
-						renderItem={({ item }) => (
+						data={sessions?.items}
+						renderItem={({item} : {item: Session}) => (
 							<SessionCard
-								id={item.id}
-								poster={item.poster}
-								title={item.title}
-								time={item.time}
-								venue={item.venue}
+								item={item}
 								onPress={() => console.log("pressed")}
 							/>
 						)}
-						keyExtractor={(item: SessionCardProps) => item.id}
+						keyExtractor={(item: Session) => item?.slug}
 						horizontal
 						contentContainerStyle={styles.sessionFlatListContentContainerStyle}
 					/>
