@@ -4,6 +4,7 @@ import { Pagination } from "../types/Pagination";
 import { RootState } from "../state/store";
 import Session from "../types/Session";
 import User from "../types/Users";
+import Schedule from "../types/Schedule";
 
 interface LoginResponse {
   user?: User | null;
@@ -32,11 +33,12 @@ export const userApi = createApi({
 
     // add token if it exists
         prepareHeaders: (headers, { getState }) => {
-          const token = (getState() as RootState).user.token;
-
+          const user = (getState() as RootState).user;
+          
           // If we have a token set in state, let's assume that we should be passing it.
-          if (token) {
-              headers.set('authorization', `Bearer ${token}`);
+          if (user.token) {
+            headers.append('Api-Authorization-Key','droidconKe-2020');
+            headers.append('Authorization', `Bearer ${user.token}`);
           }
 
           return headers;
@@ -62,15 +64,21 @@ export const userApi = createApi({
     }),
     getSessions: builder.query<SessionsResponse<Session>, SessionRequest>({
         query: ({per_page, page = "1"}) => {
-            const formData = new FormData();
-            formData.append("event_slug", EVENT_SLUG);
-            (per_page && formData.append("per_page", per_page));
-            formData.append("page", page)
+            const params = new URLSearchParams();
+            (per_page && params.append("per_page", per_page));
+            params.append("page", page)
             return {
-                url: 'sessions',
-                method: 'GET',
-                body: formData,
+                url: `/events/${EVENT_SLUG}/sessions?${params}`,
+                method: "GET",
             }
+        }
+    }),
+    getSchedule: builder.query<Schedule, void>({
+        query: () => {
+          return {
+            url: `/events/${EVENT_SLUG}/schedule?grouped=true`,
+            method: 'GET',
+          }
         }
     })
   }),
@@ -78,4 +86,4 @@ export const userApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGoogleSocialAuthMutation, useGetSessionsQuery } = userApi;
+export const { useGoogleSocialAuthMutation, useGetSessionsQuery, useGetScheduleQuery } = userApi;
