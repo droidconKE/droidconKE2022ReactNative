@@ -23,8 +23,6 @@ const styles = StyleSheet.create({
     container: {
         ...layoutProperties.itemsCenter,
         borderRadius : 10,
-        //marginLeft: -20,
-        //marginRight: 5,
     },
     image : {
         borderColor : colors.DROIDCONKE_GREEN,
