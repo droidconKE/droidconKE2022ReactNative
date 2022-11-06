@@ -36,6 +36,7 @@ import { useGetScheduleQuery, useGoogleSocialAuthMutation } from "../services/au
 import Session from "../types/Session";
 import { setSchedule } from "../state/schedule";
 import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
+import { setSpeakers } from "../state/speakers";
 
 
 const HomeScreen = ({
@@ -146,7 +147,6 @@ const HomeScreen = ({
 	  }
 	}
 
-
 	if (!user) {
 		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
 	}
@@ -249,7 +249,7 @@ const HomeScreen = ({
 						>
 							<Text style={styles.link}>View All</Text>
 							<View style={styles.tallyContainer}>
-								<Text style={styles.tallyText}>+45</Text>
+								<Text style={styles.tallyText}>+{sessions?.items?.length - 4}</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
@@ -257,18 +257,23 @@ const HomeScreen = ({
 						style={[
 							layoutProperties.flexRow,
 							styles.paddingHorizontal,
-							layoutProperties.justifyStart,
+							layoutProperties.justifyEvenly,
+							styles.marginRowOffset
 						]}
 					>
-						{MOCK_DATA_SPEAKERS.slice(0, 4).map((item) => (
-							<SpeakerImageCard
-								key={item.id}
-								id={item.id}
-								ProfilePicture={item.ProfilePicture}
-								SpeakersName={item.SpeakersName}
-								onPress={goToSingleSpeakerScreen}
-							/>
-						))}
+						{sessions?.items.slice(0,4).map((item : Session) => {
+							return(
+								<>
+								{item.speakers.map(speaker => (
+									<SpeakerImageCard
+										item={speaker}
+										onPress={goToSingleSpeakerScreen}
+									/>
+
+								))}
+								</>
+							)
+						})}
 					</View>
 				</View>
 				<View style={styles.paddingHorizontal}>
@@ -445,6 +450,9 @@ const styles = StyleSheet.create({
 	sessionFlatListContentContainerStyle: {
 		paddingLeft: 20,
 	},
+	marginRowOffset: {
+		marginHorizontal: -20,
+	}
 });
 
 export default HomeScreen;
