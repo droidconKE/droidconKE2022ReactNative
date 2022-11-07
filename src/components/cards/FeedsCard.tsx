@@ -4,6 +4,7 @@ import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
 import { formatDate } from "../../utils/formatTime";
 import FeedIcon from "../../assets/icons/FeedIcon";
+import ShareIcon from "../../assets/icons/ShareIcon";
 
 interface FeedCardProps {
   body: string;
@@ -22,10 +23,10 @@ const FeedsCard = ({ body, image, created_at }: FeedCardProps) => {
         style={styles.image}
       />
       <View style={styles.post_details}>
-        <TouchableHighlight style={styles.flex_row}>
+        <TouchableOpacity style={styles.flex_row}>
           <Text style={styles.share_btn}>Share</Text>
-          {/* <FeedIcon style={styles.feed_icon} /> */}
-        </TouchableHighlight>
+          <ShareIcon  style={styles.feed_icon}/>
+        </TouchableOpacity>
         <Text style={styles.time}>{formatDate(created_at)}</Text>
       </View>
     </View>
@@ -37,8 +38,8 @@ export default FeedsCard;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 1,
-    borderBottomColor: colors.DROIDCONKE_LIGHT_GREY,
-    borderBottomWidth: .5,
+    borderBottomColor: colors.DROIDCONKE_BORDER_BOTTOM,
+    borderBottomWidth: 1,
     padding: 25,
   },
   post_details: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     color: colors.DROIDCONKE_BLACK,
   },
   image: {
-    width: 100%,
+    width: '100%',
     height: 200,
     borderRadius: 10,
     marginBottom: 10,
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     color: colors.DROIDCONKE_BLUE,
     fontSize: 16,
     fontFamily: fonts.MONTSERRAT_BOLD,
+    marginRight: 10,
   },
   time: {
     color: colors.DROIDCONKE_DARK_GREY,
@@ -77,6 +79,6 @@ const styles = StyleSheet.create({
   },
   flex_row: {
     flexDirection: "row",
-
+    alignItems: 'center',
   }
 });

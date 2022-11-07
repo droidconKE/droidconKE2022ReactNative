@@ -2,9 +2,7 @@ import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   SafeAreaView,
-  Text,
   StyleSheet,
-  ScrollView,
   FlatList,
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
@@ -23,6 +21,30 @@ const FEED = [
         url: "https://droidcon.co.ke",
         image: "https://rebrand.ly/5a6672",
         created_at: "2020-03-19 18:45:49",
+      },
+      {
+        title: "niko fine",
+        body: "this is a test",
+        topic: "droidconweb",
+        url: "https://droidcon.co.ke",
+        image: "https://rebrand.ly/5a6672",
+        created_at: "2020-03-19 18:43:38",
+      },
+      {
+        title: "niko fine",
+        body: "this is a test",
+        topic: "droidconweb",
+        url: "https://droidcon.co.ke",
+        image: "https://rebrand.ly/5a6672",
+        created_at: "2020-03-19 18:43:38",
+      },
+      {
+        title: "niko fine",
+        body: "this is a test",
+        topic: "droidconweb",
+        url: "https://droidcon.co.ke",
+        image: "https://rebrand.ly/5a6672",
+        created_at: "2020-03-19 18:43:38",
       },
       {
         title: "niko fine",
