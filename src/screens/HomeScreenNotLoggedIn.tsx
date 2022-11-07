@@ -15,6 +15,7 @@ import { fonts } from "../assets/fonts/fonts";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import PolygonIcon from "../assets/icons/PolygonIcon";
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import DroidconSponsors from "../components/layouts/DroidconSponsors";
 import MainHeader from "../components/layouts/MainHeader";
 import { colors } from "../constants/Colors";
 import { layoutProperties } from "../constants/Properties";
@@ -74,50 +75,7 @@ const HomeScreenNotLoggedIn = ({
 						<PolygonIcon />
 					</View>
 				</View>
-				<View
-					style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-				>
-					<Text
-						style={[
-							styles.sponsorsContainerTitle,
-							styles.marginVerticalSeparator,
-						]}
-					>
-						Sponsors
-					</Text>
-					<View
-						style={[
-							styles.sponsorsIconsContainer,
-							layoutProperties.justifyCenter,
-						]}
-					>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/img/google.png")}
-							style={styles.marginVerticalIcons}
-						/>
-					</View>
-					<View
-						style={[
-							styles.sponsorsIconsContainer,
-							layoutProperties.justifyBetween,
-							styles.marginVerticalSeparator,
-						]}
-					>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/img/andela_landscape_blue.png")}
-						/>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/img/hover_logo.png")}
-						/>
-						<Image
-							resizeMode="contain"
-							source={require("../assets/img/jetbrains.png")}
-						/>
-					</View>
-				</View>
+				<DroidconSponsors />
 				<DroidconOrganizers />
 			</ScrollView>
 			<Modal transparent visible={modalVisible}>
@@ -189,22 +147,6 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		lineHeight: 20,
 		color: colors.DROIDCONKE_WHITE,
-	},
-	sponsorsContainer: {
-		backgroundColor: colors.DROIDCONKE_PEARL,
-		padding: 20,
-		borderRadius: 10,
-	},
-	sponsorsContainerTitle: {
-		fontFamily: fonts.MONTSERRAT_BOLD,
-		fontSize: 18,
-		lineHeight: 20,
-		color: colors.DROIDCONKE_BLUE,
-		textAlign: "center",
-	},
-	sponsorsIconsContainer: {
-		...layoutProperties.flexRow,
-		...layoutProperties.itemsCenter,
 	},
 	modalContainer: {
 		flex: 1,
