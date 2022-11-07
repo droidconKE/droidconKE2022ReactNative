@@ -14,7 +14,7 @@ web-build/
 .DS_Store
 
 # env files
-.env
+.env*
 .env.development
 .env.staging
 .env.production
