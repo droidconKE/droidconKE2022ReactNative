@@ -3,7 +3,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
 	Dimensions,
 	FlatList,
-	Image,
 	ImageSourcePropType,
 	SafeAreaView,
 	ScrollView,
@@ -17,9 +16,6 @@ import { screen_names } from "../constants/ScreenNames";
 import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
-import Android254Icon from "../assets/icons/Android254Icon";
-import AppsLabIcon from "../assets/icons/AppsLabIcon";
-import TiskosIcon from "../assets/icons/TiskosIcon";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
 import { setUser } from "../state/user";
 import SessionCard, { SessionCardProps } from "../components/cards/SessionCard";
@@ -33,6 +29,8 @@ import VolumeOff from "../assets/icons/VolumeOff";
 import HomeScreenNotLoggedIn from "./HomeScreenNotLoggedIn";
 import { layoutProperties } from "../constants/Properties";
 import MainHeader from "../components/layouts/MainHeader";
+import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import DroidconSponsors from "../components/layouts/DroidconSponsors";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -225,93 +223,8 @@ const HomeScreen = ({
 					</View>
 				</View>
 				<View style={styles.paddingHorizontal}>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Sponsors
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyCenter,
-							]}
-						>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/google.png")}
-								style={styles.marginVerticalIcons}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyBetween,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/andela_landscape_blue.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/hover_logo.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/jetbrains.png")}
-							/>
-						</View>
-					</View>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Organized by :
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Android254Icon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/kotlin.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/flutter_kenya.png")}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<AppsLabIcon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/early_camp.png")}
-							/>
-							<TiskosIcon />
-						</View>
-					</View>
+					<DroidconSponsors />
+					<DroidconOrganizers />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -334,12 +247,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 20,
 	},
-	marginVerticalSeparator: {
-		marginVertical: 15,
-	},
-	marginVerticalSeparator2: {
-		marginVertical: 18,
-	},
 	marginVerticalVideo: {
 		marginVertical: 15,
 	},
@@ -348,9 +255,6 @@ const styles = StyleSheet.create({
 	},
 	marginBottomSeparator2: {
 		marginBottom: 5,
-	},
-	marginVerticalIcons: {
-		marginVertical: 10,
 	},
 	droidconkeBanner: {
 		width: Dimensions.get("screen").width - 40,
@@ -380,21 +284,12 @@ const styles = StyleSheet.create({
 		lineHeight: 20,
 		color: colors.DROIDCONKE_BLACK,
 	},
-	sponsorsContainer: {
-		backgroundColor: colors.DROIDCONKE_PEARL,
-		padding: 20,
-		borderRadius: 10,
-	},
 	sponsorsContainerTitle: {
 		fontFamily: fonts.MONTSERRAT_BOLD,
 		fontSize: 18,
 		lineHeight: 20,
 		color: colors.DROIDCONKE_BLUE,
 		textAlign: "center",
-	},
-	sponsorsIconsContainer: {
-		flexDirection: "row",
-		...layoutProperties.itemsCenter,
 	},
 	link: {
 		color: colors.DROIDCONKE_BLUE,

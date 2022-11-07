@@ -12,11 +12,10 @@ import {
 	Dimensions,
 } from "react-native";
 import { fonts } from "../assets/fonts/fonts";
-import Android254Icon from "../assets/icons/Android254Icon";
-import AppsLabIcon from "../assets/icons/AppsLabIcon";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import PolygonIcon from "../assets/icons/PolygonIcon";
-import TiskosIcon from "../assets/icons/TiskosIcon";
+import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import DroidconSponsors from "../components/layouts/DroidconSponsors";
 import MainHeader from "../components/layouts/MainHeader";
 import { colors } from "../constants/Colors";
 import { layoutProperties } from "../constants/Properties";
@@ -29,7 +28,8 @@ const HomeScreenNotLoggedIn = ({
 	const [modalVisible, setModalVisible] = useState(false);
 
 	// Function to togle modal.
-	const toggleModal = () => setModalVisible(!modalVisible);
+	const openModal = () => setModalVisible(true);
+	const closeModal = () => setModalVisible(false);
 
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
@@ -41,147 +41,58 @@ const HomeScreenNotLoggedIn = ({
 				}
 				barStyle="dark-content"
 			/>
-			<MainHeader onPress={toggleModal} />
-			<View style={styles.paddingHorizontal}>
-				<View style={styles.marginVerticalSeparator}>
+			<MainHeader onPress={openModal} />
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				// Show Sign In modal when scrolling momentum ends
+				onMomentumScrollEnd={openModal}
+				style={styles.paddingHorizontal}
+			>
+				<View style={[styles.marginVerticalSeparator]}>
 					<Text style={styles.welcomeText}>
 						Welcome to the largest Focused Android Developer community in
 						Africa!
 					</Text>
 				</View>
-				<ScrollView
-					showsVerticalScrollIndicator={false}
-					// Show Sign In modal when scrolling momentum ends
-					onMomentumScrollEnd={toggleModal}
-				>
-					<View style={styles.marginVerticalSeparator}>
-						<Image
-							source={require("../assets/img/droidcon_ke_banner.png")}
-							resizeMode="stretch"
-							style={styles.droidcon_ke_banner}
-						/>
+				<View style={styles.marginVerticalSeparator}>
+					<Image
+						source={require("../assets/img/droidcon_ke_banner.png")}
+						resizeMode="stretch"
+						style={styles.droidcon_ke_banner}
+					/>
+				</View>
+				<View style={[styles.cfpContainer, styles.marginVerticalSeparator2]}>
+					<Image
+						resizeMode="stretch"
+						source={require("../assets/img/cloud_confetti.png")}
+						style={styles.confetti}
+					/>
+					<View>
+						<Text style={styles.cfpTitle}>Call for speakers</Text>
+						<Text>Apply to be a speaker</Text>
 					</View>
-					<View style={[styles.cfpContainer, styles.marginVerticalSeparator2]}>
-						<Image
-							resizeMode="stretch"
-							source={require("../assets/img/cloud_confetti.png")}
-							style={styles.confetti}
-						/>
-						<View>
-							<Text style={styles.cfpTitle}>Call for speakers</Text>
-							<Text>Apply to be a speaker</Text>
-						</View>
-						<View>
-							<PolygonIcon />
-						</View>
+					<View>
+						<PolygonIcon />
 					</View>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Sponsors
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyCenter,
-							]}
-						>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/google.png")}
-								style={styles.marginVerticalIcons}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyBetween,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/andela_landscape_blue.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/hover_logo.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/jetbrains.png")}
-							/>
-						</View>
-					</View>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Organized by :
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Android254Icon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/kotlin.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/flutter_kenya.png")}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<AppsLabIcon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/early_camp.png")}
-							/>
-							<TiskosIcon />
-						</View>
-					</View>
-				</ScrollView>
-				<Modal transparent visible={modalVisible}>
-					<View style={styles.modalContainer}>
-						<View style={styles.modalContentContainer}>
-							<TouchableOpacity onPress={toggleModal}>
-								<Text style={styles.textCancel}>CANCEL</Text>
+				</View>
+				<DroidconSponsors />
+				<DroidconOrganizers />
+			</ScrollView>
+			<Modal transparent visible={modalVisible}>
+				<View style={styles.modalContainer}>
+					<View style={styles.modalContentContainer}>
+						<TouchableOpacity onPress={closeModal}>
+							<Text style={styles.textCancel}>CANCEL</Text>
+						</TouchableOpacity>
+						<View style={styles.googleBtnContainer}>
+							<TouchableOpacity onPress={handleLogin} style={styles.googleBtn}>
+								<GoogleIcon width={25} />
+								<Text style={styles.googleBtnLabel}>Sign in with Google</Text>
 							</TouchableOpacity>
-							<View style={styles.googleBtnContainer}>
-								<TouchableOpacity
-									onPress={handleLogin}
-									style={styles.googleBtn}
-								>
-									<GoogleIcon width={30} />
-									<Text style={styles.googleBtnLabel}>Sign in with Google</Text>
-								</TouchableOpacity>
-							</View>
 						</View>
 					</View>
-				</Modal>
-			</View>
+				</View>
+			</Modal>
 		</SafeAreaView>
 	);
 };
@@ -215,6 +126,7 @@ const styles = StyleSheet.create({
 		fontFamily: fonts.MONTSERRAT_SEMIBOLD,
 		fontSize: 16,
 		lineHeight: 20,
+		marginHorizontal: 3,
 	},
 	cfpContainer: {
 		backgroundColor: colors.DROIDCONKE_GREEN,
@@ -235,22 +147,6 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		lineHeight: 20,
 		color: colors.DROIDCONKE_WHITE,
-	},
-	sponsorsContainer: {
-		backgroundColor: colors.DROIDCONKE_PEARL,
-		padding: 20,
-		borderRadius: 10,
-	},
-	sponsorsContainerTitle: {
-		fontFamily: fonts.MONTSERRAT_BOLD,
-		fontSize: 18,
-		lineHeight: 20,
-		color: colors.DROIDCONKE_BLUE,
-		textAlign: "center",
-	},
-	sponsorsIconsContainer: {
-		...layoutProperties.flexRow,
-		...layoutProperties.itemsCenter,
 	},
 	modalContainer: {
 		flex: 1,
@@ -279,7 +175,7 @@ const styles = StyleSheet.create({
 		...layoutProperties.itemsCenter,
 	},
 	googleBtn: {
-		width: "75%",
+		width: 208,
 		paddingHorizontal: 10,
 		...layoutProperties.flexRow,
 		...layoutProperties.itemsCenter,
@@ -292,7 +188,8 @@ const styles = StyleSheet.create({
 		fontFamily: fonts.ROBOTO_MEDIUM,
 		fontSize: 14,
 		lineHeight: 19,
-		color: colors.DROIDCONKE_BLACK_GOOGLESIGNIN,
+		color: colors.DROIDCONKE_BLACK_TEXT_AND_LABEL,
+		marginHorizontal: 5,
 	},
 });
 export default HomeScreenNotLoggedIn;

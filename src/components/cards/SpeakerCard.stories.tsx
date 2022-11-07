@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import SpeakerCard from "./SpeakerCard";
-const placeholder = require("../../assets/img/john_doe.jpeg");
+const placeholder = require("../../assets/img/john_doe.png");
 
 export default {
   title: "DroidconKe/Cards/SpeakerCard",

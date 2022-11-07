@@ -6,13 +6,19 @@ import { formatDate } from "../../utils/formatTime";
 import FeedIcon from "../../assets/icons/FeedIcon";
 import ShareIcon from "../../assets/icons/ShareIcon";
 
+interface Feed {
+  body: string,
+  image: string | null | undefined,
+  created_at: string
+}
 interface FeedCardProps {
   body: string;
   image: string | null | undefined;
   created_at: string;
+  handleShare: (item: Feed) => void;
 }
 
-const FeedsCard = ({ body, image, created_at }: FeedCardProps) => {
+const FeedsCard = ({ body, image, created_at, handleShare }: FeedCardProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{body}</Text>
@@ -23,9 +29,9 @@ const FeedsCard = ({ body, image, created_at }: FeedCardProps) => {
         style={styles.image}
       />
       <View style={styles.post_details}>
-        <TouchableOpacity style={styles.flex_row}>
+        <TouchableOpacity style={styles.flex_row} onPress={() => handleShare({body, image, created_at})}>
           <Text style={styles.share_btn}>Share</Text>
-          <ShareIcon  style={styles.feed_icon}/>
+          <ShareIcon  style={styles.feed_icon} fill={colors.DROIDCONKE_BLUE}/>
         </TouchableOpacity>
         <Text style={styles.time}>{formatDate(created_at)}</Text>
       </View>

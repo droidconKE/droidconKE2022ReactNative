@@ -12,15 +12,12 @@ import {
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { colors } from "../constants/Colors";
-import { layoutProperties } from "../constants/Properties";
 import { fonts } from "../assets/fonts/fonts";
 import TeamMemberCard from "../components/cards/TeamMemberCard";
-import Android254Icon from "../assets/icons/Android254Icon";
-import AppsLabIcon from "../assets/icons/AppsLabIcon";
-import TiskosIcon from "../assets/icons/TiskosIcon";
 import { MOCK_BIO, ScreenTitle } from "./BioScreen";
 import { RootStackParamList } from "../types/Navigation";
 import MainHeader from "../components/layouts/MainHeader";
+import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
 
 //Dummy About Text. Hardcoded for now, to change once data from server is available
 const introText = `Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.
@@ -92,49 +89,7 @@ const AboutScreen = ({
 							/>
 						))}
 					</View>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Organized by :
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Android254Icon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/kotlin.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/flutter_kenya.png")}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyAround,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<AppsLabIcon />
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/early_camp.png")}
-							/>
-							<TiskosIcon />
-						</View>
-					</View>
+					<DroidconOrganizers />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -142,25 +97,6 @@ const AboutScreen = ({
 };
 
 const styles = StyleSheet.create({
-	marginVerticalSeparator2: {
-		marginVertical: 18,
-	},
-	sponsorsContainer: {
-		backgroundColor: colors.DROIDCONKE_PEARL,
-		padding: 20,
-		borderRadius: 10,
-	},
-	sponsorsContainerTitle: {
-		fontFamily: fonts.MONTSERRAT_BOLD,
-		fontSize: 18,
-		lineHeight: 20,
-		color: colors.DROIDCONKE_BLUE,
-		textAlign: "center",
-	},
-	sponsorsIconsContainer: {
-		...layoutProperties.flexRow,
-		...layoutProperties.itemsCenter,
-	},
 	heroImage: {
 		width: "100%",
 		height: 235,
@@ -187,9 +123,6 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: colors.DROIDCONKE_WHITE,
 		flex: 1,
-	},
-	marginVerticalSeparator: {
-		marginVertical: 15,
 	},
 	paddingVertical: {
 		paddingVertical: 20,
