@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: colors.DROIDCONKE_BLACK,
   },
   image: {
-    width: 318,
+    width: 100%,
     height: 200,
     borderRadius: 10,
     marginBottom: 10,
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
   },
   time: {
     color: colors.DROIDCONKE_DARK_GREY,
-    fontSize: 16,
-    fontFamily: fonts.MONTSERRAT_BOLD,
+    fontSize: 12,
+    fontFamily: fonts.MONTSERRAT_REGULAR,
   },
   feed_icon: {
     width: 20,

@@ -47,7 +47,6 @@ const FEED = [
   },
 ];
 
-console.log(FEED[0].data);
 
 const FeedScreen = ({
   navigation,
@@ -55,13 +54,14 @@ const FeedScreen = ({
   return (
     <SafeAreaView style={[styles.container, styles.paddingVertical]}>
       <MainHeader />
-      <ScrollView style={styles.paddingHorizontal} nestedScrollEnabled={true}>
+      
         <FlatList
+          style={styles.paddingHorizontal}
           data={FEED[0].data}
           renderItem={({ item }) => <FeedsCard {...item} />}
           // keyExtractor={({ id }, index) => id}
         />
-      </ScrollView>
+      
     </SafeAreaView>
   );
 };
