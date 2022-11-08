@@ -57,7 +57,20 @@ const SessionDetailsScreen = ({
     navigation,
     route
 }: NativeStackScreenProps<RootStackParamList, screen_names.SESSION_DETAILS, undefined>) => { 
+
     const {sessionData} = route.params
+    const SpeakerName = sessionData.speakers[0].name
+    const room = sessionData.rooms[0].title
+
+    const get12hourformat = (timeString : string) : string => {
+        const [hourString, minute, seconds ] = timeString.split(":")
+        const hour = +hourString % 24;
+        return (hour % 12 || 12) + ":" + minute + (hour < 12 ? "AM" : "PM");
+    }
+
+    const starttime = get12hourformat(sessionData.start_time)
+    const endtime = get12hourformat(sessionData.end_time)
+
     return (
         <SafeAreaView style={styles.mainContainer}>
             <View style={styles.rowContainer}>
@@ -68,31 +81,26 @@ const SessionDetailsScreen = ({
             </View>
             <View style={styles.rowContainer}>
                 <Text style={styles.speakerName}>
-                    FRANK TAMRE
+                    {SpeakerName}
                 </Text>
                 <Star color={colors.DROIDCONKE_BLUE} style={styles.starIcon} />
             </View>
             <Text style={styles.titleText}>
-            Compose Beyond Material Design
+            {sessionData.title}
             </Text>
             <Text style={styles.contentText}>
-            Been in the tech industry for over 20 years. Am passionate about developer communities, motivating people and building successful
+            {sessionData.description}
             </Text>
             <Image source={placeholder} style={styles.sessionImage} />
             <Text style={styles.timeAndroomText}>
-                9.30AM - 10:15AM  |  ROOM 1
+                {starttime} - {endtime}  |  {room}
             </Text>
             <Text style={styles.sessionLevelText}>
-            #BEGINNER
+            #{sessionData.session_level}
             </Text>
-            <View style={styles.footer}>
-					<Text style={styles.footerText}>Twitter Handle</Text>
-					<TouchableOpacity
-						onPress={() => {
-							alert("Twitter handle pressed!");
-						}}
-					>
-						<View style={styles.twitterHandleButton}>
+            <View style={styles.rowContainer}>
+					<Text style={styles.twitterText}>Twitter Handle</Text>
+						<TouchableOpacity onPress={() => {alert("Twitter handle pressed")}} style={styles.twitterHandleButton}>
 							<TwitterIcon
 								width={30}
 								height={25}
@@ -100,13 +108,12 @@ const SessionDetailsScreen = ({
 							/>
 							<Text
 								style={{
-									...styles.footerText,
+									...styles.twitterText,
 									color: colors.DROIDCONKE_BLUE,
 								}}
 							>
 								PriestTamzi
 							</Text>
-						</View>
 					</TouchableOpacity>
 				</View>
             <TouchableOpacity style={styles.ShareIconContainer}>
@@ -153,11 +160,11 @@ const styles = StyleSheet.create({
         fontFamily : fonts.MONTSERRAT_REGULAR,
         fontSize : 16,
         textAlign : "left",
-        color : "#707070",
+        color : colors.DROIDCONKE_DARK_GREY,
         marginTop : 15
     },
     sessionImage : {
-        borderColor : "#68DEA442",
+        borderColor : colors.DROIDCONKE_MEDIUM_AQUAMARINE,
         borderRadius : 10,
         borderWidth : 1,
         width : "100%",
@@ -166,30 +173,26 @@ const styles = StyleSheet.create({
     },
     timeAndroomText : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
-        color: "#707070",
+        color: colors.DROIDCONKE_DARK_GREY,
         fontSize : 12,
         textAlign : "left"
     },
     sessionLevelText : {
-        color : "#FFFFFF",
+        color : colors.DROIDCONKE_WHITE,
         fontSize : 13,
         fontFamily : fonts.MONTSERRAT_REGULAR,
         textAlign : "center",
-        backgroundColor : "#191D1D",
+        backgroundColor : colors.DROIDCONKE_DARK_BLACK,
         borderRadius : 5,
         width : 100,
         marginTop : 15,
         marginBottom : 30
     },
-    twitterHandleText : {
+    twitterText : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
         fontSize : 16,
-        color : "#20201E",
+        color : colors.DROIDCONKE_BLUE,
         textAlign : "left"
-    },
-    twitterButton : {
-        position : "absolute",
-        right : 0
     },
     ShareIconContainer : {
         position : "absolute",
@@ -203,26 +206,16 @@ const styles = StyleSheet.create({
         alignItems : "center"
     },
     twitterHandleButton: {
-		borderWidth: 2,
+		borderWidth: 1,
 		paddingHorizontal: 25,
 		borderColor: colors.DROIDCONKE_BLUE,
-		borderRadius: 7,
+		borderRadius: 10,
 		color: colors.DROIDCONKE_BLUE,
 		display: "flex",
 		flexDirection: "row",
 		paddingVertical: 5,
-	},
-    footer: {
-		marginTop: 1,
-		backgroundColor: colors.DROIDCONKE_WHITE,
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-		paddingHorizontal: 10,
-	},
-	footerText: {
-		fontSize: 16,
-		fontFamily: fonts.MONTSERRAT_REGULAR,
+        position : "absolute",
+        right : 0
 	}
 })
 
