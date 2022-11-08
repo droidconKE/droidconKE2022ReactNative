@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   ImageSourcePropType,
@@ -11,6 +11,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { screen_names } from "../constants/ScreenNames";
 import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
+import { useAppSelector } from "../hooks/useTypedRedux";
+import Session from "../types/Session";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/john_doe.png");
@@ -90,24 +92,48 @@ export const MOCK_DATA_SPEAKERS = [
 const SpeakersScreen = ({
   navigation,
 }: NativeStackScreenProps<ParamListBase, screen_names.SPEAKERS, undefined>) => {
+
+  const { schedule } = useAppSelector((state) => state.schedule);
+	const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
+
+  useEffect(() => {
+    const keys = Object.keys(schedule?.data);
+    console.log(keys)
+    keys.map(key => {
+      //setSessions({items: schedule?.data[key]})
+      setSessions({ items: schedule?.data[key]})
+    })
+    // keys.map(key => {
+    //   let items = sessions?.items
+
+    //   setSessions({items: [...items, schedule?.data[key]]})
+    // })
+
+    console.log(sessions)
+  },[schedule?.data])
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={MOCK_DATA_SPEAKERS}
-        renderItem={({ item }) => (
-          <SpeakerCard
-            SpeakersName={item.SpeakersName}
-            id={item.id}
-            ProfilePicture={item.ProfilePicture}
-            Content={item.Content}
-          />
-        )}
-        keyExtractor={(item: SpeakerCardProps) => item.id}
+        data={sessions?.items}
+        renderItem={renderSpeaker}
+        keyExtractor={(item: Session) => item.id.toString()}
         numColumns={2}
       />
     </SafeAreaView>
   );
 };
+
+const renderSpeaker  = ({item} : {item: Session}) => {
+  return (
+    <>
+    {item.speakers.map(speaker => (
+      <SpeakerCard
+        item={speaker}
+        onPress={() => goToSession(item)}/>
+    ))}
+    </>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -117,3 +143,7 @@ const styles = StyleSheet.create({
 });
 
 export default SpeakersScreen;
+function goToSession(item: Session): void {
+  throw new Error("Function not implemented.");
+}
+

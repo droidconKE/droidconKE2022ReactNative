@@ -26,6 +26,7 @@ import { RootStackParamList } from "../types/Navigation";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const MainStackNavigator = () => {
+
   return (
     <Stack.Navigator>
       <Stack.Screen
