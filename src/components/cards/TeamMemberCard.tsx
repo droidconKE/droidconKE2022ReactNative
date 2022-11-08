@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		fontSize: 14,
-		color: colors.DROIDCONKE_BLACK_GOOGLESIGNIN,
+		color: colors.DROIDCONKE_BLACK_TEXT_AND_LABEL,
 		lineHeight: 20,
 	},
 	title: {

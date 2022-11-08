@@ -3,7 +3,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
 	Dimensions,
 	FlatList,
-	Image,
 	ImageSourcePropType,
 	SafeAreaView,
 	ScrollView,
@@ -33,6 +32,7 @@ import MainHeader from "../components/layouts/MainHeader";
 import * as Google from 'expo-auth-session/providers/google';
 import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import DroidconSponsors from "../components/layouts/DroidconSponsors";
 
 //Mock data ... to be removed when we add code to fetch the actual data
 const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
@@ -247,50 +247,7 @@ const HomeScreen = ({
 					</View>
 				</View>
 				<View style={styles.paddingHorizontal}>
-					<View
-						style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}
-					>
-						<Text
-							style={[
-								styles.sponsorsContainerTitle,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							Sponsors
-						</Text>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyCenter,
-							]}
-						>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/google.png")}
-								style={styles.marginVerticalIcons}
-							/>
-						</View>
-						<View
-							style={[
-								styles.sponsorsIconsContainer,
-								layoutProperties.justifyBetween,
-								styles.marginVerticalSeparator,
-							]}
-						>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/andela_landscape_blue.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/hover_logo.png")}
-							/>
-							<Image
-								resizeMode="contain"
-								source={require("../assets/img/jetbrains.png")}
-							/>
-						</View>
-					</View>
+					<DroidconSponsors />
 					<DroidconOrganizers />
 				</View>
 			</ScrollView>
@@ -314,12 +271,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 20,
 	},
-	marginVerticalSeparator: {
-		marginVertical: 15,
-	},
-	marginVerticalSeparator2: {
-		marginVertical: 18,
-	},
 	marginVerticalVideo: {
 		marginVertical: 15,
 	},
@@ -328,9 +279,6 @@ const styles = StyleSheet.create({
 	},
 	marginBottomSeparator2: {
 		marginBottom: 5,
-	},
-	marginVerticalIcons: {
-		marginVertical: 10,
 	},
 	droidconkeBanner: {
 		width: Dimensions.get("screen").width - 40,
@@ -360,21 +308,12 @@ const styles = StyleSheet.create({
 		lineHeight: 20,
 		color: colors.DROIDCONKE_BLACK,
 	},
-	sponsorsContainer: {
-		backgroundColor: colors.DROIDCONKE_PEARL,
-		padding: 20,
-		borderRadius: 10,
-	},
 	sponsorsContainerTitle: {
 		fontFamily: fonts.MONTSERRAT_BOLD,
 		fontSize: 18,
 		lineHeight: 20,
 		color: colors.DROIDCONKE_BLUE,
 		textAlign: "center",
-	},
-	sponsorsIconsContainer: {
-		flexDirection: "row",
-		...layoutProperties.itemsCenter,
 	},
 	link: {
 		color: colors.DROIDCONKE_BLUE,
