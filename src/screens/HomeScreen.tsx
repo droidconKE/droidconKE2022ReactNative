@@ -31,9 +31,10 @@ import HomeScreenNotLoggedIn from "./HomeScreenNotLoggedIn";
 import { layoutProperties } from "../constants/Properties";
 import MainHeader from "../components/layouts/MainHeader";
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import Mock_Session from "./SessionDetailsScreen"
 
 //Mock data ... to be removed when we add code to fetch the actual data
-const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
+export const placeholder: ImageSourcePropType = require("../assets/img/sessions.png");
 
 const MOCK_DATA_SESSIONS = [
 	{
@@ -171,7 +172,7 @@ const HomeScreen = ({
 								title={item.title}
 								time={item.time}
 								venue={item.venue}
-								onPress={() => console.log("pressed")}
+								onPress={() => {navigation.navigate(screen_names.SESSION_DETAILS,{sessionData : Mock_Session})}}
 							/>
 						)}
 						keyExtractor={(item: SessionCardProps) => item.id}
