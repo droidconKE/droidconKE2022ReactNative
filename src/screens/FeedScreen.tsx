@@ -1,27 +1,97 @@
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SafeAreaView, Text, StyleSheet, ScrollView, Button , Modal, View , TouchableOpacity } from "react-native";
+import { SafeAreaView, Text, StyleSheet,   FlatList , Modal, View , TouchableOpacity } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { ParamListBase } from "@react-navigation/native";
 import MainHeader from "../components/layouts/MainHeader";
 import { colors } from "../constants/Colors";
+import FeedsCard from "../components/cards/FeedsCard";
 import ShareIcon from "../assets/icons/ShareIcon";
 import type { SocialMedia } from "../components/buttons/SocialButton";
 import SocialButton from "../components/buttons/SocialButton";
 import { fonts } from "../assets/fonts/fonts";
 
+const FEED = [
+    {
+      data: [
+        {
+          title: "Test",
+          body: "Good one",
+          topic: "droidconweb",
+          url: "https://droidcon.co.ke",
+          image: "https://rebrand.ly/5a6672",
+          created_at: "2020-03-19 18:45:49",
+        },
+        {
+          title: "niko fine",
+          body: "this is a test",
+          topic: "droidconweb",
+          url: "https://droidcon.co.ke",
+          image: "https://rebrand.ly/5a6672",
+          created_at: "2020-03-19 18:43:38",
+        },
+        {
+          title: "niko fine",
+          body: "this is a test",
+          topic: "droidconweb",
+          url: "https://droidcon.co.ke",
+          image: "https://rebrand.ly/5a6672",
+          created_at: "2020-03-19 18:43:38",
+        },
+        {
+          title: "niko fine",
+          body: "this is a test",
+          topic: "droidconweb",
+          url: "https://droidcon.co.ke",
+          image: "https://rebrand.ly/5a6672",
+          created_at: "2020-03-19 18:43:38",
+        },
+        {
+          title: "niko fine",
+          body: "this is a test",
+          topic: "droidconweb",
+          url: "https://droidcon.co.ke",
+          image: "https://rebrand.ly/5a6672",
+          created_at: "2020-03-19 18:43:38",
+        },
+      ],
+      meta: {
+        paginator: {
+          count: 2,
+          per_page: "10",
+          current_page: 1,
+          next_page: null,
+          has_more_pages: false,
+          next_page_url: null,
+          previous_page_url: null,
+        },
+      },
+    },
+  ];
+
 const FeedScreen = ({
-	navigation,
+  navigation,
 }: NativeStackScreenProps<ParamListBase, screen_names.FEED, undefined>) => {
 	const [showmodal,setModalVisibility] = useState(false)
-	return (
-		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
-			<MainHeader />
-			<ScrollView style={styles.paddingHorizontal}>
-				<Text>Feed screen</Text>
-			</ScrollView>
-		</SafeAreaView>
-	);
+
+    const shareFeed = (item) => {
+        toggleModalVisibility()
+    }
+
+    const toggleModalVisibility = () => setModalVisibility(!showmodal)
+  return (
+    <SafeAreaView style={[styles.container, styles.paddingVertical]}>
+      <MainHeader />
+      
+        <FlatList
+          style={styles.paddingHorizontal}
+          data={FEED[0].data}
+          renderItem={({ item }) => <FeedsCard {...item} 
+          handleShare={shareFeed}/>}
+        />
+        <ShareFeedModal showModal={showmodal} setModalVisibility={toggleModalVisibility}/>
+    </SafeAreaView>
+  );
 };
 
 export type ShareModalProps = {
@@ -33,7 +103,7 @@ const ShareFeedModal = (props : ShareModalProps) : JSX.Element => {
     const visible = props.showModal
     const setvisibility = props.setModalVisibility
     return (
-        <Modal visible={visible}>
+        <Modal transparent visible={visible}>
             <View style={styles.shareModalOverlay}>
                 <View style={styles.shareModalContainer}>
                     <View style={styles.shareModalUpperRow}>
@@ -71,16 +141,16 @@ const DoubleSocialButtonRow = (props : DoubleSocialButtonRowProps) : JSX.Element
 export default FeedScreen;
 
 const styles = StyleSheet.create({
-	container: {
-		backgroundColor: colors.DROIDCONKE_WHITE,
-		flex: 1,
-	},
-	paddingVertical: {
-		paddingVertical: 20,
-	},
-	paddingHorizontal: {
-		paddingHorizontal: 20,
-	},
+  container: {
+    backgroundColor: colors.DROIDCONKE_WHITE,
+    flex: 1,
+  },
+  paddingVertical: {
+    paddingVertical: 20,
+  },
+  paddingHorizontal: {
+    paddingHorizontal: 20,
+  },
     shareModalOverlay : {
         flex:1,
         backgroundColor : colors.DROIDCONKE_MODAL_OVERLAY , 
