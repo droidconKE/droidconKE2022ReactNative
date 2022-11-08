@@ -9,20 +9,20 @@ import {
 } from "react-native";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
+import Speaker from "../../types/Speaker";
+import Session from "../../types/Session";
 
 export interface SpeakerCardProps {
-  id: string;
-  ProfilePicture: ImageSourcePropType;
-  SpeakersName: String;
-  Content: String;
+  item : Speaker,
+  onPress: (item: Session) => void,
 }
 
 export default function (props: SpeakerCardProps): JSX.Element {
   return (
     <View style={styles.container}>
-      <Image source={props.ProfilePicture} style={styles.image} />
-      <Text style={styles.title}>{props.SpeakersName}</Text>
-      <Text style={styles.content}>{props.Content}</Text>
+      <Image source={{ uri: props.item.avatar}} style={styles.image} />
+      <Text style={styles.title}>{props.item.name}</Text>
+      <Text style={styles.content} numberOfLines={3}>{props.item.tagline}</Text>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttontext}>SESSION</Text>
       </TouchableOpacity>
@@ -32,7 +32,7 @@ export default function (props: SpeakerCardProps): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.5,
     backgroundColor: colors.DROIDCONKE_PEARL,
     alignItems: "center",
     borderRadius: 10,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: colors.DROIDCONKE_BLUE,
     marginBottom: 10,
     fontFamily: fonts.MONTSERRAT_BOLD,
-    width: "80%",
+    width: 93,
     fontSize: 14,
     textAlign: "center",
   },
