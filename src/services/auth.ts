@@ -1,8 +1,6 @@
 import { API_URL, EVENT_SLUG } from "@env";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Pagination } from "../types/Pagination";
 import { RootState } from "../state/store";
-import Session from "../types/Session";
 import User from "../types/Users";
 import Schedule from "../types/Schedule";
 
@@ -15,15 +13,6 @@ interface LoginResponse {
 
 interface LoginRequest {
   access_token: string;
-}
-interface SessionsResponse<T> {
-    data?: T[];
-    meta?: Pagination;
-}
-
-interface SessionRequest {
-    per_page: string,
-    page: string,
 }
 
 // Define a service using a base URL and expected endpoints
@@ -62,17 +51,6 @@ export const userApi = createApi({
         };
       },
     }),
-    getSessions: builder.query<SessionsResponse<Session>, SessionRequest>({
-        query: ({per_page, page = "1"}) => {
-            const params = new URLSearchParams();
-            (per_page && params.append("per_page", per_page));
-            params.append("page", page)
-            return {
-                url: `/events/${EVENT_SLUG}/sessions?${params}`,
-                method: "GET",
-            }
-        }
-    }),
     getSchedule: builder.query<Schedule, void>({
         query: () => {
           return {
@@ -86,4 +64,4 @@ export const userApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGoogleSocialAuthMutation, useGetSessionsQuery, useGetScheduleQuery } = userApi;
+export const { useGoogleSocialAuthMutation, useGetScheduleQuery } = userApi;
