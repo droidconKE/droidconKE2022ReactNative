@@ -27,6 +27,7 @@ import SessionDetailsScreen from "../screens/SessionDetailsScreen";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const MainStackNavigator = () => {
+
   return (
     <Stack.Navigator>
       <Stack.Screen

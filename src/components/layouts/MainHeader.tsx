@@ -21,18 +21,17 @@ const MainHeader = (props: MainHeaderProps) => {
 	const navigation =
 		useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-	//Temporary/experimental navigation to sign-in/sign-out screen from the profile picture icon
-	const goToLoginScreen = () => navigation.navigate(screen_names.LOGIN);
 
 	const goToFeedbackScreen = () => navigation.navigate(screen_names.FEEDBACK);
 
+	
 	if (!user)
 		return (
 			<View style={[styles.signedOutHeader, styles.marginBottomSeparator]}>
 				<DroidconKeIcon width={150} style={styles.droidconkeIcon} />
 				<TouchableOpacity
 					style={styles.iconWrapper}
-					onPress={props.onPress ?? goToLoginScreen}
+					onPress={props.onPress}
 				>
 					<LockIcon />
 				</TouchableOpacity>
@@ -77,10 +76,11 @@ const MainHeader = (props: MainHeaderProps) => {
 						source={require("../../assets/icons/SendIcon.png")}
 					/>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.iconWrapper} onPress={goToLoginScreen}>
+				<TouchableOpacity style={styles.iconWrapper}>
 					<Image
 						resizeMode="contain"
-						source={require("../../assets/img/profilepicture.png")}
+						source={{uri: user.avatar as string}}
+						style={styles.avatar}
 					/>
 				</TouchableOpacity>
 			</View>
@@ -144,4 +144,5 @@ const styles = StyleSheet.create({
 	marginBottomSeparator: {
 		marginBottom: 10,
 	},
+	avatar: {width: 45, height: 45, borderRadius: 22.5}
 });

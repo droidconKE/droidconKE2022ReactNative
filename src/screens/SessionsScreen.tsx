@@ -11,8 +11,7 @@ import SwitchWithIcons from "../components/iconSwitch/IconSwitch";
 import MainHeader from "../components/layouts/MainHeader";
 import { colors } from "../constants/Colors";
 import { screen_names } from "../constants/ScreenNames";
-import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
-import { setSchedule } from "../state/schedule";
+import { useAppSelector } from "../hooks/useTypedRedux";
 import Session from "../types/Session";
 
 export type SessionsScreenProps = {
@@ -30,12 +29,6 @@ const SessionsScreen = (_: SessionsScreenProps) => {
   const [mySessions, setMySessions] = useState<boolean>(false);
   const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(setSchedule(sampleScheduleData));
-  }, []);
 
   useEffect(() => {
     extractDatesFromSchedule();
