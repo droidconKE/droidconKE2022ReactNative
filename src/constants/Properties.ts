@@ -26,6 +26,9 @@ export const layoutProperties = StyleSheet.create({
     flexRow: {
         flexDirection: 'row',
     },
+    flexColumn: {
+        flexDirection: 'column',
+    },
     itemsCenter: {
         alignItems: 'center', 
     },

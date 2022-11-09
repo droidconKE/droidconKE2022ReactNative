@@ -11,6 +11,7 @@ import ShareIcon from "../assets/icons/ShareIcon";
 
 //mock data 
 import TwitterIcon from "../assets/icons/TwitterIcon";
+import { layoutProperties } from "../constants/Properties";
 export const Mock_Session =      {
 	id: 16,
 	title: "Software craftmanship - Becoming a better android developer",
@@ -43,6 +44,19 @@ export const Mock_Session =      {
 		blog: "http://sekiki.wordpress.com/",
 		company_website: null,
 	  },
+	  {
+		name: "Seth Kigen.",
+		tagline: "Systems Architect @ Twigafoods. ",
+		biography: "Coder, Maker & breaker of things.\r\n",
+		avatar:
+		  "https://sessionize.com/image/be82-400o400o2-1a-8b84-4c47-b0e6-1fcc5595ec6f.c213136b-8252-4310-a0ff-a2d30881049f.jpg",
+		twitter: "http://twitter.com/kigen",
+		facebook: null,
+		linkedin: null,
+		instagram: null,
+		blog: "http://sekiki.wordpress.com/",
+		company_website: null,
+	  },
 	],
 	rooms: [
 	  {
@@ -52,6 +66,10 @@ export const Mock_Session =      {
 	],
   }
 
+  const getTwitterHandle = (profileLink : string) => {
+    const twitterHandle = profileLink.split("/")[3]
+    return twitterHandle
+  }
 const SessionDetailsScreen = ({
     navigation,
     route
@@ -77,13 +95,22 @@ const SessionDetailsScreen = ({
             <View style={styles.rowContainer}>
                 <AndroidIcon color={colors.DROIDCONKE_BRICK_RED} height={25} width={25} style={styles.androidIcon}/>
                 <Text style={styles.speakerTitle}>
-                    Speaker
+                    {Mock_Session.speakers.length > 1 ? 'Speakers' : 'Speaker'}
                 </Text>
             </View>
-            <View style={styles.rowContainer}>
-                <Text style={styles.speakerName}>
-                    {SpeakerName}
-                </Text>
+            <View style={[styles.rowContainer, layoutProperties.itemsCenter]}>
+                <View style={layoutProperties.flexColumn}>
+                {Mock_Session.speakers.map((speaker,index )=>
+                    <>
+                        <Text style={styles.speakerName}>
+                            {speaker.name}
+                        </Text>
+                        {index!== Mock_Session.speakers.length - 1 &&
+                        <Text style={styles.speakerName}>&</Text>
+                        }
+                    </>
+                )}
+                </View> 
                 <Star color={colors.DROIDCONKE_BLUE} style={styles.starIcon} />
             </View>
             <Text style={styles.titleText}>
@@ -99,24 +126,28 @@ const SessionDetailsScreen = ({
             <Text style={styles.sessionLevelText}>
             #{sessionData.session_level}
             </Text>
-            <View style={styles.twitterRowContainer}>
-					<Text style={styles.twitterText}>Twitter Handle</Text>
-						<TouchableOpacity onPress={() => {alert("Twitter handle pressed")}} style={styles.twitterHandleButton}>
-							<TwitterIcon
-								width={30}
-								height={25}
-								color={colors.DROIDCONKE_BLUE}
-							/>
-							<Text
-								style={{
-									...styles.twitterText,
-									color: colors.DROIDCONKE_BLUE,
-								}}
-							>
-								PriestTamzi
-							</Text>
-					</TouchableOpacity>
-				</View>
+            {Mock_Session.speakers.map(speaker => 
+            <>
+                <View style={styles.twitterRowContainer}>
+                    <Text style={styles.twitterText}>Twitter Handle</Text>
+                        <TouchableOpacity onPress={() => {alert("Twitter handle pressed")}} style={styles.twitterHandleButton}>
+                            <TwitterIcon
+                                width={30}
+                                height={25}
+                                color={colors.DROIDCONKE_BLUE}
+                            />
+                            <Text
+                                style={{
+                                    ...styles.twitterText,
+                                    color: colors.DROIDCONKE_BLUE,
+                                }}
+                            >
+                                {getTwitterHandle(speaker.twitter)}
+                            </Text>
+                    </TouchableOpacity>
+                </View>
+            </>            
+            )}
             </ScrollView>
             </View>
             <View style={styles.footerContainer}>
@@ -155,7 +186,8 @@ const styles = StyleSheet.create({
     speakerName : {
         color : colors.DROIDCONKE_BLUE,
         fontFamily : fonts.MONTSERRAT_BOLD,
-        fontSize : 20
+        fontSize : 20,
+        textAlign: 'center',
     },
     starIcon : {
         position : "absolute",
@@ -231,7 +263,8 @@ const styles = StyleSheet.create({
 	},
     twitterRowContainer : {
         flexDirection : "row",
-        marginBottom : 20
+        marginBottom : 20,
+        alignItems: 'center',
     }
 })
 
