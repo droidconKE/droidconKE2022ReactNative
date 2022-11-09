@@ -7,6 +7,7 @@ import Session from "../../types/Session";
 interface SessionCardPropsWithOnPress {
     onPress: () => void;
     item: Session
+    disabled?: boolean
 
 }
 const formatTime = (time: string): string => {
@@ -24,7 +25,7 @@ const placeholder: ImageSourcePropType = require("../../assets/img/droidconkepla
 
 const SessionCard = (props: SessionCardPropsWithOnPress) => {
     return (
-        <TouchableOpacity style={styles.cardContainer} onPress={props.onPress}>
+        <TouchableOpacity style={styles.cardContainer} onPress={props.onPress} disabled={props.disabled}>
             {props.item.session_image === null ? 
             <>
             <Image source={placeholder} resizeMode="stretch" style={styles.poster}/>
