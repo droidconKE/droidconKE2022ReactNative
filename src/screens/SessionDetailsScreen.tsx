@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React  from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SafeAreaView, Text, StyleSheet, ScrollView, Button , Modal, View , TouchableOpacity, Image} from "react-native";
+import { SafeAreaView, Text, StyleSheet, ScrollView, Button , Modal, View , TouchableOpacity, Image, ImageSourcePropType} from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
@@ -8,75 +8,22 @@ import { RootStackParamList } from "../types/Navigation";
 import AndroidIcon from "../assets/icons/AndroidIcon";
 import Star from "../assets/icons/Star";
 import ShareIcon from "../assets/icons/ShareIcon";
-
-//mock data 
 import TwitterIcon from "../assets/icons/TwitterIcon";
 import { layoutProperties } from "../constants/Properties";
-export const Mock_Session =      {
-	id: 16,
-	title: "Software craftmanship - Becoming a better android developer",
-	description:
-	  "This talk is all about becoming a better software engineer/android engineer. It covers some of the basic skills/habits we overlook as we learn coding that might cost us in the long term in our journey to become a solid software engineer. This call will be about calling out mediocrity and finding ways to be better at our craft as software engineers. ",
-	slug: "software-craftmanship-becoming-a-better-android-developer-1655727475",
-	session_format: "Regular Session",
-	session_level: "Beginner",
-	session_image: 'https://res.cloudinary.com/droidconke/image/upload/v1667568505/prod/upload/sessions/ffyyggvsskghqtcmq5nl.png',
-	backgroundColor: "#7F9337",
-	borderColor: "#7F9337",
-	is_serviceSession: false,
-	is_keynote: false,
-	is_bookmarked: false,
-	start_date_time: "2022-11-10 10:00:00",
-	start_time: "10:00:00",
-	end_date_time: "2022-11-10 10:45:00",
-	end_time: "10:45:00",
-	speakers: [
-	  {
-		name: "Seth Kigen.",
-		tagline: "Systems Architect @ Twigafoods. ",
-		biography: "Coder, Maker & breaker of things.\r\n",
-		avatar:
-		  "https://sessionize.com/image/be82-400o400o2-1a-8b84-4c47-b0e6-1fcc5595ec6f.c213136b-8252-4310-a0ff-a2d30881049f.jpg",
-		twitter: "http://twitter.com/kigen",
-		facebook: null,
-		linkedin: null,
-		instagram: null,
-		blog: "http://sekiki.wordpress.com/",
-		company_website: null,
-	  },
-	  {
-		name: "Seth Kigen.",
-		tagline: "Systems Architect @ Twigafoods. ",
-		biography: "Coder, Maker & breaker of things.\r\n",
-		avatar:
-		  "https://sessionize.com/image/be82-400o400o2-1a-8b84-4c47-b0e6-1fcc5595ec6f.c213136b-8252-4310-a0ff-a2d30881049f.jpg",
-		twitter: "http://twitter.com/kigen",
-		facebook: null,
-		linkedin: null,
-		instagram: null,
-		blog: "http://sekiki.wordpress.com/",
-		company_website: null,
-	  },
-	],
-	rooms: [
-	  {
-		title: "Room B",
-		id: 2,
-	  },
-	],
-  }
 
   const getTwitterHandle = (profileLink : string) => {
     const twitterHandle = profileLink.split("/")[3]
     return twitterHandle
   }
+
+  const placeholder : ImageSourcePropType = require("../assets/img/droidconkeplaceholder.png")
+
 const SessionDetailsScreen = ({
     navigation,
     route
 }: NativeStackScreenProps<RootStackParamList, screen_names.SESSION_DETAILS, undefined>) => { 
 
     const {sessionData} = route.params
-    const SpeakerName = sessionData.speakers[0].name
     const room = sessionData.rooms[0].title
 
     const get12hourformat = (timeString : string) : string => {
@@ -95,17 +42,17 @@ const SessionDetailsScreen = ({
             <View style={styles.rowContainer}>
                 <AndroidIcon color={colors.DROIDCONKE_BRICK_RED} height={25} width={25} style={styles.androidIcon}/>
                 <Text style={styles.speakerTitle}>
-                    {Mock_Session.speakers.length > 1 ? 'Speakers' : 'Speaker'}
+                    {sessionData.speakers.length > 1 ? 'Speakers' : 'Speaker'}
                 </Text>
             </View>
             <View style={[styles.rowContainer, layoutProperties.itemsCenter]}>
                 <View style={layoutProperties.flexColumn}>
-                {Mock_Session.speakers.map((speaker,index )=>
+                {sessionData.speakers.map((speaker,index )=>
                     <>
                         <Text style={styles.speakerName}>
                             {speaker.name}
                         </Text>
-                        {index!== Mock_Session.speakers.length - 1 &&
+                        {index!== sessionData.speakers.length - 1 &&
                         <Text style={styles.speakerName}>&</Text>
                         }
                     </>
@@ -119,15 +66,25 @@ const SessionDetailsScreen = ({
             <Text style={styles.contentText}>
             {sessionData.description}
             </Text>
-            <Image source={{ uri: Mock_Session.session_image}} style={styles.sessionImage} resizeMode="contain"/>
+            {sessionData.session_image === null ?
+            <>
+                <Image source={placeholder} style={styles.sessionImage} resizeMode="contain"/>
+            </>:
+            <>
+                <Image source={{ uri: sessionData.session_image}} style={styles.sessionImage} resizeMode="contain"/>
+            </>}
             <Text style={styles.timeAndroomText}>
                 {starttime} - {endtime}  |  {room}
             </Text>
-            <Text style={styles.sessionLevelText}>
-            #{sessionData.session_level}
-            </Text>
-            {Mock_Session.speakers.map(speaker => 
+            <View style={styles.sessionLevelContainer}>
+                <Text style={styles.sessionLevelText}>
+                #{sessionData.session_level}
+                </Text>
+            </View>
+            {sessionData.speakers.map(speaker => 
             <>
+            {speaker?.twitter?.length > 0 ? 
+                <>
                 <View style={styles.twitterRowContainer}>
                     <Text style={styles.twitterText}>Twitter Handle</Text>
                         <TouchableOpacity onPress={() => {alert("Twitter handle pressed")}} style={styles.twitterHandleButton}>
@@ -142,10 +99,16 @@ const SessionDetailsScreen = ({
                                     color: colors.DROIDCONKE_BLUE,
                                 }}
                             >
-                                {getTwitterHandle(speaker.twitter)}
+                                {getTwitterHandle(speaker?.twitter)}
                             </Text>
                     </TouchableOpacity>
                 </View>
+                </>
+                : 
+                <>
+                {''}
+                </>
+            }
             </>            
             )}
             </ScrollView>
@@ -221,16 +184,19 @@ const styles = StyleSheet.create({
         fontSize : 12,
         textAlign : "left"
     },
+    sessionLevelContainer: {
+        backgroundColor : colors.DROIDCONKE_DARK_BLACK,
+        paddingHorizontal: 9,
+        flexWrap: 'wrap',
+        marginTop : 15,
+        marginBottom : 30,
+        alignSelf: 'flex-start',
+        borderRadius : 5,
+    },
     sessionLevelText : {
         color : colors.DROIDCONKE_WHITE,
         fontSize : 13,
         fontFamily : fonts.MONTSERRAT_REGULAR,
-        textAlign : "center",
-        backgroundColor : colors.DROIDCONKE_DARK_BLACK,
-        borderRadius : 5,
-        width : 100,
-        marginTop : 15,
-        marginBottom : 30
     },
     twitterText : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
