@@ -10,7 +10,6 @@ import Star from "../assets/icons/Star";
 import ShareIcon from "../assets/icons/ShareIcon";
 
 //mock data 
-import { placeholder } from "./HomeScreen";
 import TwitterIcon from "../assets/icons/TwitterIcon";
 export const Mock_Session =      {
 	id: 16,
@@ -20,7 +19,7 @@ export const Mock_Session =      {
 	slug: "software-craftmanship-becoming-a-better-android-developer-1655727475",
 	session_format: "Regular Session",
 	session_level: "Beginner",
-	session_image: null,
+	session_image: 'https://res.cloudinary.com/droidconke/image/upload/v1667568505/prod/upload/sessions/ffyyggvsskghqtcmq5nl.png',
 	backgroundColor: "#7F9337",
 	borderColor: "#7F9337",
 	is_serviceSession: false,
@@ -74,7 +73,7 @@ const SessionDetailsScreen = ({
     return (
         <SafeAreaView style={styles.mainContainer}>
             <View style={styles.rowContainer}>
-                <AndroidIcon color={colors.DROIDCONKE_BRICK_RED} height={12.48} width={15.71} style={styles.androidIcon}/>
+                <AndroidIcon color={colors.DROIDCONKE_BRICK_RED} height={25} width={25} style={styles.androidIcon}/>
                 <Text style={styles.speakerTitle}>
                     Speaker
                 </Text>
@@ -91,7 +90,7 @@ const SessionDetailsScreen = ({
             <Text style={styles.contentText}>
             {sessionData.description}
             </Text>
-            <Image source={placeholder} style={styles.sessionImage} />
+            <Image source={{ uri: Mock_Session.session_image}} style={styles.sessionImage} resizeMode="contain"/>
             <Text style={styles.timeAndroomText}>
                 {starttime} - {endtime}  |  {room}
             </Text>
@@ -168,6 +167,7 @@ const styles = StyleSheet.create({
         borderRadius : 10,
         borderWidth : 1,
         width : "100%",
+        height: 190,
         marginTop : 10,
         marginBottom : 30
     },
