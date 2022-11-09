@@ -1,5 +1,6 @@
 import { BioDetails } from "./../screens/BioScreen";
 import { screen_names } from "./../constants/ScreenNames";
+import Session from "./Session";
 
 //Enable type checking for route parameters
 export type RootStackParamList = {
@@ -9,4 +10,5 @@ export type RootStackParamList = {
   [screen_names.SPEAKERS]: undefined;
   [screen_names.ABOUT]: undefined;
   [screen_names.FEEDBACK]: undefined;
+  [screen_names.SESSION_DETAILS] : {sessionData : Session}
 };

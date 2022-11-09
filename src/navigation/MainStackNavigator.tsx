@@ -21,6 +21,7 @@ import BackArrowIcon from "../assets/icons/BackArrowIcon";
 import { colors } from "../constants/Colors";
 import BioScreen, { MOCK_BIO } from "../screens/BioScreen";
 import { RootStackParamList } from "../types/Navigation";
+import SessionDetailsScreen from "../screens/SessionDetailsScreen";
 
 // Create stack navigator.
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -94,6 +95,26 @@ const MainStackNavigator = () => {
             </ImageBackground>
           ),
         })}
+      />
+      <Stack.Screen 
+      component={SessionDetailsScreen}
+      name={screen_names.SESSION_DETAILS}
+      options={({ navigation }: { navigation: any }) => ({
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontFamily: fonts.MONTSERRAT_REGULAR,
+          fontSize: 18,
+          color : colors.DROIDCONKE_SHARE_TEXT
+        },
+        headerLeft: () => (
+          <TouchableOpacity
+            style={styles.speakersbackbutton}
+            onPress={() => navigation.goBack()}
+          >
+            <BackArrowIcon color={colors.DROIDCONKE_BLACK} />
+          </TouchableOpacity>
+        ),
+      })}
       />
     </Stack.Navigator>
   );

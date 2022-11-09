@@ -220,7 +220,8 @@ const HomeScreen = ({
 						renderItem={({item} : {item: Session}) => (
 							<SessionCard
 								item={item}
-								onPress={() => console.log("pressed")}
+								disabled={item.speakers.length < 1}
+								onPress={() => navigation.navigate(screen_names.SESSION_DETAILS,{sessionData : item})}
 							/>
 						)}
 						keyExtractor={(item: Session) => item?.slug}
