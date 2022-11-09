@@ -18,7 +18,6 @@ import { fonts } from "../assets/fonts/fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
 import { setUser, saveUser, removeUser} from "../state/user";
 import SessionCard from "../components/cards/SessionCard";
-import { MOCK_DATA_SPEAKERS } from "./SpeakersScreen";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
 import { ResizeMode, Video } from "expo-av";
 import { useRef } from "react";

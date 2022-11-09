@@ -14,8 +14,10 @@ import Speaker from "../../types/Speaker";
 import Session from "../../types/Session";
 
 export interface SpeakerCardProps {
-  item : Speaker,
-  onPress: (item: Session) => void,
+  itemSpeaker : Speaker,
+  itemSession: Session,
+  SessionButtonOnPress: (item: Session) => void,
+  SpeakerImageOnPress: (item: Speaker) => void,
 }
 
 export const placeholder : ImageSourcePropType = require('../../assets/img/john_doe.png')
@@ -23,12 +25,14 @@ export const placeholder : ImageSourcePropType = require('../../assets/img/john_
 export default function (props: SpeakerCardProps): JSX.Element {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: props.item.avatar?.length < 1 ? placeholder : props.item.avatar}} style={styles.image} resizeMode="contain" resizeMethod="auto"/>
+      <TouchableOpacity onPress={() => props.SpeakerImageOnPress(props.itemSpeaker)}>
+        <Image source={{ uri: props.itemSpeaker.avatar?.length < 1 ? placeholder : props.itemSpeaker.avatar}} style={styles.image} resizeMode="contain" resizeMethod="auto"/>
+      </TouchableOpacity>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>{props.item.name}</Text>
-        <Text style={styles.content} numberOfLines={3}>{props.item.tagline}</Text>
+        <Text style={styles.title}>{props.itemSpeaker.name}</Text>
+        <Text style={styles.content} numberOfLines={3}>{props.itemSpeaker.tagline}</Text>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => props.SessionButtonOnPress(props.itemSession)}>
         <Text style={styles.buttontext}>SESSION</Text>
       </TouchableOpacity>
     </View>

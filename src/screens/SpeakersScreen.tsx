@@ -11,6 +11,7 @@ import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { useAppSelector } from "../hooks/useTypedRedux";
 import Session from "../types/Session";
+import Speaker from "../types/Speaker";
 
 const SpeakersScreen = ({
   navigation,
@@ -29,32 +30,38 @@ const SpeakersScreen = ({
 
   console.log(sessions)
   const filteredSessions = sessions?.filter(session => session.speakers.length !== 0)
+
+  const goToSessionScreen = (session : Session) => navigation.navigate(screen_names.SESSION_DETAILS,{sessionData: session})
+
+  const goToSpeakerScreen = (speaker: Speaker) => navigation.navigate(screen_names.BIO)
+  
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={filteredSessions}
-        renderItem={renderSpeaker}
+        renderItem={({item}: {item: Session}) => {
+          if(item.speakers.length < 1) {
+            return null
+          }
+          return (
+            <>
+            {item.speakers.map(speaker => (
+              <SpeakerCard
+                itemSpeaker={speaker}
+                itemSession={item}
+                SessionButtonOnPress={goToSessionScreen}
+                SpeakerImageOnPress={goToSpeakerScreen}/>
+            ))}
+            </>
+          )
+
+        }}
         keyExtractor={(item: Session) => item.id.toString()}
         numColumns={2}
       />
     </SafeAreaView>
   );
 };
-
-const renderSpeaker  = ({item} : {item: Session}) => {
-  if(item.speakers.length < 1) {
-    return null
-  }
-  return (
-    <>
-    {item.speakers.map(speaker => (
-      <SpeakerCard
-        item={speaker}
-        onPress={() => goToSession(item)}/>
-    ))}
-    </>
-  )
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -64,7 +71,3 @@ const styles = StyleSheet.create({
 });
 
 export default SpeakersScreen;
-function goToSession(item: Session): void {
-  throw new Error("Function not implemented.");
-}
-
