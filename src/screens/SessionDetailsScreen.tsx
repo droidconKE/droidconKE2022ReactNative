@@ -10,6 +10,7 @@ import Star from "../assets/icons/Star";
 import ShareIcon from "../assets/icons/ShareIcon";
 import TwitterIcon from "../assets/icons/TwitterIcon";
 import { layoutProperties } from "../constants/Properties";
+import * as Linking from 'expo-linking';
 
   const getTwitterHandle = (profileLink : string) => {
     const twitterHandle = profileLink.split("/")[3]
@@ -34,6 +35,8 @@ const SessionDetailsScreen = ({
 
     const starttime = get12hourformat(sessionData.start_time)
     const endtime = get12hourformat(sessionData.end_time)
+
+    const goToSpeakersTwitterProfile = (profileUrl: string) => Linking.openURL(profileUrl)
 
     return (
         <SafeAreaView style={styles.mainContainer}>
@@ -87,7 +90,7 @@ const SessionDetailsScreen = ({
                 <>
                 <View style={styles.twitterRowContainer}>
                     <Text style={styles.twitterText}>Twitter Handle</Text>
-                        <TouchableOpacity onPress={() => {alert("Twitter handle pressed")}} style={styles.twitterHandleButton}>
+                        <TouchableOpacity onPress={() => goToSpeakersTwitterProfile(speaker.twitter)} style={styles.twitterHandleButton}>
                             <TwitterIcon
                                 width={30}
                                 height={25}
