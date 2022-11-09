@@ -73,6 +73,8 @@ const SessionDetailsScreen = ({
 
     return (
         <SafeAreaView style={styles.mainContainer}>
+            <View style={styles.scrollableContainer}>
+            <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.rowContainer}>
                 <AndroidIcon color={colors.DROIDCONKE_BRICK_RED} height={12.48} width={15.71} style={styles.androidIcon}/>
                 <Text style={styles.speakerTitle}>
@@ -98,7 +100,7 @@ const SessionDetailsScreen = ({
             <Text style={styles.sessionLevelText}>
             #{sessionData.session_level}
             </Text>
-            <View style={styles.rowContainer}>
+            <View style={styles.twitterRowContainer}>
 					<Text style={styles.twitterText}>Twitter Handle</Text>
 						<TouchableOpacity onPress={() => {alert("Twitter handle pressed")}} style={styles.twitterHandleButton}>
 							<TwitterIcon
@@ -116,14 +118,24 @@ const SessionDetailsScreen = ({
 							</Text>
 					</TouchableOpacity>
 				</View>
+            </ScrollView>
+            </View>
+            <View style={styles.footerContainer}>
             <TouchableOpacity style={styles.ShareIconContainer}>
                 <ShareIcon color={colors.DROIDCONKE_WHITE}/>
             </TouchableOpacity>
+            </View>
         </SafeAreaView>
 );
 };
 
 const styles = StyleSheet.create({
+    scrollableContainer : {
+      height : "85%"
+    },
+    footerContainer : {
+      height : "15%"
+    },
     mainContainer : {
         flex : 1,
         backgroundColor : colors.DROIDCONKE_WHITE,
@@ -191,7 +203,7 @@ const styles = StyleSheet.create({
     twitterText : {
         fontFamily : fonts.MONTSERRAT_REGULAR,
         fontSize : 16,
-        color : colors.DROIDCONKE_BLUE,
+        color : colors.DROIDCONKE_BLACK,
         textAlign : "left"
     },
     ShareIconContainer : {
@@ -216,7 +228,11 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
         position : "absolute",
         right : 0
-	}
+	},
+    twitterRowContainer : {
+        flexDirection : "row",
+        marginBottom : 20
+    }
 })
 
 export default SessionDetailsScreen
