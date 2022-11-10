@@ -128,6 +128,7 @@ const BioScreen = ({
 						</View>
 					</ScrollView>
 				</View>
+				{bioData.twitterHandle !== null && bioData.twitterHandle.length > 0 ? <>
 				<View style={styles.footer}>
 					<Text style={styles.footerText}>Twitter Handle</Text>
 					<TouchableOpacity
@@ -150,6 +151,12 @@ const BioScreen = ({
 						</View>
 					</TouchableOpacity>
 				</View>
+
+				</>
+				:
+				<>
+                {''}
+				</>}
 			</View>
 		</SafeAreaView>
 	);
