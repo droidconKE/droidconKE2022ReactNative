@@ -6,13 +6,13 @@ import { layoutProperties } from "../../constants/Properties";
 import Speaker from "../../types/Speaker";
 
 interface SpeakerImageCardPropsWithOnPress {
-    onPress: () => void;
+    onPress: (item: Speaker) => void;
     item: Speaker
 }
 
 const SpeakerImageCard = (props : SpeakerImageCardPropsWithOnPress) => {
     return (
-        <TouchableOpacity style={styles.container} onPress={props.onPress}>
+        <TouchableOpacity style={styles.container} onPress={() => props.onPress(props.item)}>
             <Image source={{ uri: props.item.avatar}} style={styles.image} resizeMode="center"/>
             <Text style={styles.name}>{props.item.name}</Text>
         </TouchableOpacity>

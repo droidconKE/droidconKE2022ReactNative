@@ -12,6 +12,7 @@ import { colors } from "../constants/Colors";
 import { useAppSelector } from "../hooks/useTypedRedux";
 import Session from "../types/Session";
 import Speaker from "../types/Speaker";
+import { ScreenTitle } from "./BioScreen";
 
 const SpeakersScreen = ({
   navigation,
@@ -33,7 +34,21 @@ const SpeakersScreen = ({
 
   const goToSessionScreen = (session : Session) => navigation.navigate(screen_names.SESSION_DETAILS,{sessionData: session})
 
-  const goToSpeakerScreen = (speaker: Speaker) => navigation.navigate(screen_names.BIO)
+  const goToSpeakerScreen = (speaker: Speaker) => {
+    
+    const ScreenBio = {
+      screenTitle: ScreenTitle.Speaker,
+      id: speaker.name,
+      title: speaker.tagline,
+      img: speaker.avatar,
+      name: speaker.name,
+      occupation: speaker.tagline,
+      skills: [],
+      content: speaker.biography,
+      twitterHandle: speaker.twitter
+    }
+    navigation.navigate(screen_names.BIO, { bioData: ScreenBio})
+  }
   
   return (
     <SafeAreaView style={styles.container}>

@@ -35,6 +35,8 @@ import Session from "../types/Session";
 import { setSchedule } from "../state/schedule";
 import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
 import DroidconSponsors from "../components/layouts/DroidconSponsors";
+import { ScreenTitle } from "./BioScreen";
+import Speaker from "../types/Speaker";
 
 
 const HomeScreen = ({
@@ -156,7 +158,21 @@ const HomeScreen = ({
 	const toggleMute = () => setIsVideoMute(!isVideoMute);
 
 	// Function to navigate to Single Speaker screen.
-	const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.BIO);
+	const goToSingleSpeakerScreen = (item: Speaker) => {
+    
+		const ScreenBio = {
+		  screenTitle: ScreenTitle.Speaker,
+		  id: item.name,
+		  title: item.tagline,
+		  img: item.avatar,
+		  name: item.name,
+		  occupation: item.tagline,
+		  skills: [],
+		  content: item.biography,
+		  twitterHandle: item.twitter
+		}
+		navigation.navigate(screen_names.BIO, { bioData: ScreenBio})
+	}
 
 	// Function to navigate to Sessions screen
 	const goToSessionsScreen = () => navigation.navigate(screen_names.SESSIONS);
