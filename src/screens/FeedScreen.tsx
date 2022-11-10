@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { SafeAreaView, Text, StyleSheet,   FlatList , Modal, View , TouchableOpacity } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
@@ -10,6 +10,9 @@ import ShareIcon from "../assets/icons/ShareIcon";
 import type { SocialMedia } from "../components/buttons/SocialButton";
 import SocialButton from "../components/buttons/SocialButton";
 import { fonts } from "../assets/fonts/fonts";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
+import { useGetFeedsQuery } from "../services/auth";
+import { setFeeds } from "../state/feeds";
 
 const FEED = [
     {
@@ -72,20 +75,37 @@ const FEED = [
 const FeedScreen = ({
   navigation,
 }: NativeStackScreenProps<ParamListBase, screen_names.FEED, undefined>) => {
-	const [showmodal,setModalVisibility] = useState(false)
 
-    const shareFeed = (item) => {
-        toggleModalVisibility()
+	// Redux dispatch.
+	const dispatch = useAppDispatch();
+	
+  // State variables feeds and user from redux state.
+  const { feeds } = useAppSelector((state) => state.feeds);
+  const { user } = useAppSelector((state) => state.user);
+
+  const { data: feedsData, error: feedsError, isLoading: feedsIsLoading, isSuccess: feedsIsSuccess, isError: feedsIsError } = useGetFeedsQuery({skip: user === null})
+
+  useEffect(() => {
+    if(feedsIsSuccess && !feedsIsLoading && feedsData) {
+      dispatch(setFeeds({ feeds: feedsData.data , meta: feedsData.meta}))
     }
 
-    const toggleModalVisibility = () => setModalVisibility(!showmodal)
+  },[feedsData, feedsError, feedsIsLoading, feedsIsSuccess, feedsIsError])
+
+  const [showmodal,setModalVisibility] = useState(false)
+
+  const shareFeed = (item) => {
+    toggleModalVisibility()
+  }
+
+  const toggleModalVisibility = () => setModalVisibility(!showmodal)
   return (
     <SafeAreaView style={[styles.container, styles.paddingVertical]}>
       <MainHeader />
       
         <FlatList
           style={styles.paddingHorizontal}
-          data={FEED[0].data}
+          data={feeds}
           renderItem={({ item }) => <FeedsCard {...item} 
           handleShare={shareFeed}/>}
         />
