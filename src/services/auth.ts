@@ -1,5 +1,5 @@
 import { API_URL, EVENT_SLUG } from "@env";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../state/store";
 import User from "../types/Users";
 import Schedule from "../types/Schedule";
@@ -13,6 +13,21 @@ interface LoginResponse {
 
 interface LoginRequest {
   access_token: string;
+}
+
+interface FeedbackResponse {
+  message: string;
+}
+
+interface EventFeedbackRequest {
+  feedback: string;
+  rating: string;
+}
+
+interface SessionFeedbackRequest {
+  feedback: string;
+  rating: string;
+  sessionSlug: string;
 }
 
 // Define a service using a base URL and expected endpoints
@@ -58,10 +73,36 @@ export const userApi = createApi({
             method: 'GET',
           }
         }
+    }),
+    sendEventFeedback: builder.mutation<FeedbackResponse, EventFeedbackRequest>({
+      query: (arg) => {
+        const formData = new FormData();
+        formData.append("feedback", arg.feedback);
+        formData.append("rating", arg.rating);
+
+        return {
+          url: `/events/${EVENT_SLUG}/feedback`,
+          method: "POST",
+          body: formData,
+        }
+      }
+    }),
+    sendSessionFeedback: builder.mutation<FeedbackResponse, SessionFeedbackRequest>({
+      query: (arg) => {
+        const formData = new FormData();
+        formData.append("feedback", arg.feedback);
+        formData.append("rating", arg.rating);
+
+        return {
+          url: `/events/${EVENT_SLUG}/feedback/sessions/${arg.sessionSlug}`,
+          method: "POST",
+          body: formData,
+        }
+      }
     })
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGoogleSocialAuthMutation, useGetScheduleQuery } = userApi;
+export const { useGoogleSocialAuthMutation, useGetScheduleQuery, useSendEventFeedbackMutation, useSendSessionFeedbackMutation } = userApi;
