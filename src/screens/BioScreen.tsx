@@ -8,7 +8,6 @@ import {
 	Image,
 	ScrollView,
 	TouchableOpacity,
-	ImageSourcePropType,
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,6 +17,9 @@ import TwitterIcon from "../assets/icons/TwitterIcon";
 import ArrowLeftIcon from "../assets/icons/ArrowLeftIcon";
 import AndroidIcon from "../assets/icons/AndroidIcon";
 import { RootStackParamList } from "../types/Navigation";
+import { getTwitterHandle } from "./SessionDetailsScreen";
+import * as Linking from 'expo-linking';
+
 
 export enum ScreenTitle {
 	Speaker = "Speaker",
@@ -27,7 +29,7 @@ export interface BioDetails {
 	screenTitle: ScreenTitle;
 	id?: string;
 	title?: string; //Applicable where screenTitle === "Team"
-	img: ImageSourcePropType;
+	img: string;
 	name: string;
 	occupation?: string;
 	skills: string[];
@@ -56,8 +58,17 @@ const BioScreen = ({
 
 	//Loop through listed skills, format them ready for display and store them in a skills array
 	const skills = []; //Stores speaker skills Ex: Android, Kotlin
-	for (let i = 0; i <= bioData.skills.length; i++) {
-		skills.push(<Text key={i}>| {bioData.skills[i]} </Text>);
+	
+	if(bioData.skills.length < 1) {
+
+		skills.push(<Text>{''}</Text>);
+
+	} else {
+
+		for (let i = 0; i <= bioData.skills.length; i++) {
+			skills.push(<Text key={i}>| {bioData.skills[i]}</Text>);
+		}
+
 	}
 
 	const parragraphArray = bioData.content.split("."); //Create a new array by diving the speaker bio string. Fullstop denotes a new paragraph
@@ -67,6 +78,9 @@ const BioScreen = ({
 		textElements.push(parragraphArray[j] + "\n\n");
 		j++;
 	}
+
+    const goToSpeakersTwitterProfile = (profileUrl: string) => Linking.openURL(profileUrl)
+	
 	return (
 		<SafeAreaView>
 			<View style={styles.container}>
@@ -84,7 +98,7 @@ const BioScreen = ({
 							</Text>
 						</View>
 
-						<Image style={styles.profilepic} source={bioData.img} />
+						<Image style={styles.profilepic} source={{uri: bioData.img}} resizeMode="contain" resizeMethod="auto" />
 					</ImageBackground>
 				</View>
 				<View style={styles.body}>
@@ -114,12 +128,11 @@ const BioScreen = ({
 						</View>
 					</ScrollView>
 				</View>
+				{bioData.twitterHandle !== null && bioData.twitterHandle.length > 0 ? <>
 				<View style={styles.footer}>
 					<Text style={styles.footerText}>Twitter Handle</Text>
 					<TouchableOpacity
-						onPress={() => {
-							alert("Twitter handle pressed!");
-						}}
+						onPress={() => goToSpeakersTwitterProfile(bioData.twitterHandle)}
 					>
 						<View style={styles.twitterHandleButton}>
 							<TwitterIcon
@@ -133,11 +146,17 @@ const BioScreen = ({
 									color: colors.DROIDCONKE_BLUE,
 								}}
 							>
-								{bioData.twitterHandle}
+								{getTwitterHandle(bioData.twitterHandle)}
 							</Text>
 						</View>
 					</TouchableOpacity>
 				</View>
+
+				</>
+				:
+				<>
+                {''}
+				</>}
 			</View>
 		</SafeAreaView>
 	);

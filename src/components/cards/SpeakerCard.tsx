@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   ImageSourcePropType,
+  Dimensions,
 } from "react-native";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
@@ -13,17 +14,25 @@ import Speaker from "../../types/Speaker";
 import Session from "../../types/Session";
 
 export interface SpeakerCardProps {
-  item : Speaker,
-  onPress: (item: Session) => void,
+  itemSpeaker : Speaker,
+  itemSession: Session,
+  SessionButtonOnPress: (item: Session) => void,
+  SpeakerImageOnPress: (item: Speaker) => void,
 }
+
+export const placeholder : ImageSourcePropType = require('../../assets/img/john_doe.png')
 
 export default function (props: SpeakerCardProps): JSX.Element {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: props.item.avatar}} style={styles.image} />
-      <Text style={styles.title}>{props.item.name}</Text>
-      <Text style={styles.content} numberOfLines={3}>{props.item.tagline}</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={() => props.SpeakerImageOnPress(props.itemSpeaker)}>
+        <Image source={{ uri: props.itemSpeaker.avatar?.length < 1 ? placeholder : props.itemSpeaker.avatar}} style={styles.image} resizeMode="contain" resizeMethod="auto"/>
+      </TouchableOpacity>
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>{props.itemSpeaker.name}</Text>
+        <Text style={styles.content} numberOfLines={3}>{props.itemSpeaker.tagline}</Text>
+      </View>
+      <TouchableOpacity style={styles.button} onPress={() => props.SessionButtonOnPress(props.itemSession)}>
         <Text style={styles.buttontext}>SESSION</Text>
       </TouchableOpacity>
     </View>
@@ -32,34 +41,37 @@ export default function (props: SpeakerCardProps): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.5,
+    width: Dimensions.get('screen').width / 2 - 15,
     backgroundColor: colors.DROIDCONKE_PEARL,
     alignItems: "center",
     borderRadius: 10,
     margin: 5,
+    paddingVertical: 25,
+    paddingHorizontal:15,
   },
   image: {
     borderColor: colors.DROIDCONKE_GREEN,
     borderWidth: 2,
     height: 109,
     width: 109,
-    margin: 20,
-    borderRadius: 7,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   title: {
     color: colors.DROIDCONKE_BLUE,
-    marginBottom: 10,
+    marginBottom: 6,
     fontFamily: fonts.MONTSERRAT_BOLD,
-    width: 93,
     fontSize: 14,
     textAlign: "center",
+  },
+  contentContainer: {
+    flex: 1,
   },
   content: {
     textAlign: "center",
     marginBottom: 10,
     fontFamily: fonts.MONTSERRAT_REGULAR,
     fontSize: 11,
-    width: "80%",
     color: colors.DROIDCONKE_DARK_GREY,
   },
   button: {
@@ -70,7 +82,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignContent: "center",
     justifyContent: "center",
-    marginBottom: 10,
   },
   buttontext: {
     color: colors.DROIDCONKE_LIGHT_GREEN,

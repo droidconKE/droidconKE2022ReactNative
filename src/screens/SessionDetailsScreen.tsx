@@ -12,7 +12,7 @@ import TwitterIcon from "../assets/icons/TwitterIcon";
 import { layoutProperties } from "../constants/Properties";
 import * as Linking from 'expo-linking';
 
-  const getTwitterHandle = (profileLink : string) => {
+  export const getTwitterHandle = (profileLink : string) => {
     const twitterHandle = profileLink.split("/")[3]
     return twitterHandle
   }

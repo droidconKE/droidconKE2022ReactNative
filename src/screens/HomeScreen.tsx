@@ -18,7 +18,6 @@ import { fonts } from "../assets/fonts/fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
 import { setUser, saveUser, removeUser} from "../state/user";
 import SessionCard from "../components/cards/SessionCard";
-import { MOCK_DATA_SPEAKERS } from "./SpeakersScreen";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
 import { ResizeMode, Video } from "expo-av";
 import { useRef } from "react";
@@ -36,6 +35,8 @@ import Session from "../types/Session";
 import { setSchedule } from "../state/schedule";
 import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
 import DroidconSponsors from "../components/layouts/DroidconSponsors";
+import { ScreenTitle } from "./BioScreen";
+import Speaker from "../types/Speaker";
 
 
 const HomeScreen = ({
@@ -146,7 +147,6 @@ const HomeScreen = ({
 	  }
 	}
 
-
 	if (!user) {
 		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
 	}
@@ -158,7 +158,21 @@ const HomeScreen = ({
 	const toggleMute = () => setIsVideoMute(!isVideoMute);
 
 	// Function to navigate to Single Speaker screen.
-	const goToSingleSpeakerScreen = () => navigation.navigate(screen_names.BIO);
+	const goToSingleSpeakerScreen = (item: Speaker) => {
+    
+		const ScreenBio = {
+		  screenTitle: ScreenTitle.Speaker,
+		  id: item.name,
+		  title: item.tagline,
+		  img: item.avatar,
+		  name: item.name,
+		  occupation: item.tagline,
+		  skills: [],
+		  content: item.biography,
+		  twitterHandle: item.twitter
+		}
+		navigation.navigate(screen_names.BIO, { bioData: ScreenBio})
+	}
 
 	// Function to navigate to Sessions screen
 	const goToSessionsScreen = () => navigation.navigate(screen_names.SESSIONS);
@@ -250,7 +264,7 @@ const HomeScreen = ({
 						>
 							<Text style={styles.link}>View All</Text>
 							<View style={styles.tallyContainer}>
-								<Text style={styles.tallyText}>+45</Text>
+								<Text style={styles.tallyText}>+{sessions?.items?.length - 4}</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
@@ -258,18 +272,23 @@ const HomeScreen = ({
 						style={[
 							layoutProperties.flexRow,
 							styles.paddingHorizontal,
-							layoutProperties.justifyStart,
+							layoutProperties.justifyEvenly,
+							styles.marginRowOffset
 						]}
 					>
-						{MOCK_DATA_SPEAKERS.slice(0, 4).map((item) => (
-							<SpeakerImageCard
-								key={item.id}
-								id={item.id}
-								ProfilePicture={item.ProfilePicture}
-								SpeakersName={item.SpeakersName}
-								onPress={goToSingleSpeakerScreen}
-							/>
-						))}
+						{sessions?.items.slice(0,4).map((item : Session) => {
+							return(
+								<>
+								{item.speakers.map(speaker => (
+									<SpeakerImageCard
+										item={speaker}
+										onPress={goToSingleSpeakerScreen}
+									/>
+
+								))}
+								</>
+							)
+						})}
 					</View>
 				</View>
 				<View style={styles.paddingHorizontal}>
@@ -385,6 +404,9 @@ const styles = StyleSheet.create({
 	sessionFlatListContentContainerStyle: {
 		paddingLeft: 20,
 	},
+	marginRowOffset: {
+		marginHorizontal: -20,
+	}
 });
 
 export default HomeScreen;
