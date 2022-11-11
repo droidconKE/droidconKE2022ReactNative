@@ -1,18 +1,52 @@
-import React , { useState } from 'react';
+import React , { useEffect, useState } from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { Text , StyleSheet , View , TextInput , TouchableOpacity , Modal , Pressable ,Keyboard, Dimensions , Image , ScrollView , TextStyle, ViewStyle , ImageStyle} from "react-native";
 import { screen_names } from '../constants/ScreenNames';
 import { fonts } from '../assets/fonts/fonts';
 import { colors } from '../constants/Colors';
 import { RootStackParamList } from '../types/Navigation';
+import { useSendEventFeedbackMutation, useSendSessionFeedbackMutation } from '../services/auth';
 
-const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList, screen_names.FEEDBACK, undefined>)  => {
+const FeedBackScreen = ({navigation, route}: NativeStackScreenProps<RootStackParamList, screen_names.FEEDBACK, undefined>)  => {
+
+    const {sessionSlug} = route.params
+
     const [modalVisible, setModalVisible] = useState(false);
     const [feedbackMessage, onChangeFeedbackMessage] = React.useState("");
     const [eventRating, setEventRating] = useState("");
     const GreatEventRating = { emoji : "😊" , text : "Great" }
     const OkayEventRating = { emoji : "😐" , text : "Okay" }
     const BadEventRating =  { emoji : "😔" , text : "Bad"}
+
+    const [sendEventFeedback, { data: eventFeedbackData, error: eventFeedbackError, isLoading: eventFeedbackIsLoading, isSuccess: eventFeedbackIsSuccess, isError: eventFeedbackIsError}] = useSendEventFeedbackMutation()
+    const [sendSessionFeedback, { data: sessionFeedbackData, error: sessionFeedbackError, isLoading: sessionFeedbackIsLoading, isSuccess: sessionFeedbackIsSuccess, isError: sessionFeedbackIsError}] = useSendSessionFeedbackMutation()
+
+    useEffect(() => {
+      console.log({eventFeedbackData, eventFeedbackError, eventFeedbackIsLoading, eventFeedbackIsSuccess, eventFeedbackIsError})
+      
+      if(eventFeedbackIsSuccess && !eventFeedbackIsLoading && eventFeedbackData) {
+        setModalVisible(!modalVisible)
+      }
+
+    },[eventFeedbackData, eventFeedbackError, eventFeedbackIsLoading, eventFeedbackIsSuccess, eventFeedbackIsError])
+
+    useEffect(() => {
+      console.log({sessionFeedbackData, sessionFeedbackError, sessionFeedbackIsLoading, sessionFeedbackIsSuccess, sessionFeedbackIsError})
+      
+      if(sessionFeedbackIsSuccess && !sessionFeedbackIsLoading && sessionFeedbackData) {
+        setModalVisible(!modalVisible)
+      }
+
+    },[sessionFeedbackData, sessionFeedbackError, sessionFeedbackIsLoading, sessionFeedbackIsSuccess, sessionFeedbackIsError])
+
+    const handleSubmitFeedback = () => {
+      if(sessionSlug) {
+        sendSessionFeedback({ feedback: feedbackMessage, rating: eventRating, sessionSlug: sessionSlug})
+      } else {
+        sendEventFeedback({feedback: feedbackMessage, rating: eventRating})
+      }
+    }
+
     return (
       <View style={styles.background_container}>
       <ScrollView contentContainerStyle={styles.main_container}>
@@ -43,7 +77,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
         <View style={styles.modal_overlay}>
           <View style={styles.modal_view}>
             <Image source={require("../assets/img/cone_confetti.png")} style={styles.modal_image}/>
-            <Text style={styles.modal_text}>Thank you for your feedback</Text>
+            <Text style={styles.modal_text}>Feedback sent successfully, Thank you</Text>
             <Pressable
               style={styles.modal_button}
               onPress={() => navigation.navigate(screen_names.HOME)}
@@ -53,7 +87,7 @@ const FeedBackScreen = ({navigation}: NativeStackScreenProps<RootStackParamList,
           </View>
         </View>
       </Modal>
-            <TouchableOpacity style={styles.button} disabled={feedbackMessage == "" || eventRating == ""} onPress={() => setModalVisible(!modalVisible)}>
+            <TouchableOpacity style={styles.button} disabled={feedbackMessage == "" || eventRating == ""} onPress={handleSubmitFeedback}>
                 <Text style={styles.button_text}>
                     SUBMIT FEEDBACK
                 </Text>
