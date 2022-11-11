@@ -66,7 +66,7 @@ export const userApi = createApi({
           }
         }
     }),
-    getFeeds: builder.query<FeedsResponse<Feed>, string | void>({
+    getFeeds: builder.query<FeedsResponse<Feed>, string | Blob>({
       query: (page = '1') => {
         const formData = new FormData();
         formData.append("per_page", "10");

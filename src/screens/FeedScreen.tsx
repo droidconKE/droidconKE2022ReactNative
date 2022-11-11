@@ -80,18 +80,28 @@ const FeedScreen = ({
 	const dispatch = useAppDispatch();
 	
   // State variables feeds and user from redux state.
-  const { feeds } = useAppSelector((state) => state.feeds);
+  const { feeds, meta } = useAppSelector((state) => state.feeds);
+
   const { user } = useAppSelector((state) => state.user);
 
-  const { data: feedsData, error: feedsError, isLoading: feedsIsLoading, isSuccess: feedsIsSuccess, isError: feedsIsError } = useGetFeedsQuery({skip: user === null})
+  const [page, setPage] = useState<string|Blob>('1');
+
+  const { data: feedsData, error: feedsError, isLoading: feedsIsLoading, isSuccess: feedsIsSuccess, isError: feedsIsError } = useGetFeedsQuery({page: page},{skip: user === null})
 
   useEffect(() => {
+    console.log({feedsData, feedsError, feedsIsLoading, feedsIsSuccess, feedsIsError})
     if(feedsIsSuccess && !feedsIsLoading && feedsData) {
       dispatch(setFeeds({ feeds: feedsData.data , meta: feedsData.meta}))
     }
 
   },[feedsData, feedsError, feedsIsLoading, feedsIsSuccess, feedsIsError])
 
+  // Function to load more feeds when flatlist reaches the end of scroll.
+  const loadMoreFeeds = () => {
+    if (meta?.has_more_pages === true) {
+      setPage(meta?.next_page)
+    }
+  }
   const [showmodal,setModalVisibility] = useState(false)
 
   const shareFeed = (item) => {
@@ -108,6 +118,8 @@ const FeedScreen = ({
           data={feeds}
           renderItem={({ item }) => <FeedsCard {...item} 
           handleShare={shareFeed}/>}
+          onEndReached={loadMoreFeeds}
+          onEndReachedThreshold ={0.1}
         />
         <ShareFeedModal showModal={showmodal} setModalVisibility={toggleModalVisibility}/>
     </SafeAreaView>
