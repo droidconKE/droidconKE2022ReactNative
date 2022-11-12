@@ -4,6 +4,10 @@ import { layoutProperties } from "../../constants/Properties";
 import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
 import BrandLogo from "./BrandLogo";
+import { useGetOrganizersQuery } from "../../services/auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedRedux";
+import { setOrganizers } from "../../state/organizers";
+import { OrganizerType } from "../../types/Organizer";
 
 const MOCK_DATA = {
 	data: [
@@ -117,17 +121,28 @@ interface OrganizersData {
 }
 
 const DroidconOrganizers = () => {
-	const [organizersData, setOrganizersData] = useState<OrganizersData[]>([]);
 
-	const loadOrganizersData = async () => {
-		//TODO: obtain data/response from the api service
-		//set data
-		setOrganizersData(MOCK_DATA.data);
-	};
+	// Redux dispatch.
+	const dispatch = useAppDispatch();
+
+	const { schedule } = useAppSelector((state) => state.schedule);
+
+	const { data } = useAppSelector((state) => state.organizers);
+	
+	const { data: organizersData, error: getOrganizersError, isLoading: getOrganizersIsLoading, isSuccess: getOrganizersIsSuccess, isError: getOrganizersIsError} = useGetOrganizersQuery({skip: schedule !== undefined})
 
 	useEffect(() => {
-		loadOrganizersData();
-	}, []);
+		//TODO: obtain data/response from the api service
+		//set data
+		console.log({ organizersData, getOrganizersError, getOrganizersIsLoading, getOrganizersIsSuccess, getOrganizersIsError })
+
+		if(getOrganizersIsSuccess && !getOrganizersIsLoading && organizersData) {
+			dispatch(setOrganizers(organizersData))
+		}
+
+	},[ organizersData, getOrganizersError, getOrganizersIsLoading, getOrganizersIsSuccess, getOrganizersIsError ])
+
+	const companyOrganizers = data?.filter(organizerItem => organizerItem.type !== OrganizerType.individual)
 
 	return (
 		<View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
@@ -139,8 +154,8 @@ const DroidconOrganizers = () => {
 			<View
 				style={[styles.sponsorsIconsContainer, styles.marginVerticalSeparator]}
 			>
-				{organizersData.map((brand) => (
-					<BrandLogo logoUri={brand.logo} key={brand.id} />
+				{companyOrganizers?.map((brand) => (
+					<BrandLogo logoUri={brand.photo} key={brand.name} />
 				))}
 			</View>
 		</View>
@@ -174,3 +189,4 @@ const styles = StyleSheet.create({
 		marginVertical: 15,
 	},
 });
+

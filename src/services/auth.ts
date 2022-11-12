@@ -1,8 +1,9 @@
-import { API_URL, EVENT_SLUG } from "@env";
+import { API_URL, EVENT_SLUG, ORG_SLUG } from "@env";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../state/store";
 import User from "../types/Users";
 import Schedule from "../types/Schedule";
+import Organizer from "../types/Organizer";
 
 interface LoginResponse {
   user?: User | null;
@@ -13,6 +14,10 @@ interface LoginResponse {
 
 interface LoginRequest {
   access_token: string;
+}
+
+interface OrganizersResponse {
+  data: Organizer[]
 }
 
 // Define a service using a base URL and expected endpoints
@@ -58,10 +63,18 @@ export const userApi = createApi({
             method: 'GET',
           }
         }
+    }),
+    getOrganizers: builder.query<OrganizersResponse, void>({
+        query: () => {
+          return {
+            url: `/organizers/${ORG_SLUG}/team`,
+            method: 'GET',
+          }
+        }
     })
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGoogleSocialAuthMutation, useGetScheduleQuery } = userApi;
+export const { useGoogleSocialAuthMutation, useGetScheduleQuery, useGetOrganizersQuery } = userApi;

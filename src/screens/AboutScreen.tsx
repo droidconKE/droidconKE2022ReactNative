@@ -18,6 +18,8 @@ import { MOCK_BIO, ScreenTitle } from "./BioScreen";
 import { RootStackParamList } from "../types/Navigation";
 import MainHeader from "../components/layouts/MainHeader";
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
+import { useAppSelector } from "../hooks/useTypedRedux";
+import Organizer, { OrganizerType } from "../types/Organizer";
 
 //Dummy About Text. Hardcoded for now, to change once data from server is available
 const introText = `Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.
@@ -28,22 +30,6 @@ It will have workshops and codelabs focused on the building of Android applicati
 
 const profileImage: ImageSourcePropType = require("../assets/img/john_doe.png");
 
-//Temporary function to make dummy data for the organizing team
-const makeDummyData = (n = 17) => {
-	let data = [];
-	for (let i = 1; i <= n; i++) {
-		data.push({
-			id: i.toString(),
-			name: `Member ${i}`,
-			title: `Title ${i}`,
-			image: profileImage,
-		});
-	}
-	return data;
-};
-
-const MOCK_DATA_ORGANIZING_TEAM = makeDummyData();
-
 const AboutScreen = ({
 	navigation,
 }: NativeStackScreenProps<
@@ -51,6 +37,26 @@ const AboutScreen = ({
 	screen_names.ABOUT,
 	undefined
 >) => {
+
+	const { organizers } = useAppSelector((state) => state);
+
+	const individualOrganizers = organizers.data?.filter(organizerItem => organizerItem.type !== OrganizerType.company)
+	
+	const goToBioScreen = (organizer: Organizer) => {
+		console.info(organizer)
+		const organizerBio = {
+			screenTitle: ScreenTitle.Team,
+			id: organizer.name,
+			title: organizer.designation,
+			img: organizer.photo,
+			name: organizer.name,
+			occupation: organizer.tagline,
+			skills: [],
+			content: organizer.bio,
+			twitterHandle: `https://twitter.com/${organizer.twitter_handle}`
+		}
+		navigation.navigate(screen_names.BIO, { bioData: organizerBio})
+	}
 	return (
 		<SafeAreaView style={[styles.container, styles.paddingVertical]}>
 			<StatusBar
@@ -69,23 +75,13 @@ const AboutScreen = ({
 					<Text style={[styles.descriptionText]}>{introText}</Text>
 					<Text style={[styles.headingText]}>Organizing Team</Text>
 					<View style={[styles.teamContainer]}>
-						{MOCK_DATA_ORGANIZING_TEAM.map((member) => (
+						{individualOrganizers?.map((member) => (
 							<TeamMemberCard
 								name={member.name}
-								title={member.title}
-								profileImage={member.image}
-								onPress={() =>
-									navigation.navigate(screen_names.BIO, {
-										bioData: {
-											...MOCK_BIO,
-											screenTitle: ScreenTitle.Team,
-											title: member.title,
-											name: member.name,
-											img: member.image,
-										},
-									})
-								}
-								key={member.id}
+								title={member.tagline}
+								profileImage={member.photo}
+								onPress={() => goToBioScreen(member)}
+								key={member.name}
 							/>
 						))}
 					</View>

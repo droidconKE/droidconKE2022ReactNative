@@ -7,6 +7,8 @@ import {
 	ViewStyle,
 } from "react-native";
 import React from "react";
+import { SvgUri } from "react-native-svg";
+import { isImageSVGFormat } from "../../utils/calculations";
 
 interface LogoData {
 	logoUri: string;
@@ -19,15 +21,28 @@ const BrandLogo = ({
 	imageStyles,
 	imageContainerStyles,
 }: LogoData) => {
+
+	const isImageInSvgFormat = isImageSVGFormat(logoUri)
 	return (
 		<View style={[styles.container, imageContainerStyles]}>
-			<Image
-				resizeMode="contain"
-				source={{
-					uri: logoUri,
-				}}
-				style={[styles.image, imageStyles]}
-			/>
+			{isImageInSvgFormat === true ?
+			<>
+				<SvgUri
+					uri={logoUri}
+					width={'80%'}
+					height={'80%'}/>
+			</>
+			:
+			<>
+				<Image
+					resizeMode="contain"
+					source={{
+						uri: logoUri,
+					}}
+					style={[styles.image, imageStyles]}
+				/>
+			</>
+			}
 		</View>
 	);
 };
