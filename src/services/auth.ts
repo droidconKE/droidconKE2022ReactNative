@@ -4,6 +4,7 @@ import { RootState } from "../state/store";
 import User from "../types/Users";
 import Schedule from "../types/Schedule";
 import Organizer from "../types/Organizer";
+import Sponsor from "../types/Sponsor";
 
 interface LoginResponse {
   user?: User | null;
@@ -16,8 +17,12 @@ interface LoginRequest {
   access_token: string;
 }
 
-interface OrganizersResponse {
-  data: Organizer[]
+interface OrganizersResponse<T>{
+  data: T[],
+}
+
+interface SponsorsResponse<T>{
+  data: T[],
 }
 
 // Define a service using a base URL and expected endpoints
@@ -64,10 +69,19 @@ export const userApi = createApi({
           }
         }
     }),
-    getOrganizers: builder.query<OrganizersResponse, void>({
+    getOrganizers: builder.query<OrganizersResponse<Organizer>, void>({
         query: () => {
           return {
             url: `/organizers/${ORG_SLUG}/team`,
+            method: 'GET',
+          }
+        }
+    }),
+    getSponsors: builder.query<SponsorsResponse<Sponsor>, void>({
+        query: () => {
+
+          return {
+            url: `/events/${EVENT_SLUG}/sponsors`,
             method: 'GET',
           }
         }
@@ -77,4 +91,4 @@ export const userApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGoogleSocialAuthMutation, useGetScheduleQuery, useGetOrganizersQuery } = userApi;
+export const { useGoogleSocialAuthMutation, useGetScheduleQuery, useLazyGetOrganizersQuery, useLazyGetSponsorsQuery } = userApi;
