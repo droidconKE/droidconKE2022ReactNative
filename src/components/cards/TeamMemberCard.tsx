@@ -37,7 +37,7 @@ export default TeamMemberCard;
 
 const styles = StyleSheet.create({
 	container: {
-		//alignItems: "center",
+		alignItems: "center",
 		width: "33.3%",
 		marginBottom: 10,
 	},
