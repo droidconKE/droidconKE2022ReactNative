@@ -14,9 +14,9 @@ const FeedBackScreen = ({navigation, route}: NativeStackScreenProps<RootStackPar
     const [modalVisible, setModalVisible] = useState(false);
     const [feedbackMessage, onChangeFeedbackMessage] = React.useState("");
     const [eventRating, setEventRating] = useState("");
-    const GreatEventRating = { emoji : "😊" , text : "Great" }
-    const OkayEventRating = { emoji : "😐" , text : "Okay" }
-    const BadEventRating =  { emoji : "😔" , text : "Bad"}
+    const GreatEventRating = { emoji : "😊" , text : "Great", value: "5"}
+    const OkayEventRating = { emoji : "😐" , text : "Okay", value: "3" }
+    const BadEventRating =  { emoji : "😔" , text : "Bad", value: "1"}
 
     const [sendEventFeedback, { data: eventFeedbackData, error: eventFeedbackError, isLoading: eventFeedbackIsLoading, isSuccess: eventFeedbackIsSuccess, isError: eventFeedbackIsError}] = useSendEventFeedbackMutation()
     const [sendSessionFeedback, { data: sessionFeedbackData, error: sessionFeedbackError, isLoading: sessionFeedbackIsLoading, isSuccess: sessionFeedbackIsSuccess, isError: sessionFeedbackIsError}] = useSendSessionFeedbackMutation()
@@ -46,7 +46,6 @@ const FeedBackScreen = ({navigation, route}: NativeStackScreenProps<RootStackPar
         sendEventFeedback({feedback: feedbackMessage, rating: eventRating})
       }
     }
-
     return (
       <View style={styles.background_container}>
       <ScrollView contentContainerStyle={styles.main_container}>
@@ -56,14 +55,14 @@ const FeedBackScreen = ({navigation, route}: NativeStackScreenProps<RootStackPar
                 How is/was the event
                 </Text>
                 <View style={styles.emojis_response_container}>
-                  <TouchableOpacity onPress={() => setEventRating(BadEventRating.text)} >
-                    <EventRating eventrating={BadEventRating} containerstyle={ eventRating == BadEventRating.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(BadEventRating.value)} >
+                    <EventRating eventrating={BadEventRating} containerstyle={ eventRating == BadEventRating.value ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setEventRating(OkayEventRating.text)} >
-                    <EventRating eventrating={OkayEventRating} containerstyle={ eventRating == OkayEventRating.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(OkayEventRating.value)} >
+                    <EventRating eventrating={OkayEventRating} containerstyle={ eventRating == OkayEventRating.value  ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setEventRating(GreatEventRating.text)} >
-                    <EventRating eventrating={GreatEventRating} containerstyle={ eventRating == GreatEventRating.text ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
+                  <TouchableOpacity onPress={() => setEventRating(GreatEventRating.value)} >
+                    <EventRating eventrating={GreatEventRating} containerstyle={ eventRating == GreatEventRating.value  ? [styles.emoji_container,styles.clicked_emoji_container] : styles.emoji_container}/>
                   </TouchableOpacity>
                 </View>
             </View>
@@ -87,7 +86,7 @@ const FeedBackScreen = ({navigation, route}: NativeStackScreenProps<RootStackPar
           </View>
         </View>
       </Modal>
-            <TouchableOpacity style={styles.button} disabled={feedbackMessage == "" || eventRating == ""} onPress={handleSubmitFeedback}>
+            <TouchableOpacity style={styles.button} disabled={feedbackMessage === "" || eventRating === "" || sessionFeedbackIsLoading === true} onPress={handleSubmitFeedback}>
                 <Text style={styles.button_text}>
                     SUBMIT FEEDBACK
                 </Text>
