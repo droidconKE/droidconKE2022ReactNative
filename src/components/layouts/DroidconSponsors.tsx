@@ -5,127 +5,42 @@ import { colors } from "../../constants/Colors";
 import { fonts } from "../../assets/fonts/fonts";
 import { sponser_types } from "../../constants/SponsorTypes";
 import BrandLogo from "./BrandLogo";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedRedux";
+import { useLazyGetSponsorsQuery } from "../../services/auth";
+import { setSponsors } from "../../state/sponsors";
 
-const MOCK_DATA = {
-	data: [
-		{
-			name: "Google",
-			tagline: "just google",
-			link: "https://www.google.com/",
-			sponsor_type: "platinum",
-			logo: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "Andela - 1",
-			tagline: "Discover brilliant talent around the world",
-			link: "https://andela.com/",
-			sponsor_type: "gold",
-			logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq94i4KUPtkBIbK5wbGadB-rOyNlZpseLH7HhqKEaMri1-XK8UAKQPPcuPpffTcE4gww&usqp=CAU",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "Andela - 2",
-			tagline: "Discover brilliant talent around the world",
-			link: "https://andela.com/",
-			sponsor_type: "gold",
-			logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq94i4KUPtkBIbK5wbGadB-rOyNlZpseLH7HhqKEaMri1-XK8UAKQPPcuPpffTcE4gww&usqp=CAU",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "JetBrains - 1",
-			tagline: "Essential tools for software developers and teams",
-			link: "https://www.jetbrains.com/",
-			sponsor_type: "silver",
-			logo: "https://download.logo.wine/logo/JetBrains/JetBrains-Logo.wine.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "JetBrains - 2",
-			tagline: "Essential tools for software developers and teams",
-			link: "https://www.jetbrains.com/",
-			sponsor_type: "silver",
-			logo: "https://download.logo.wine/logo/JetBrains/JetBrains-Logo.wine.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "JetBrains - 3",
-			tagline: "Essential tools for software developers and teams",
-			link: "https://www.jetbrains.com/",
-			sponsor_type: "silver",
-			logo: "https://download.logo.wine/logo/JetBrains/JetBrains-Logo.wine.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "Hover - 1",
-			tagline: "USSD for android devs",
-			link: "https://www.usehover.com/",
-			sponsor_type: "bronze",
-			logo: "https://remoteworker-live-superbrnds.s3.amazonaws.com/uploads/company/logo/3625/logo.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "Hover - 2",
-			tagline: "USSD for android devs",
-			link: "https://www.usehover.com/",
-			sponsor_type: "bronze",
-			logo: "https://remoteworker-live-superbrnds.s3.amazonaws.com/uploads/company/logo/3625/logo.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "Hover - 3",
-			tagline: "USSD for android devs",
-			link: "https://www.usehover.com/",
-			sponsor_type: "bronze",
-			logo: "https://remoteworker-live-superbrnds.s3.amazonaws.com/uploads/company/logo/3625/logo.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-		{
-			name: "Hover - 4",
-			tagline: "USSD for android devs",
-			link: "https://www.usehover.com/",
-			sponsor_type: "bronze",
-			logo: "https://remoteworker-live-superbrnds.s3.amazonaws.com/uploads/company/logo/3625/logo.png",
-			created_at: "2022-10-17 13:37:26",
-		},
-	],
-};
-
-interface SponsorsData {
-	name: string;
-	tagline?: string;
-	link?: string;
-	sponsor_type: string;
-	logo: string;
-	created_at?: string;
-}
 
 const DroidconSponsors = () => {
-	const [platinumSponsors, setPlatinumSponsors] = useState<SponsorsData[]>([]);
-	const [goldSponsors, setGoldSponsors] = useState<SponsorsData[]>([]);
-	const [silverSponsors, setSilverSponsors] = useState<SponsorsData[]>([]);
-	const [bronzeSponsors, setBronzeSponsors] = useState<SponsorsData[]>([]);
+	
+	// Redux dispatch.
+	const dispatch =  useAppDispatch();
+	const { schedule } = useAppSelector((state) => state.schedule);
 
-	const loadSponsorsData = async () => {
-		//TODO: obtain data from api service
-		const data = MOCK_DATA.data;
+	const { data } = useAppSelector((state) => state.sponsors)
 
-		setPlatinumSponsors(
-			data.filter((s) => s.sponsor_type === sponser_types.PLATINUM)
-		);
-		setGoldSponsors(data.filter((s) => s.sponsor_type === sponser_types.GOLD));
-		setSilverSponsors(
-			data.filter((s) => s.sponsor_type === sponser_types.SILVER)
-		);
-		setBronzeSponsors(
-			data.filter((s) => s.sponsor_type === sponser_types.BRONZE)
-		);
-	};
+	const [trigger, {data : sponsorsData, error: getSponsorsError, isLoading: getSponsorsIsLoading, isSuccess: getSponsorsIsSuccess, isError: getSponsorsIsError}] = useLazyGetSponsorsQuery()
 
 	useEffect(() => {
-		loadSponsorsData();
-	}, []);
+		if(schedule !== undefined) {
+			// Trigger fetch sponsors query.
+			trigger();
+		}
+	},[schedule])
 
+	useEffect(() => {
+		console.info({data, getSponsorsError, getSponsorsIsLoading, getSponsorsIsSuccess, getSponsorsIsError})
+		//TODO: obtain data from api service
+
+		if(getSponsorsIsSuccess && !getSponsorsIsLoading && sponsorsData) {
+			dispatch(setSponsors(sponsorsData))
+		}
+
+	},[data, getSponsorsError, getSponsorsIsLoading, getSponsorsIsSuccess, getSponsorsIsError])
+
+	const platinumSponsors = data?.filter((s) => s.sponsor_type === sponser_types.PLATINUM);
+	const goldSponsors = data?.filter((s) => s.sponsor_type === sponser_types.GOLD);
+	const silverSponsors = data?.filter((s) => s.sponsor_type === sponser_types.SILVER);
+	const bronzeSponsors = data?.filter((s) => s.sponsor_type === sponser_types.BRONZE)
 	return (
 		<View style={[styles.sponsorsContainer, styles.marginVerticalSeparator2]}>
 			<Text
@@ -134,42 +49,46 @@ const DroidconSponsors = () => {
 				Sponsors
 			</Text>
 			<View style={[styles.sponsorsIconsContainer]}>
-				{platinumSponsors.map((s) => (
+				{platinumSponsors?.map((s) => (
 					<BrandLogo
 						logoUri={s.logo}
 						key={s.name}
 						imageStyles={styles.platinumLogo}
 						imageContainerStyles={styles.logoContainer}
+						brandUri={s.link}
 					/>
 				))}
 			</View>
 			<View style={[styles.sponsorsIconsContainer]}>
-				{goldSponsors.map((s) => (
+				{goldSponsors?.map((s) => (
 					<BrandLogo
 						logoUri={s.logo}
 						key={s.name}
 						imageStyles={styles.goldLogo}
 						imageContainerStyles={styles.logoContainer}
+						brandUri={s.link}
 					/>
 				))}
 			</View>
 			<View style={[styles.sponsorsIconsContainer]}>
-				{silverSponsors.map((s) => (
+				{silverSponsors?.map((s) => (
 					<BrandLogo
 						logoUri={s.logo}
 						key={s.name}
 						imageStyles={styles.silverLogo}
 						imageContainerStyles={styles.logoContainer}
+						brandUri={s.link}
 					/>
 				))}
 			</View>
 			<View style={[styles.sponsorsIconsContainer]}>
-				{bronzeSponsors.map((s) => (
+				{bronzeSponsors?.map((s) => (
 					<BrandLogo
 						logoUri={s.logo}
 						key={s.name}
 						imageStyles={styles.bronzeLogo}
 						imageContainerStyles={styles.logoContainer}
+						brandUri={s.link}
 					/>
 				))}
 			</View>
