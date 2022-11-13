@@ -124,10 +124,7 @@ export const userApi = createApi({
 				},
 			}
 		),
-		sendSessionFeedback: builder.mutation<
-			FeedbackResponse,
-			SessionFeedbackRequest
-		>({
+		sendSessionFeedback: builder.mutation<FeedbackResponse,SessionFeedbackRequest>({
 			query: (arg) => {
 				const formData = new FormData();
 				formData.append("feedback", arg.feedback);

@@ -16,7 +16,6 @@ import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
-import { setUser, saveUser, removeUser} from "../state/user";
 import SessionCard from "../components/cards/SessionCard";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
 import { ResizeMode, Video } from "expo-av";
@@ -24,13 +23,10 @@ import { useRef } from "react";
 import { useState } from "react";
 import VolumeUp from "../assets/icons/VolumeUp";
 import VolumeOff from "../assets/icons/VolumeOff";
-import HomeScreenNotLoggedIn from "./HomeScreenNotLoggedIn";
 import { layoutProperties } from "../constants/Properties";
 import MainHeader from "../components/layouts/MainHeader";
-import * as Google from 'expo-auth-session/providers/google';
-import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
-import { useGetScheduleQuery, useGoogleSocialAuthMutation } from "../services/auth";
+import { useGetScheduleQuery } from "../services/auth";
 import Session from "../types/Session";
 import { setSchedule } from "../state/schedule";
 import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
@@ -55,62 +51,12 @@ const HomeScreen = ({
 
 	const { schedule } = useAppSelector((state) => state.schedule);
 
-	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError,}] = useGoogleSocialAuthMutation();
-
 	const { data: scheduleData, error: scheduleError, isLoading: scheduleIsLoading, isSuccess: scheduleIsSuccess, isError: scheduleIsError} = useGetScheduleQuery({skip: user === null})
 	
 	const [dates, setDates] =
 	  useState<Pick<DateToggleListProps, "items"> | undefined>();
 	const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
 	const [selectedDate, setSelectedDate] = useState<string | undefined>();
-	
-	// Login helper function.
-	const login = (token: string) => {
-		googleSocialAuth({access_token: token})
-	}
-
-	// Following authentication guide from https://docs.expo.dev/guides/authentication/#google
-	const [request, response, promptAsync] = Google.useAuthRequest({
-
-		expoClientId: GOOGLE_AUTH_CLIENT_ID,
-		iosClientId: GOOGLE_AUTH_CLIENT_ID,
-		androidClientId: GOOGLE_AUTH_CLIENT_ID,
-		webClientId: GOOGLE_AUTH_CLIENT_ID,		
-	})
-
-	useEffect(() => {
-		if (response?.type === 'success') {
-		  const { authentication } = response;
-		  // Token.
-		  login(authentication?.accessToken as string)
-		} else {
-
-			console.log(response)
-		}
-	  }, [response]);
-
-	  useEffect(() => {
-		//dispatch(removeUser())
-		if (isSuccess && !isLoading && data) {
-		  // user logged in successfully
-		  const { token, user } = data;
-		  dispatch(setUser({ user: user, token: token }));
-		  dispatch(saveUser({ user: user, token: token }));
-		  
-		}
-	
-		if (isError && !isLoading && error) {
-		  // show some error here
-		  console.log({ error });
-		  if (error?.status === 422) {
-			// something is wrong with our data
-			// eg. {"message":"The given data was invalid.","errors":{"access_token":["The access token field is required."]}}
-			// show an error to the user and log the error
-			console.log({ data: error?.data });
-		  }
-		}
-		// something really bad or we do not know what happened. show some error
-	  }, [data, error, isLoading, isSuccess, isError]);
 	
 	useEffect(() => {
 		if(scheduleIsSuccess && !scheduleIsLoading && scheduleData) {
@@ -145,10 +91,6 @@ const HomeScreen = ({
 		  setSelectedDate(keys[0]);
 		}
 	  }
-	}
-
-	if (!user) {
-		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
 	}
 
 	// Function to navigate to Speakers screen.

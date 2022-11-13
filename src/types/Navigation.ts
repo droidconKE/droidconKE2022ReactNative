@@ -5,6 +5,7 @@ import Session from "./Session";
 //Enable type checking for route parameters
 export type RootStackParamList = {
   [screen_names.BIO]: { bioData: BioDetails };
+  [screen_names.HOMENOTLOGGEDIN]: undefined;
   [screen_names.HOME]: undefined;
   [screen_names.HOMETABS]: undefined;
   [screen_names.SPEAKERS]: undefined;

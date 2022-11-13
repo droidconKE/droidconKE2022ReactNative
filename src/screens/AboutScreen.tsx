@@ -15,11 +15,11 @@ import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
 import TeamMemberCard from "../components/cards/TeamMemberCard";
 import { MOCK_BIO, ScreenTitle } from "./BioScreen";
-import { RootStackParamList } from "../types/Navigation";
 import MainHeader from "../components/layouts/MainHeader";
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
 import { useAppSelector } from "../hooks/useTypedRedux";
 import Organizer, { OrganizerType } from "../types/Organizer";
+import { ParamListBase } from "@react-navigation/native";
 
 //Dummy About Text. Hardcoded for now, to change once data from server is available
 const introText = `Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.
@@ -32,8 +32,9 @@ const profileImage: ImageSourcePropType = require("../assets/img/john_doe.png");
 
 const AboutScreen = ({
 	navigation,
+	route
 }: NativeStackScreenProps<
-	RootStackParamList,
+	ParamListBase,
 	screen_names.ABOUT,
 	undefined
 >) => {
