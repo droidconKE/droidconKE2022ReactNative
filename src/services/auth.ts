@@ -1,8 +1,10 @@
-import { API_URL, EVENT_SLUG } from "@env";
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { API_URL, EVENT_SLUG, ORG_SLUG } from "@env";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../state/store";
 import User from "../types/Users";
 import Schedule from "../types/Schedule";
+import Organizer from "../types/Organizer";
+import Sponsor from "../types/Sponsor";
 import { Pagination } from "../types/Pagination";
 import Feed from "../types/Feed";
 
@@ -17,6 +19,13 @@ interface LoginRequest {
 	access_token: string;
 }
 
+interface OrganizersResponse<T> {
+	data: T[];
+}
+
+interface SponsorsResponse<T> {
+	data: T[];
+}
 interface FeedbackResponse {
 	message: string;
 }
@@ -80,6 +89,22 @@ export const userApi = createApi({
 				};
 			},
 		}),
+		getOrganizers: builder.query<OrganizersResponse<Organizer>, void>({
+			query: () => {
+				return {
+					url: `/organizers/${ORG_SLUG}/team`,
+					method: "GET",
+				};
+			},
+		}),
+		getSponsors: builder.query<SponsorsResponse<Sponsor>, void>({
+			query: () => {
+				return {
+					url: `/events/${EVENT_SLUG}/sponsors`,
+					method: "GET",
+				};
+			},
+		}),
 		sendEventFeedback: builder.mutation<FeedbackResponse, EventFeedbackRequest>(
 			{
 				query: (arg) => {
@@ -99,7 +124,10 @@ export const userApi = createApi({
 				},
 			}
 		),
-		sendSessionFeedback: builder.mutation<FeedbackResponse,SessionFeedbackRequest>({
+		sendSessionFeedback: builder.mutation<
+			FeedbackResponse,
+			SessionFeedbackRequest
+		>({
 			query: (arg) => {
 				const formData = new FormData();
 				formData.append("feedback", arg.feedback);
@@ -137,6 +165,8 @@ export const {
 	useGoogleSocialAuthMutation,
 	useGetScheduleQuery,
 	useGetFeedsQuery,
+	useLazyGetOrganizersQuery,
+	useLazyGetSponsorsQuery,
 	useSendEventFeedbackMutation,
 	useSendSessionFeedbackMutation,
 } = userApi;
