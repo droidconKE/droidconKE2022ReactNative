@@ -22,7 +22,7 @@ const MainHeader = (props: MainHeaderProps) => {
 		useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
 
-	const goToFeedbackScreen = () => navigation.navigate(screen_names.FEEDBACK);
+	const goToFeedbackScreen = () => navigation.navigate(screen_names.FEEDBACK, {sessionSlug: undefined});
 
 	
 	if (!user)

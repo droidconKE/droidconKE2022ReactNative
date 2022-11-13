@@ -9,6 +9,6 @@ export type RootStackParamList = {
   [screen_names.HOMETABS]: undefined;
   [screen_names.SPEAKERS]: undefined;
   [screen_names.ABOUT]: undefined;
-  [screen_names.FEEDBACK]: undefined;
+  [screen_names.FEEDBACK]: {sessionSlug?: string | undefined};
   [screen_names.SESSION_DETAILS] : {sessionData : Session}
 };
