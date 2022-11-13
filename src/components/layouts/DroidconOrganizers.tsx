@@ -125,11 +125,13 @@ const DroidconOrganizers = () => {
 	// Redux dispatch.
 	const dispatch = useAppDispatch();
 
-	const { schedule } = useAppSelector((state) => state.schedule);
+	const { sponsors } = useAppSelector(state => state);
 
 	const { data } = useAppSelector((state) => state.organizers);
 	
-	const { data: organizersData, error: getOrganizersError, isLoading: getOrganizersIsLoading, isSuccess: getOrganizersIsSuccess, isError: getOrganizersIsError} = useGetOrganizersQuery({skip: schedule !== undefined})
+	const skipQuery = sponsors?.data === undefined ? true : false
+
+	const { data: organizersData, error: getOrganizersError, isLoading: getOrganizersIsLoading, isSuccess: getOrganizersIsSuccess, isError: getOrganizersIsError} = useGetOrganizersQuery({skip: skipQuery })
 
 	useEffect(() => {
 		//TODO: obtain data/response from the api service
