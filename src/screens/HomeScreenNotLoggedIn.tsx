@@ -27,6 +27,7 @@ import { useGoogleSocialAuthMutation } from "../services/auth";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
 import { screen_names } from "../constants/ScreenNames";
+import ActivityOverlay from "../components/layouts/ActivityOverlay";
 
 const HomeScreenNotLoggedIn = ({
 	navigation,
@@ -40,6 +41,7 @@ const HomeScreenNotLoggedIn = ({
 	// Login helper function.
 	const login = (token: string) => {
 		googleSocialAuth({access_token: token})
+		setModalVisible(!modalVisible)
 	}
 
 	// Following authentication guide from https://docs.expo.dev/guides/authentication/#google
@@ -153,6 +155,7 @@ const HomeScreenNotLoggedIn = ({
 					</View>
 				</View>
 			</Modal>
+			{isLoading && <ActivityOverlay/>}
 		</SafeAreaView>
 	);
 };
