@@ -3,6 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../state/store";
 import User from "../types/Users";
 import Schedule from "../types/Schedule";
+import { Pagination } from "../types/Pagination";
+import Feed from "../types/Feed";
 
 interface LoginResponse {
   user?: User | null;
@@ -13,6 +15,11 @@ interface LoginResponse {
 
 interface LoginRequest {
   access_token: string;
+}
+
+interface  FeedsResponse<T> {
+  data: T[],
+  meta: Pagination
 }
 
 // Define a service using a base URL and expected endpoints
@@ -58,10 +65,20 @@ export const userApi = createApi({
             method: 'GET',
           }
         }
+    }),
+    getFeeds: builder.query<FeedsResponse<Feed>, string | Blob>({
+      query: (page = '1') => {
+        const formData = new FormData();
+        formData.append("per_page", "10");
+        formData.append("page", page);
+        return {
+          url:  `/events/${EVENT_SLUG}/feeds?${formData}`
+        }
+      }
     })
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGoogleSocialAuthMutation, useGetScheduleQuery } = userApi;
+export const { useGoogleSocialAuthMutation, useGetScheduleQuery, useGetFeedsQuery } = userApi;
