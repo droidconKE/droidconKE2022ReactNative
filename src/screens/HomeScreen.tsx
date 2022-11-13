@@ -188,7 +188,7 @@ const HomeScreen = ({
 				<View style={[styles.paddingHorizontal]}>
 					<Video
 						ref={video}
-						source={require("../assets/video/video_2022-09-29_22-16-14.mp4")}
+						source={{uri : 'https://droidcon.co.ke/video/DroidconKe_2019_Highlight_Reel_HD.mp4'}}
 						isLooping
 						resizeMode={ResizeMode.COVER}
 						style={styles.droidconkeVideo}
