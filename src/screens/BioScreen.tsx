@@ -125,7 +125,7 @@ const BioScreen = ({
 					<ScrollView>
 						<View style={styles.bioDetailsContainer}>
 							<Text style={styles.bioDetailsHeader}>Bio</Text>
-							<Text style={styles.bioDetailsContent}>{textElements}</Text>
+							<Text style={styles.bioDetailsContent}>{bioData.content}</Text>
 						</View>
 					</ScrollView>
 				</View>
