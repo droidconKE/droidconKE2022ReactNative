@@ -33,10 +33,9 @@ import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
 import DroidconSponsors from "../components/layouts/DroidconSponsors";
 import { ScreenTitle } from "./BioScreen";
 import Speaker from "../types/Speaker";
-import { removeUser } from "../state/user";
-import ActivityOverlay from "../components/layouts/ActivityOverlay";
-import { isLoading } from "expo-font";
 import Shimmer from "../components/shimmer";
+import SessionCardShimmer from "../components/shimmer/SessionCardShimmer";
+import SpeakerImageCardShimmer from "../components/shimmer/SpeakerImageCardShimmer";
 
 const HomeScreen = ({
 	navigation,
@@ -50,8 +49,6 @@ const HomeScreen = ({
 	// Redux dispatch.
 	const dispatch = useAppDispatch();
 
-	const { user } = useAppSelector((state) => state.user);
-
 	const { schedule } = useAppSelector((state) => state.schedule);
 
 	const {
@@ -60,7 +57,7 @@ const HomeScreen = ({
 		isLoading: scheduleIsLoading,
 		isSuccess: scheduleIsSuccess,
 		isError: scheduleIsError,
-	} = useGetScheduleQuery({ skip: user === null });
+	} = useGetScheduleQuery();
 
 	const [dates, setDates] =
 		useState<Pick<DateToggleListProps, "items"> | undefined>();
@@ -186,9 +183,7 @@ const HomeScreen = ({
 							<Text style={styles.link}>View All</Text>
 							{scheduleIsLoading ? (
 								<>
-									<Shimmer
-										wrapperStyle={styles.tallyContainerShimmering}
-									/>
+									<Shimmer wrapperStyle={styles.tallyContainerShimmering} />
 								</>
 							) : (
 								<View style={styles.tallyContainer}>
@@ -199,23 +194,40 @@ const HomeScreen = ({
 							)}
 						</TouchableOpacity>
 					</View>
-					<FlatList
-						data={sessions?.items}
-						renderItem={({ item }: { item: Session }) => (
-							<SessionCard
-								item={item}
-								disabled={item.speakers.length < 1}
-								onPress={() =>
-									navigation.navigate(screen_names.SESSION_DETAILS, {
-										sessionData: item,
-									})
+					{scheduleIsLoading ? (
+						<>
+							<FlatList
+								data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
+								renderItem={(item) => <SessionCardShimmer />}
+								horizontal
+								contentContainerStyle={
+									styles.sessionFlatListContentContainerStyle
 								}
 							/>
-						)}
-						keyExtractor={(item: Session) => item?.slug}
-						horizontal
-						contentContainerStyle={styles.sessionFlatListContentContainerStyle}
-					/>
+						</>
+					) : (
+						<>
+							<FlatList
+								data={sessions?.items}
+								renderItem={({ item }: { item: Session }) => (
+									<SessionCard
+										item={item}
+										disabled={item.speakers.length < 1}
+										onPress={() =>
+											navigation.navigate(screen_names.SESSION_DETAILS, {
+												sessionData: item,
+											})
+										}
+									/>
+								)}
+								keyExtractor={(item: Session) => item?.slug}
+								horizontal
+								contentContainerStyle={
+									styles.sessionFlatListContentContainerStyle
+								}
+							/>
+						</>
+					)}
 				</View>
 				<View>
 					<View
@@ -240,9 +252,7 @@ const HomeScreen = ({
 							<Text style={styles.link}>View All</Text>
 							{scheduleIsLoading ? (
 								<>
-									<Shimmer
-										wrapperStyle={styles.tallyContainerShimmering}
-									/>
+									<Shimmer wrapperStyle={styles.tallyContainerShimmering} />
 								</>
 							) : (
 								<View style={styles.tallyContainer}>
@@ -261,18 +271,30 @@ const HomeScreen = ({
 							styles.marginRowOffset,
 						]}
 					>
-						{sessions?.items.slice(0, 4).map((item: Session) => {
-							return (
-								<>
-									{item.speakers.map((speaker) => (
-										<SpeakerImageCard
-											item={speaker}
-											onPress={goToSingleSpeakerScreen}
-										/>
-									))}
-								</>
-							);
-						})}
+						{scheduleIsLoading ? (
+							<>
+								{[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 },].map((item) => {
+									return (
+										<SpeakerImageCardShimmer/>
+										)
+								})}
+							</>
+						) : (
+							<>
+								{sessions?.items.slice(0, 4).map((item: Session) => {
+									return (
+										<>
+											{item.speakers.map((speaker) => (
+												<SpeakerImageCard
+													item={speaker}
+													onPress={goToSingleSpeakerScreen}
+												/>
+											))}
+										</>
+									);
+								})}
+							</>
+						)}
 					</View>
 				</View>
 				<View style={styles.paddingHorizontal}>
@@ -356,10 +378,10 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
 		paddingHorizontal: 10,
 	},
-	tallyContainerShimmering: { 
-		width: 40, 
-		height: 30, 
-		borderRadius: 11 
+	tallyContainerShimmering: {
+		width: 40,
+		height: 30,
+		borderRadius: 11,
 	},
 	tallyText: {
 		color: colors.DROIDCONKE_BLUE,
