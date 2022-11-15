@@ -14,6 +14,7 @@ const DroidconSponsors = () => {
 	
 	// Redux dispatch.
 	const dispatch =  useAppDispatch();
+	const { user } = useAppSelector((state) => state.user)
 	const { schedule } = useAppSelector((state) => state.schedule);
 
 	const { data } = useAppSelector((state) => state.sponsors)
@@ -21,11 +22,17 @@ const DroidconSponsors = () => {
 	const [trigger, {data : sponsorsData, error: getSponsorsError, isLoading: getSponsorsIsLoading, isSuccess: getSponsorsIsSuccess, isError: getSponsorsIsError}] = useLazyGetSponsorsQuery()
 
 	useEffect(() => {
-		if(schedule !== undefined) {
-			// Trigger fetch sponsors query.
-			trigger();
+		if( user === null) {
+			trigger()
+		} else {
+
+			if(schedule !== undefined) {
+				// Trigger fetch sponsors query.
+				trigger();
+			}
+
 		}
-	},[schedule])
+	},[user, schedule])
 
 	useEffect(() => {
 		console.info({data, getSponsorsError, getSponsorsIsLoading, getSponsorsIsSuccess, getSponsorsIsError})
