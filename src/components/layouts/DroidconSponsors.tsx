@@ -35,7 +35,6 @@ const DroidconSponsors = () => {
 	},[user, schedule])
 
 	useEffect(() => {
-		console.info({data, getSponsorsError, getSponsorsIsLoading, getSponsorsIsSuccess, getSponsorsIsError})
 		//TODO: obtain data from api service
 
 		if(getSponsorsIsSuccess && !getSponsorsIsLoading && sponsorsData) {

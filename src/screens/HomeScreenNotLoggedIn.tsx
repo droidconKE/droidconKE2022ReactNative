@@ -58,9 +58,6 @@ const HomeScreenNotLoggedIn = ({
 		  const { authentication } = response;
 		  // Token.
 		  login(authentication?.accessToken as string)
-		} else {
-
-			console.log(response)
 		}
 	  }, [response]);
 
@@ -72,17 +69,6 @@ const HomeScreenNotLoggedIn = ({
 		  dispatch(setUser({ user: user, token: token }));
 		  dispatch(saveUser({ user: user, token: token }));
 		  
-		}
-	
-		if (isError && !isLoading && error) {
-		  // show some error here
-		  console.log({ error });
-		  if (error?.status === 422) {
-			// something is wrong with our data
-			// eg. {"message":"The given data was invalid.","errors":{"access_token":["The access token field is required."]}}
-			// show an error to the user and log the error
-			console.log({ data: error?.data });
-		  }
 		}
 		// something really bad or we do not know what happened. show some error
 	  }, [data, error, isLoading, isSuccess, isError]);

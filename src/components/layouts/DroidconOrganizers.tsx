@@ -30,7 +30,6 @@ const DroidconOrganizers = () => {
 	useEffect(() => {
 		//TODO: obtain data/response from the api service
 		//set data
-		console.log({ organizersData, getOrganizersError, getOrganizersIsLoading, getOrganizersIsSuccess, getOrganizersIsError })
 
 		if(getOrganizersIsSuccess && !getOrganizersIsLoading && organizersData) {
 			dispatch(setOrganizers(organizersData))

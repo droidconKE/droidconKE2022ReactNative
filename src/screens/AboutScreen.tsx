@@ -44,7 +44,6 @@ const AboutScreen = ({
 	const individualOrganizers = organizers.data?.filter(organizerItem => organizerItem.type !== OrganizerType.company)
 	
 	const goToBioScreen = (organizer: Organizer) => {
-		console.info(organizer)
 		const organizerBio = {
 			screenTitle: ScreenTitle.Team,
 			id: organizer.name,
