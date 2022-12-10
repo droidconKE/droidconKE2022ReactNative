@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer, { setUser } from "./user";
 import scheduleReducer from "./schedule";
 import sessionsReducer from './sessions';
+import organizersReducer from './organizers';
+import sponsorsReducer from './sponsors';
 import feedsReducer from './feeds';
 import { userApi } from "../services/auth";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
@@ -16,6 +18,8 @@ export const store = configureStore({
     user: userReducer,
     schedule: scheduleReducer,
     sessions: sessionsReducer,
+    organizers: organizersReducer,
+    sponsors: sponsorsReducer,
     feeds: feedsReducer,
     // Add the generated reducer as a specific top-level slice
     [userApi.reducerPath]: userApi.reducer,

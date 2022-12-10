@@ -15,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,10 +25,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.brianwachira.droidconKE2022ReactNative"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "scheme": "droidconke2022reactnative",
+    "extra": {
+      "eas": {
+        "projectId": "b09f9f1b-0bc9-446b-addf-1c1ded2ccb49"
+      }
     }
   }
 }

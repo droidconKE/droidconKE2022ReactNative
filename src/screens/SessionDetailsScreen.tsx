@@ -36,7 +36,7 @@ const SessionDetailsScreen = ({
     const starttime = get12hourformat(sessionData.start_time)
     const endtime = get12hourformat(sessionData.end_time)
 
-    const goToSpeakersTwitterProfile = (profileUrl: string) => Linking.openURL(profileUrl)
+    const goToSpeakersTwitterProfile = (profileUrl: string = 'https://twitter.com/droidconke') => Linking.openURL(profileUrl)
 
     return (
         <SafeAreaView style={styles.mainContainer}>

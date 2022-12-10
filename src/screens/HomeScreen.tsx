@@ -16,7 +16,6 @@ import { ParamListBase } from "@react-navigation/native";
 import { colors } from "../constants/Colors";
 import { fonts } from "../assets/fonts/fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
-import { setUser, saveUser, removeUser} from "../state/user";
 import SessionCard from "../components/cards/SessionCard";
 import SpeakerImageCard from "../components/cards/SpeakerImageCard";
 import { ResizeMode, Video } from "expo-av";
@@ -24,20 +23,19 @@ import { useRef } from "react";
 import { useState } from "react";
 import VolumeUp from "../assets/icons/VolumeUp";
 import VolumeOff from "../assets/icons/VolumeOff";
-import HomeScreenNotLoggedIn from "./HomeScreenNotLoggedIn";
 import { layoutProperties } from "../constants/Properties";
 import MainHeader from "../components/layouts/MainHeader";
-import * as Google from 'expo-auth-session/providers/google';
-import {GOOGLE_AUTH_CLIENT_ID} from '@env';
 import DroidconOrganizers from "../components/layouts/DroidconOrganizers";
-import { useGetScheduleQuery, useGoogleSocialAuthMutation } from "../services/auth";
+import { useGetScheduleQuery } from "../services/auth";
 import Session from "../types/Session";
 import { setSchedule } from "../state/schedule";
 import { DateToggleListProps } from "../components/dateToggle/DateToggleList";
 import DroidconSponsors from "../components/layouts/DroidconSponsors";
 import { ScreenTitle } from "./BioScreen";
 import Speaker from "../types/Speaker";
-
+import Shimmer from "../components/shimmer";
+import SessionCardShimmer from "../components/shimmer/SessionCardShimmer";
+import SpeakerImageCardShimmer from "../components/shimmer/SpeakerImageCardShimmer";
 
 const HomeScreen = ({
 	navigation,
@@ -51,104 +49,61 @@ const HomeScreen = ({
 	// Redux dispatch.
 	const dispatch = useAppDispatch();
 
-	const { user } = useAppSelector((state) => state.user);
-
 	const { schedule } = useAppSelector((state) => state.schedule);
 
-	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError,}] = useGoogleSocialAuthMutation();
+	const {
+		data: scheduleData,
+		error: scheduleError,
+		isLoading: scheduleIsLoading,
+		isSuccess: scheduleIsSuccess,
+		isError: scheduleIsError,
+	} = useGetScheduleQuery();
 
-	const { data: scheduleData, error: scheduleError, isLoading: scheduleIsLoading, isSuccess: scheduleIsSuccess, isError: scheduleIsError} = useGetScheduleQuery({skip: user === null})
-	
 	const [dates, setDates] =
-	  useState<Pick<DateToggleListProps, "items"> | undefined>();
+		useState<Pick<DateToggleListProps, "items"> | undefined>();
 	const [sessions, setSessions] = useState<{ items: Session[] } | undefined>();
 	const [selectedDate, setSelectedDate] = useState<string | undefined>();
-	
-	// Login helper function.
-	const login = (token: string) => {
-		googleSocialAuth({access_token: token})
-	}
-
-	// Following authentication guide from https://docs.expo.dev/guides/authentication/#google
-	const [request, response, promptAsync] = Google.useAuthRequest({
-
-		expoClientId: GOOGLE_AUTH_CLIENT_ID,
-		iosClientId: GOOGLE_AUTH_CLIENT_ID,
-		androidClientId: GOOGLE_AUTH_CLIENT_ID,
-		webClientId: GOOGLE_AUTH_CLIENT_ID,		
-	})
 
 	useEffect(() => {
-		if (response?.type === 'success') {
-		  const { authentication } = response;
-		  // Token.
-		  login(authentication?.accessToken as string)
-		} else {
-
-			console.log(response)
-		}
-	  }, [response]);
-
-	  useEffect(() => {
 		//dispatch(removeUser())
-		if (isSuccess && !isLoading && data) {
-		  // user logged in successfully
-		  const { token, user } = data;
-		  dispatch(setUser({ user: user, token: token }));
-		  dispatch(saveUser({ user: user, token: token }));
-		  
+		if (scheduleIsSuccess && !scheduleIsLoading && scheduleData) {
+			dispatch(setSchedule(scheduleData));
 		}
-	
-		if (isError && !isLoading && error) {
-		  // show some error here
-		  console.log({ error });
-		  if (error?.status === 422) {
-			// something is wrong with our data
-			// eg. {"message":"The given data was invalid.","errors":{"access_token":["The access token field is required."]}}
-			// show an error to the user and log the error
-			console.log({ data: error?.data });
-		  }
-		}
-		// something really bad or we do not know what happened. show some error
-	  }, [data, error, isLoading, isSuccess, isError]);
-	
-	useEffect(() => {
-		if(scheduleIsSuccess && !scheduleIsLoading && scheduleData) {
-			dispatch(setSchedule(scheduleData))
-		}
-
-	},[scheduleData, scheduleError, scheduleIsLoading, scheduleIsSuccess, scheduleError, scheduleIsError])
+	}, [
+		scheduleData,
+		scheduleError,
+		scheduleIsLoading,
+		scheduleIsSuccess,
+		scheduleError,
+		scheduleIsError,
+	]);
 
 	useEffect(() => {
-	  extractDatesFromSchedule();
+		extractDatesFromSchedule();
 	}, [schedule, selectedDate]);
-  
-	useEffect(() => {
-	  if (selectedDate && schedule) {
-		setSessions({ items: schedule.data[selectedDate] });
-	  }
-	}, [selectedDate]);
-  
-	function extractDatesFromSchedule() {
-	  if (schedule) {
-		const keys = Object.keys(schedule.data);
-		const dates = keys.map((key, index) => {
-		  return {
-			date: `${new Date(key).getDate()}th`,
-			day: `Day ${index + 1}`,
-			fullDate: key,
-			selected: key === selectedDate,
-		  };
-		});
-		setDates({ items: dates });
-		if (!selectedDate) {
-		  setSelectedDate(keys[0]);
-		}
-	  }
-	}
 
-	if (!user) {
-		return <HomeScreenNotLoggedIn handleLogin={() => promptAsync()} />;
+	useEffect(() => {
+		if (selectedDate && schedule) {
+			setSessions({ items: schedule.data[selectedDate] });
+		}
+	}, [selectedDate]);
+
+	function extractDatesFromSchedule() {
+		if (schedule) {
+			const keys = Object.keys(schedule.data);
+			const dates = keys.map((key, index) => {
+				return {
+					date: `${new Date(key).getDate()}th`,
+					day: `Day ${index + 1}`,
+					fullDate: key,
+					selected: key === selectedDate,
+				};
+			});
+			setDates({ items: dates });
+			if (!selectedDate) {
+				setSelectedDate(keys[0]);
+			}
+		}
 	}
 
 	// Function to navigate to Speakers screen.
@@ -159,20 +114,19 @@ const HomeScreen = ({
 
 	// Function to navigate to Single Speaker screen.
 	const goToSingleSpeakerScreen = (item: Speaker) => {
-    
 		const ScreenBio = {
-		  screenTitle: ScreenTitle.Speaker,
-		  id: item.name,
-		  title: item.tagline,
-		  img: item.avatar,
-		  name: item.name,
-		  occupation: item.tagline,
-		  skills: [],
-		  content: item.biography,
-		  twitterHandle: item.twitter
-		}
-		navigation.navigate(screen_names.BIO, { bioData: ScreenBio})
-	}
+			screenTitle: ScreenTitle.Speaker,
+			id: item.name,
+			title: item.tagline,
+			img: item.avatar,
+			name: item.name,
+			occupation: item.tagline,
+			skills: [],
+			content: item.biography,
+			twitterHandle: item.twitter,
+		};
+		navigation.navigate(screen_names.BIO, { bioData: ScreenBio });
+	};
 
 	// Function to navigate to Sessions screen
 	const goToSessionsScreen = () => navigation.navigate(screen_names.SESSIONS);
@@ -188,7 +142,9 @@ const HomeScreen = ({
 				<View style={[styles.paddingHorizontal]}>
 					<Video
 						ref={video}
-						source={require("../assets/video/video_2022-09-29_22-16-14.mp4")}
+						source={{
+							uri: "https://droidcon.co.ke/video/DroidconKe_2019_Highlight_Reel_HD.mp4",
+						}}
 						isLooping
 						resizeMode={ResizeMode.COVER}
 						style={styles.droidconkeVideo}
@@ -222,26 +178,56 @@ const HomeScreen = ({
 								layoutProperties.itemsCenter,
 							]}
 							onPress={goToSessionsScreen}
+							disabled={scheduleIsLoading === true}
 						>
 							<Text style={styles.link}>View All</Text>
-							<View style={styles.tallyContainer}>
-								<Text style={styles.tallyText}>+ {sessions?.items?.length - 1}</Text>
-							</View>
+							{scheduleIsLoading ? (
+								<>
+									<Shimmer wrapperStyle={styles.tallyContainerShimmering} />
+								</>
+							) : (
+								<View style={styles.tallyContainer}>
+									<Text style={styles.tallyText}>
+										+{sessions?.items?.length - 4}
+									</Text>
+								</View>
+							)}
 						</TouchableOpacity>
 					</View>
-					<FlatList
-						data={sessions?.items}
-						renderItem={({item} : {item: Session}) => (
-							<SessionCard
-								item={item}
-								disabled={item.speakers.length < 1}
-								onPress={() => navigation.navigate(screen_names.SESSION_DETAILS,{sessionData : item})}
+					{scheduleIsLoading ? (
+						<>
+							<FlatList
+								data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
+								renderItem={(item) => <SessionCardShimmer />}
+								horizontal
+								contentContainerStyle={
+									styles.sessionFlatListContentContainerStyle
+								}
 							/>
-						)}
-						keyExtractor={(item: Session) => item?.slug}
-						horizontal
-						contentContainerStyle={styles.sessionFlatListContentContainerStyle}
-					/>
+						</>
+					) : (
+						<>
+							<FlatList
+								data={sessions?.items}
+								renderItem={({ item }: { item: Session }) => (
+									<SessionCard
+										item={item}
+										disabled={item.speakers.length < 1}
+										onPress={() =>
+											navigation.navigate(screen_names.SESSION_DETAILS, {
+												sessionData: item,
+											})
+										}
+									/>
+								)}
+								keyExtractor={(item: Session) => item?.slug}
+								horizontal
+								contentContainerStyle={
+									styles.sessionFlatListContentContainerStyle
+								}
+							/>
+						</>
+					)}
 				</View>
 				<View>
 					<View
@@ -261,11 +247,20 @@ const HomeScreen = ({
 								layoutProperties.itemsCenter,
 							]}
 							onPress={() => goToSpeakersScreen()}
+							disabled={scheduleIsLoading === true}
 						>
 							<Text style={styles.link}>View All</Text>
-							<View style={styles.tallyContainer}>
-								<Text style={styles.tallyText}>+{sessions?.items?.length - 4}</Text>
-							</View>
+							{scheduleIsLoading ? (
+								<>
+									<Shimmer wrapperStyle={styles.tallyContainerShimmering} />
+								</>
+							) : (
+								<View style={styles.tallyContainer}>
+									<Text style={styles.tallyText}>
+										+{sessions?.items?.length - 4}
+									</Text>
+								</View>
+							)}
 						</TouchableOpacity>
 					</View>
 					<View
@@ -273,22 +268,33 @@ const HomeScreen = ({
 							layoutProperties.flexRow,
 							styles.paddingHorizontal,
 							layoutProperties.justifyEvenly,
-							styles.marginRowOffset
+							styles.marginRowOffset,
 						]}
 					>
-						{sessions?.items.slice(0,4).map((item : Session) => {
-							return(
-								<>
-								{item.speakers.map(speaker => (
-									<SpeakerImageCard
-										item={speaker}
-										onPress={goToSingleSpeakerScreen}
-									/>
-
-								))}
-								</>
-							)
-						})}
+						{scheduleIsLoading ? (
+							<>
+								{[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 },].map((item) => {
+									return (
+										<SpeakerImageCardShimmer/>
+										)
+								})}
+							</>
+						) : (
+							<>
+								{sessions?.items.slice(0, 4).map((item: Session) => {
+									return (
+										<>
+											{item.speakers.map((speaker) => (
+												<SpeakerImageCard
+													item={speaker}
+													onPress={goToSingleSpeakerScreen}
+												/>
+											))}
+										</>
+									);
+								})}
+							</>
+						)}
 					</View>
 				</View>
 				<View style={styles.paddingHorizontal}>
@@ -372,6 +378,11 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
 		paddingHorizontal: 10,
 	},
+	tallyContainerShimmering: {
+		width: 40,
+		height: 30,
+		borderRadius: 11,
+	},
 	tallyText: {
 		color: colors.DROIDCONKE_BLUE,
 		fontFamily: fonts.MONTSERRAT_REGULAR,
@@ -406,7 +417,7 @@ const styles = StyleSheet.create({
 	},
 	marginRowOffset: {
 		marginHorizontal: -20,
-	}
+	},
 });
 
 export default HomeScreen;

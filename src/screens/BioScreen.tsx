@@ -8,6 +8,7 @@ import {
 	Image,
 	ScrollView,
 	TouchableOpacity,
+	Dimensions,
 } from "react-native";
 import { screen_names } from "../constants/ScreenNames";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -124,7 +125,7 @@ const BioScreen = ({
 					<ScrollView>
 						<View style={styles.bioDetailsContainer}>
 							<Text style={styles.bioDetailsHeader}>Bio</Text>
-							<Text style={styles.bioDetailsContent}>{textElements}</Text>
+							<Text style={styles.bioDetailsContent}>{bioData.content}</Text>
 						</View>
 					</ScrollView>
 				</View>
@@ -218,6 +219,7 @@ const styles = StyleSheet.create({
 		color: colors.DROIDCONKE_BRICK_RED,
 		fontSize: 15,
 		fontFamily: fonts.MONTSERRAT_REGULAR,
+		marginBottom: 6,
 	},
 	name: {
 		color: colors.DROIDCONKE_BLUE,
@@ -231,6 +233,8 @@ const styles = StyleSheet.create({
 		fontWeight: "500",
 		color: colors.DROIDCONKE_LIGHT_GREY,
 		fontFamily: fonts.MONTSERRAT_REGULAR,
+		width: Dimensions.get('screen').width - 60,
+		textAlign: 'center'
 	},
 	bioDetailsContainer: {
 		height: "100%",

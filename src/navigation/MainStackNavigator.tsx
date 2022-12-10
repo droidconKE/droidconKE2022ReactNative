@@ -22,14 +22,29 @@ import { colors } from "../constants/Colors";
 import BioScreen, { MOCK_BIO } from "../screens/BioScreen";
 import { RootStackParamList } from "../types/Navigation";
 import SessionDetailsScreen from "../screens/SessionDetailsScreen";
+import { useAppSelector } from "../hooks/useTypedRedux";
+import BottomTabsUnauthNavigator from "./BottomTabsUnauthNavigator";
 
 // Create stack navigator.
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const MainStackNavigator = () => {
 
+  const { user } = useAppSelector((state) => state.user);
   return (
     <Stack.Navigator>
+      {user === null ? 
+      <>
+      <Stack.Screen
+        name={screen_names.HOMETABS}
+        component={BottomTabsUnauthNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+      </>
+      : 
+      <>
       <Stack.Screen
         name={screen_names.HOMETABS}
         component={BottomTabsNavigator}
@@ -37,6 +52,8 @@ const MainStackNavigator = () => {
           headerShown: false,
         }}
       />
+      </>
+      }
       <Stack.Screen
         name={screen_names.SPEAKERS}
         component={SpeakersScreen}

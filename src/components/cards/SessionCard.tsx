@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
     },
     contentWrapper: {
+        flex: 1,
         backgroundColor: colors.DROIDCONKE_PEARL,
         paddingVertical: 20,
         paddingHorizontal: 10,

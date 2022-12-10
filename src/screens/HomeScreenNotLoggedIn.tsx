@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	SafeAreaView,
 	ScrollView,
@@ -11,6 +11,10 @@ import {
 	Modal,
 	Dimensions,
 } from "react-native";
+import * as Google from 'expo-auth-session/providers/google';
+import {GOOGLE_AUTH_CLIENT_ID} from '@env';
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedRedux";
+import { setUser, saveUser, removeUser} from "../state/user";
 import { fonts } from "../assets/fonts/fonts";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import PolygonIcon from "../assets/icons/PolygonIcon";
@@ -19,12 +23,56 @@ import DroidconSponsors from "../components/layouts/DroidconSponsors";
 import MainHeader from "../components/layouts/MainHeader";
 import { colors } from "../constants/Colors";
 import { layoutProperties } from "../constants/Properties";
+import { useGoogleSocialAuthMutation } from "../services/auth";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ParamListBase } from "@react-navigation/native";
+import { screen_names } from "../constants/ScreenNames";
+import ActivityOverlay from "../components/layouts/ActivityOverlay";
 
 const HomeScreenNotLoggedIn = ({
-	handleLogin,
-}: {
-	handleLogin: () => void;
-}) => {
+	navigation,
+}: NativeStackScreenProps<ParamListBase, screen_names.HOMENOTLOGGEDIN, undefined>) => {
+
+	// Redux dispatch.
+	const dispatch = useAppDispatch();
+
+	const [googleSocialAuth, { data, error, isLoading, isSuccess, isError,}] = useGoogleSocialAuthMutation();
+	
+	// Login helper function.
+	const login = (token: string) => {
+		googleSocialAuth({access_token: token})
+		setModalVisible(!modalVisible)
+	}
+
+	// Following authentication guide from https://docs.expo.dev/guides/authentication/#google
+	const [request, response, promptAsync] = Google.useAuthRequest({
+
+		expoClientId: GOOGLE_AUTH_CLIENT_ID,
+		iosClientId: GOOGLE_AUTH_CLIENT_ID,
+		androidClientId: GOOGLE_AUTH_CLIENT_ID,
+		webClientId: GOOGLE_AUTH_CLIENT_ID,		
+	})
+
+	useEffect(() => {
+		if (response?.type === 'success') {
+		  const { authentication } = response;
+		  // Token.
+		  login(authentication?.accessToken as string)
+		}
+	  }, [response]);
+
+	  useEffect(() => {
+		//dispatch(removeUser())
+		if (isSuccess && !isLoading && data) {
+		  // user logged in successfully
+		  const { token, user } = data;
+		  dispatch(setUser({ user: user, token: token }));
+		  dispatch(saveUser({ user: user, token: token }));
+		  
+		}
+		// something really bad or we do not know what happened. show some error
+	  }, [data, error, isLoading, isSuccess, isError]);
+
 	const [modalVisible, setModalVisible] = useState(false);
 
 	// Function to togle modal.
@@ -85,7 +133,7 @@ const HomeScreenNotLoggedIn = ({
 							<Text style={styles.textCancel}>CANCEL</Text>
 						</TouchableOpacity>
 						<View style={styles.googleBtnContainer}>
-							<TouchableOpacity onPress={handleLogin} style={styles.googleBtn}>
+							<TouchableOpacity onPress={() => promptAsync()} style={styles.googleBtn}>
 								<GoogleIcon width={25} />
 								<Text style={styles.googleBtnLabel}>Sign in with Google</Text>
 							</TouchableOpacity>
@@ -93,6 +141,7 @@ const HomeScreenNotLoggedIn = ({
 					</View>
 				</View>
 			</Modal>
+			{isLoading && <ActivityOverlay/>}
 		</SafeAreaView>
 	);
 };
